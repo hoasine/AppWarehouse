@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="AppName.BarCodeCheckSize" 
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+    xmlns:renderer="clr-namespace:AppName.CustomRenderer;assembly=AppName"
+	NavigationPage.HasNavigationBar="True"
+	Title="Check size"
+    BackgroundColor="Transparent">
+
+    <ContentPage.Resources>
+        <ResourceDictionary
+			Source="/Styles/TabControl/SegmentedTabResources.xaml" />
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <grial:GrialNavigationBar
+				UseNavigationPageBarBackgroundColor="true"
+				UseNavigationPageBarBackgroundGradient="true" />
+            <grial:TabControl 
+                BackgroundColor="White"
+                Margin="0,0,0,0"
+				Style="{ StaticResource SegmentedTabStyle }">
+                <grial:TabItem
+				    Text="Scan Barcode">
+                    <Grid RowSpacing="0" ColumnSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="16*"/>
+                            <RowDefinition Height="80"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="0.7*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="0.7*"/>
+                            <ColumnDefinition Width="30"/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <BoxView  Grid.Row="0" Grid.ColumnSpan="5" HeightRequest="5"  BackgroundColor="White"  />
+                        <grial:Checkbox
+                             Margin="19,10,0,0"
+                            Grid.Row="0"
+                            x:Name="Status_Check"
+                            UncheckedBorderColor="#B6B6B6"
+                            UncheckedBackgroundColor="#D0D0D0"
+                            Grid.ColumnSpan="5"
+                            VerticalOptions="Start"
+							IsChecked="false"
+							HorizontalOptions="Start">
+                            <StackLayout
+									Orientation="Horizontal"
+									Margin="8,0,0,0">
+                                <Label
+                                    TextColor="{ DynamicResource AccentColor }"
+										VerticalTextAlignment="Center"
+										Text="Check all stores"
+										FontSize="14" />
+                            </StackLayout>
+                        </grial:Checkbox>
+
+                        <renderer:CognexCamera x:Name="scanedCamera" Grid.Row="1" Grid.RowSpan="5" Grid.Column="0" Grid.ColumnSpan="5" AllowCoutinueScan="false"/>
+                        <!--<renderer:ScandItCamera x:Name="scanedCamera" Grid.Row="1" Grid.RowSpan="5" Grid.Column="0" Grid.ColumnSpan="5" AllowDuplicate="True"/>-->
+
+                        <StackLayout
+                            VerticalOptions="Center"
+                            Grid.Row="2" 
+                            Grid.ColumnSpan="5"
+				            Margin="20,0,20,20">
+                            <grial:CardView
+                                BackgroundColor="#80000000"
+                                HeightRequest="70"
+						        Style="{ StaticResource ResponsiveLandscapeMarginStyle }"
+						        CornerRadius="15">
+                                <StackLayout
+						            VerticalOptions="Center"
+						            HorizontalOptions="Center">
+                                    <Label Grid.Row="2"  Grid.Column="1" Grid.ColumnSpan="3" HorizontalOptions="Center"  TextColor="White"  Opacity="0.4" FontSize="13" HorizontalTextAlignment="Center"
+                                    VerticalOptions="Center" Padding="10" Text="Scan the barcode to check the remaining size of the current product."></Label>
+                                </StackLayout>
+                            </grial:CardView>
+                        </StackLayout>
+                        <BoxView TranslationX="22" Margin="14" Grid.Row="2" Grid.Column="0" BackgroundColor="Transparent" HeightRequest="1" WidthRequest="10" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Opacity="0.5"/>
+                        <BoxView TranslationX="-22" Margin="14" Grid.Row="2" Grid.Column="4" BackgroundColor="Transparent" HeightRequest="1" WidthRequest="10" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Opacity="0.5"/>
+                    </Grid>
+                </grial:TabItem>
+
+                <grial:TabItem Text="Input ItemNo">
+                    <Grid Margin="10,10" HorizontalOptions="Start">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="3*"></RowDefinition>
+                            <RowDefinition Height="90"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label x:Name="ScanResultLabel"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="Start"
+                               Grid.Row="0"
+                                Text="** Enter the barcode or product code to check the remaining size of the current product."
+                               Grid.Column="0"
+                               TextColor="#2A2A2A"
+                               FontSize="14"/>
+
+                        <Grid Grid.Row="1" VerticalOptions="Start">
+
+                            <grial:Checkbox
+                                Margin="10,0,0,0"
+                                Grid.Row="0"
+                                x:Name="Status_CheckInput"
+                                UncheckedBorderColor="#B6B6B6"
+                                UncheckedBackgroundColor="#D0D0D0"
+                                VerticalOptions="Start"
+							    IsChecked="false"
+							    HorizontalOptions="Start">
+                                <StackLayout
+									Orientation="Horizontal"
+									Margin="8,0,0,0">
+                                    <Label
+                                    TextColor="#969696"
+										VerticalTextAlignment="Center"
+										Text="Check all store"
+										FontSize="14" />
+                                </StackLayout>
+                            </grial:Checkbox>
+
+                            <Entry
+                                Grid.Row="1"
+                                   Text="1001539"
+                                
+                                HeightRequest="47"
+                                x:Name="txtBarcode"
+                                TextColor="#969696"
+					            Placeholder="Enter barcode..."
+					            HorizontalOptions="FillAndExpand" />
+                        </Grid>
+
+                        <Button
+                                Grid.Row="2"
+                                VerticalOptions="End"
+                                WidthRequest="50"
+                                HeightRequest="50"
+								Text="Search"
+                                Clicked="TimKiem_Click"
+                                TextColor="White"
+								Style="{ StaticResource TranslucidButtonStyle }" />
+                    </Grid>
+                </grial:TabItem>
+            </grial:TabControl>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

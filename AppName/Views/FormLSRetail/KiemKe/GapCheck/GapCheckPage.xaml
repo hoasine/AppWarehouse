@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core"
+    xmlns:local="clr-namespace:AppName"
+    Title="Gap Check Page"
+    BackgroundColor="White"
+    x:Class="AppName.GapCheckPage"
+    x:Name="gcPage">
+        <Grid>
+        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="62"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <grial:GrialNavigationBar
+            UseNavigationPageBarBackgroundColor="true"
+            UseNavigationPageBarBackgroundGradient="true" />
+        <!-- SEARCH BAR -->
+        <Grid
+            Grid.Row="0"
+            ColumnSpacing="25"
+            Margin="18,5,18,0"
+            grial:Effects.ApplyIOSSafeAreaAsPadding="Left,Right">
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="44" />
+            </Grid.RowDefinitions>
+
+            <Entry
+                TextColor="{DynamicResource OverImageTextColor}"
+                Margin="0,0,-8,0" >
+            </Entry>
+
+            <SearchBar
+                x:Name="txtsearch"
+                CancelButtonColor="{DynamicResource SecondaryPageTextColor}"
+                Grid.Row="0"
+                BackgroundColor="Transparent"
+                grial:Effects.CornerRadius="0"
+                TextColor="{DynamicResource SecondaryPageTextColor}"
+                Style="{ StaticResource TranslucidSearchBarStyleVuong }"
+                Placeholder="Search"
+                SearchCommand="{Binding SearchItemsCommand}"
+                SearchCommandParameter="{Binding Source={x:Reference txtsearch}, Path=Text}"/>
+        </Grid>
+
+        <ListView
+             Margin="0,-7,0,0"
+            Grid.Row="1"
+            x:Name="listView"
+            ItemsSource="{Binding ListStockCount}"
+            VerticalOptions="FillAndExpand"
+            HasUnevenRows="True"
+            SeparatorColor="{DynamicResource ListViewSeparatorColor}"
+            SeparatorVisibility="Default"
+                   IsPullToRefreshEnabled="True"
+           RefreshCommand="{Binding RefreshCommand}"
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+            ItemSelected="ListView_ItemSelected"
+             CachingStrategy="RecycleElement"
+            GroupDisplayBinding="{Binding Key}"
+            IsGroupingEnabled="true"
+            GroupShortNameBinding="{Binding Key}">
+            <ListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <ViewCell Height="38">
+                        <Grid VerticalOptions="Start"
+                            Padding="5,10,5,10"
+                            BackgroundColor="#1B6279">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Margin="0,2,0,0"
+								Grid.Column="0"
+								Text="{ x:Static local:GrialIconsFont.Archive }"
+								FontSize="16"
+								Style="{ StaticResource MainMenuIconStyle }"/>
+
+                            <Label Grid.Column="1" TextColor="White" VerticalOptions="Center" VerticalTextAlignment="Center" FontAttributes="Bold">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <FormattedString.Spans>
+                                            <Span
+                                                    Text="No. "/>
+                                            <Span
+                                                    Text="{Binding Key}"/>
+
+                                        </FormattedString.Spans>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.GroupHeaderTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem
+                                          IconImageSource="delete_icon.png"
+                                        BackgroundColor="{StaticResource BaseTextColor}"
+                                        Command="{Binding Source={x:Reference gcPage}, Path=BindingContext.DeleteGapCheckCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                    <SwipeItem 
+                                        IconImageSource="edit_icon.png"
+                                        BackgroundColor="#4A9DE2"
+                                        Command="{Binding Source={x:Reference gcPage}, Path=BindingContext.EditGapCheckCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Grid
+                                Padding="10,10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label
+                                    FontAttributes="Bold"
+                                    LineBreakMode="TailTruncation">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <FormattedString.Spans>
+
+
+                                                <Span
+                                                    Text="{Binding NoLine}"/>
+
+                                                <Span
+                                                    Text=". "/>
+
+                                                <Span
+                                                    Text="{Binding Desciption}"/>
+
+
+                                            </FormattedString.Spans>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+
+
+                                <Label
+                                           HorizontalOptions="End"
+                                    HorizontalTextAlignment="End"
+                                    Grid.Column="1"
+                                    Grid.Row="0">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <FormattedString.Spans>
+
+                                                <Span
+                                                    FontAttributes="Bold"
+                                                    Text="{Binding DocumentNo}"/>
+
+                                            </FormattedString.Spans>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+                                <Label
+                                    Grid.Row="1">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <FormattedString.Spans>
+                                                <Span
+                                                    Text="Status: "/>
+                                                <Span
+                                                    Text="{Binding Release, Converter={StaticResource CheckReleaseConvert}}"/>
+
+
+                                            </FormattedString.Spans>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+
+                                <Label
+                                        HorizontalOptions="End"
+                                    HorizontalTextAlignment="End"
+                                    Grid.Column="1"
+                                    Grid.Row="1">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <FormattedString.Spans>
+
+                                                <Span
+                                                    Text="Reference: "/>
+                                                <Span
+                                                    Text="{Binding ReferenceNo}"/>
+
+                                            </FormattedString.Spans>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+                                <!--<Label
+                                    HorizontalOptions="End"
+                                    HorizontalTextAlignment="End"
+                                    Grid.Column="1"
+                                    Grid.Row="1">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <FormattedString.Spans>
+                                                <Span
+                                                    Text="{Binding CountItem}"/>
+                                                <Span
+                                                    Text=" Items"/>
+                                                -->
+                                <!--<Span
+                                                    Text="{Binding SumQuantityLine}"/>-->
+                                <!--
+
+                                            </FormattedString.Spans>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>-->
+                            </Grid>
+                        </SwipeView>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <grial:CardView
+            Grid.RowSpan="2"
+            HasShadow="True"
+            ShadowSize="3"
+            HeightRequest="50"
+            WidthRequest="50"
+            CornerRadius="25"
+            VerticalOptions="End"
+            HorizontalOptions="End"
+            Margin="0,0,30,40"
+            BackgroundColor="{DynamicResource AccentColor}">
+            <grial:CardView.GestureRecognizers>
+                <TapGestureRecognizer
+                    Command="{Binding NavigateAddGapCheckCommand}"/>
+            </grial:CardView.GestureRecognizers>
+            <Label
+                Text="{x:Static local:MaterialCommunityIconsFont.Plus}"
+                FontFamily="{StaticResource MaterialCommunityIcons}"
+                FontSize="26"
+                TextColor="{DynamicResource InverseTextColor}"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"/>
+        </grial:CardView>
+    </Grid>
+
+        <ContentView IsVisible="{Binding ShowLoading}"  BackgroundColor="#80000000"   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <ActivityIndicator Margin="155,155,155,155" Opacity="1" IsRunning="{Binding ShowLoading}" />
+        </ContentView>
+    </Grid>
+
+</ContentPage>

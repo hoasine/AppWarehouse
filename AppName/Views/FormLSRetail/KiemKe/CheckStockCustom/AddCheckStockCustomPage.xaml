@@ -1,0 +1,427 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="AppName.AddCheckStockCustomPage"
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core"
+    BackgroundColor="{DynamicResource MainWrapperBackgroundColor}"
+    xmlns:local="clr-namespace:AppName"
+    Title="Create Stock Count"
+    x:Name="this">
+    <Grid>
+        <Grid
+            RowSpacing="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ScrollView
+            grial:Effects.ApplyIOSSafeAreaAsPadding="All">
+                    <StackLayout
+                Padding="10"
+                Spacing="10">
+                        <Label
+                        FontAttributes="Bold"
+                        Text="Information"
+                        TextColor="{DynamicResource AccentColor}">
+                            <Label.Margin>
+                                <Thickness
+                                Left="0"/>
+                            </Label.Margin>
+                        </Label>
+
+                        <Grid
+                    ColumnSpacing="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="7*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label
+                        Text="Description"
+                        VerticalTextAlignment="Center"/>
+
+                            <Entry
+                         grial:EntryProperties.BorderCornerRadius="5"
+                              Placeholder="Description name"
+                            Text="{Binding Description}"
+                        Grid.Column="1"/>
+                        </Grid>
+
+
+                        <Grid
+                    ColumnSpacing="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="7*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label
+                        Text="Staff"
+                        VerticalTextAlignment="Center"/>
+
+                            <Picker
+                              grial:PickerProperties.BorderCornerRadius="5"
+                               Title="Select a Staff"
+                            ItemsSource="{Binding StaffList}"
+                            ItemDisplayBinding="{Binding RetailName}"
+                            SelectedItem="{Binding SelectedStaff}"
+                            Grid.Column="1">
+                                <Picker.Triggers>
+                                    <DataTrigger
+                                    TargetType="Picker"
+                                    Binding="{Binding SelectedStaff, Converter={StaticResource IsNotNullConverter}}"
+                                    Value="false">
+                                    </DataTrigger>
+                                </Picker.Triggers>
+                            </Picker>
+                        </Grid>
+
+                        <!--NGƯỜI THAY THẾ-->
+                        <Grid
+                    ColumnSpacing="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="7*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label
+                        Text="Assign to"
+                        VerticalTextAlignment="Center"/>
+
+                            <Grid Grid.Column="1">
+                                <Grid.Triggers>
+                                    <DataTrigger
+                                TargetType="Grid"
+                                Binding="{Binding PartnerCompany, Converter={StaticResource ToUpperConverter}}"
+                                Value="asdsd">
+                                        <Setter Property="IsVisible" Value="False"/>
+                                    </DataTrigger>
+                                </Grid.Triggers>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Label
+                            Text="{Binding Localization[HandoverRecipients]}"/>
+
+                                <Entry
+                                   grial:EntryProperties.BorderCornerRadius="5"
+                            Grid.Row="0"
+                                Text="{Binding UserStoreIDs}"
+                            IsVisible="{Binding SelectedAlternately, Converter={StaticResource IsEmptyStringConverter}}"
+                            Placeholder="Select a User Store">
+                                    <!--<Entry.Triggers>
+                                    <MultiTrigger
+                                    TargetType="Entry">
+                                        <MultiTrigger.Conditions>
+                                            <BindingCondition
+                                            Binding="{Binding ListFieldInfo, Converter={StaticResource CheckNullableFieldConverter}, ConverterParameter='AlternatelyEmpIds'}"
+                                            Value="true"/>
+                                            <BindingCondition
+                                            Binding="{Binding SelectedAlternately, Converter={StaticResource IsEmptyStringConverter}}"
+                                            Value="true"/>
+                                        </MultiTrigger.Conditions>
+                                        <Setter Property="grial:EntryProperties.BorderColor" Value="{StaticResource RedColor}"/>
+                                    </MultiTrigger>
+                                </Entry.Triggers>-->
+                                </Entry>
+
+                                <Label
+                            Grid.Row="0"
+                            TextColor="{DynamicResource PlaceholderColor}"
+                            VerticalOptions="FillAndExpand"
+                            VerticalTextAlignment="Center"
+                            HorizontalOptions="FillAndExpand">
+                                    <Label.Triggers>
+                                        <DataTrigger
+                                    TargetType="Label"
+                                    Binding="{Binding SelectedAlternately, Converter={StaticResource IsNotEmptyStringConverter}}"
+                                    Value="true">
+                                            <Setter Property="TextColor" Value="{DynamicResource BaseTextColor}"/>
+                                            <Setter Property="Text" Value="{Binding SelectedAlternately}"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                    Command="{Binding ShowAlternatelyPersonViewCommand}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Grid>
+                        </Grid>
+
+
+
+                        <Grid
+                    ColumnSpacing="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="7*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label
+                        Text="Store"
+                        VerticalTextAlignment="Center"/>
+
+                            <Picker
+                               grial:PickerProperties.BorderCornerRadius="5"
+                               Title="Select a Store"
+                            ItemsSource="{Binding ListLocation}"
+                            ItemDisplayBinding="{Binding LocationName}"
+                            SelectedItem="{Binding SelectedStoreFrom, Mode=TwoWay}"
+                            Grid.Column="1">
+                                <Picker.Triggers>
+                                    <DataTrigger
+                                    TargetType="Picker"
+                                    Binding="{Binding SelectedStoreFrom, Converter={StaticResource IsNotNullConverter}}"
+                                    Value="false">
+                                        <Setter Property="grial:PickerProperties.BorderColor" Value="{StaticResource AccentColor}"/>
+                                    </DataTrigger>
+                                </Picker.Triggers>
+                            </Picker>
+                        </Grid>
+
+                        <Grid
+                    ColumnSpacing="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="7*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label
+                        Text="Date"
+                        VerticalTextAlignment="Center"/>
+
+                            <DatePicker
+                               grial:PickerProperties.BorderCornerRadius="5"
+                            Date="{Binding DateCreate}"
+                        Grid.Column="1"/>
+                        </Grid>
+
+
+                        <!--<Grid
+                    ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                        Text="User Approve"
+                        VerticalTextAlignment="Center"/>
+
+                        <Entry
+                        Grid.Column="1"/>
+                    </Grid>-->
+
+
+                    </StackLayout>
+                </ScrollView>
+
+                <Button
+            Grid.Row="1"
+            Margin="50,10,50,20"
+            VerticalOptions="Center"
+            HorizontalOptions="FillAndExpand"
+            Style="{ StaticResource PrimaryActionButtonStyle }"
+            Text="Confirm &#38; SAVE"
+            Command="{Binding ConfirmCommand}"/>
+            </Grid>
+
+            <!--DANH SÁCH CHỌN NHIỀU Username-->
+            <Grid    
+            BackgroundColor="{DynamicResource MainWrapperBackgroundColor}"
+            IsVisible="{Binding VisibleAlternately}">
+                <!--IsVisible="{Binding VisibleAlternately}">-->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackLayout>
+                    <SearchBar
+
+                    x:Name="searchBar"
+                    Margin="20,10"
+                    Placeholder="Search"
+                    VerticalOptions="Center"
+                    HeightRequest="{OnPlatform Android=44, iOS=50}"
+                    grial:Effects.CornerRadius="{OnPlatform Android=22, iOS=25}"
+                    BackgroundColor="{DynamicResource BasePageColor}"
+                    CancelButtonColor="Black"
+                    grial:SearchBarProperties.FieldBackgroundColor="Transparent"
+                    grial:SearchBarProperties.BorderColor="Transparent"
+                    grial:SearchBarProperties.BorderWidth="0"
+                    grial:SearchBarProperties.IconColor="#9b9b9c"
+                    TextColor="Black"
+                    PlaceholderColor="#9b9b9c"
+                    TextChanged="TextChangedAlternately_Tapped"
+                    SearchCommand="{Binding SearchAlternatelyCommand}"
+                    SearchCommandParameter="{Binding Source={x:Reference searchBar}, Path=Text}">
+                        <SearchBar.Triggers>
+                            <DataTrigger
+                            TargetType="SearchBar"
+                            Binding="{Binding IsBusy}"
+                            Value="true">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger
+                            TargetType="SearchBar"
+                            Binding="{Binding IsRefresh}"
+                            Value="true">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger
+                            TargetType="SearchBar"
+                            Binding="{Binding IsRefresh}"
+                            Value="true">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </SearchBar.Triggers>
+                    </SearchBar>
+
+                    <grial:Repeater
+                    Padding="5,0"
+                    ItemsSource="{Binding ListSelectedAlternately}"
+                    Spacing="5"
+                    ItemSize="100"
+                    Orientation="Horizontal"
+                    SelectionMode="None"
+                    ScrollBarVisibility="Never"
+                    InitialSelection="Empty">
+                        <grial:Repeater.ItemTemplate>
+                            <DataTemplate>
+                                <grial:CardView
+                                Padding="5,4"
+                                CornerRadius="11"
+                                ColumnSpacing="5"
+                                grial:Effects.BackgroundGradient="{DynamicResource NavigationBarGradient}">
+                                    <grial:CardView.ColumnDefinitions>
+                                        <ColumnDefinition Width="10*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </grial:CardView.ColumnDefinitions>
+                                    <Label
+                                    Text="{Binding RetailName}"
+                                    FontSize="12"
+                                    TextColor="{DynamicResource InverseTextColor}"
+                                    VerticalTextAlignment="Center"
+                                    LineBreakMode="TailTruncation"/>
+
+                                    <Label
+                                    Grid.Column="1"
+                                    FontSize="16"
+                                    TextColor="{DynamicResource InverseTextColor}"
+                                     Text="{x:Static local:GrialIconsFont.CloseCircle}"
+                                    Style="{StaticResource FontIconFill}"
+                                    VerticalTextAlignment="Center"
+                                    HorizontalTextAlignment="Center">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                            Command="{Binding Source={x:Reference this}, Path=BindingContext.ItemTappedAlternatelyCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </grial:CardView>
+                            </DataTemplate>
+                        </grial:Repeater.ItemTemplate>
+                    </grial:Repeater>
+
+                    <ListView
+                    SelectionMode="None"
+                    ItemsSource="{Binding ListAlternately}"
+                    IsPullToRefreshEnabled="false"
+                    CachingStrategy="RecycleElement"
+                    IsRefreshing="false">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid
+                                    Padding="20,0"
+                                    ColumnSpacing="0">
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                            Command="{Binding Source={x:Reference this}, Path=BindingContext.ItemTappedAlternatelyCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                        </Grid.GestureRecognizers>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="10*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <FormattedString.Spans>
+                                                        <Span
+                                                        Text="{Binding RetailName}"/>
+                                                        <Span
+                                                        Text=" - "/>
+                                                        <Span
+                                                        Text="{Binding Permission}"/>
+                                                    </FormattedString.Spans>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
+                                        <grial:Checkbox
+                                        Grid.Column="1"
+                                        IsEnabled="False"
+                                        IsChecked="{Binding IsChecked, Mode=OneWay}"
+                                        CheckedBackgroundColor="{DynamicResource AccentColor}"
+                                        CheckedBorderColor="{DynamicResource AccentColor}"/>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+
+                <Button
+            Grid.Row="1"
+            Margin="50,10,50,20"
+            VerticalOptions="Center"
+            HorizontalOptions="FillAndExpand"
+            Style="{ StaticResource PrimaryActionButtonStyle }"
+            Text="Close"
+            Command="{Binding HideAlternatelyPersonCommand}">
+                    <Button.Triggers>
+                        <DataTrigger
+                        TargetType="Button"
+                        Binding="{Binding IsRefresh}"
+                        Value="true">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+
+                <!--CLOSE ICON-->
+                <!--
+            <Label
+                Margin="0,-20,20,0"
+                TextColor="{DynamicResource BaseLightTextColor}"
+                Style="{StaticResource IconCloseLabelStyle}">
+                <Label.Triggers>
+                    <DataTrigger
+                        TargetType="Label"
+                        Binding="{Binding IsRefresh}"
+                        Value="true">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                </Label.Triggers>
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding HideAlternatelyPersonCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>-->
+            </Grid>
+        </Grid>
+
+        <ContentView IsVisible="{Binding ShowLoading}"  BackgroundColor="#80000000"   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <ActivityIndicator Margin="155,155,155,155" Opacity="1" IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" />
+        </ContentView>
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="AppName.PDFViewPage" 
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+    xmlns:local="clr-namespace:AppName"
+   xmlns:renderer="clr-namespace:AppName.CustomRenderer;assembly=AppName"
+ xmlns:syncfusion="clr-namespace:Syncfusion.SfPdfViewer.XForms;assembly=Syncfusion.SfPdfViewer.XForms"
+    xmlns:zing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms" xmlns:zxcm="clr-namespace:ZXing.Common;assembly=zxing.portable" xmlns:effects1="clr-namespace:StrikethroughEntry.Effects;assembly=AppName.Core"
+        Title="Print price"
+   BackgroundColor="{ DynamicResource BasePageColor }">
+    <ContentPage.Resources>
+        <ResourceDictionary
+			Source="/Styles/TabControl/SegmentedTabResources.xaml" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:DialogsResources />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="68"/>
+            </Grid.RowDefinitions>
+            <syncfusion:SfPdfViewer Grid.Row="0"  x:Name="pdfViewer"/>
+
+            <Button Grid.Row="1" BackgroundColor="{StaticResource AccentColor}" TextColor="White" Margin="10" x:Name="printButton" Text="Print PDF"/>
+
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>

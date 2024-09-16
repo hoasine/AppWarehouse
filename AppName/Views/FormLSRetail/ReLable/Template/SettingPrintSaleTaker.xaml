@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:AppName"
+                 xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
+                 xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+	x:Class="AppName.SettingPrintSaleTaker"
+    x:Name="settingPrintSaleTaker"
+	BackgroundColor="{ DynamicResource CustomActionSheetShimBackgroundColor }"
+	HasSystemPadding="false">
+
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:DialogsResources />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+        <Style
+			x:Key="PseudoTableSectionSwitchStyle"
+			TargetType="Switch">
+            <Setter
+				Property="HorizontalOptions"
+				Value="End" />
+            <Setter
+				Property="VerticalOptions"
+				Value="Center" />
+        </Style>
+
+    </pages:PopupPage.Resources>
+
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation
+			PositionIn="Top"
+			PositionOut="Top" />
+    </pages:PopupPage.Animation>
+
+
+    <Grid
+        HeightRequest="450"
+		Margin="20"
+		Style="{ StaticResource BlurredShadow }"
+		VerticalOptions="{ DynamicResource DialogsVerticalPositioning }">
+        <Grid
+			RowSpacing="0"
+			grial:Effects.CornerRadius="{ DynamicResource DialogsCornerRadius }"
+			grial:Effects.BackgroundGradient="{ DynamicResource SimpleDialogBodyGradient }"
+			BackgroundColor="{ DynamicResource BasePageColor }">
+
+            <Grid.RowDefinitions>
+                <RowDefinition
+					Height="44" />
+                <RowDefinition
+					Height="*" />
+                <RowDefinition
+					Height="55" />
+            </Grid.RowDefinitions>
+
+            <!--TITLE AND ICON-->
+            <Grid
+				Grid.Row="0"
+				BackgroundColor="{ DynamicResource AccentColor }"
+				Padding="14,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+						Width="Auto" />
+                    <ColumnDefinition
+						Width="Auto" />
+                    <ColumnDefinition
+						Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- ICON -->
+                <Label
+					Grid.Column="0"
+					TextColor="White"
+					Text="{ x:Static local:GrialIconsFont.Box }"
+					Style="{ StaticResource FontIcon}"
+					VerticalTextAlignment="Center"
+					FontSize="{ StaticResource DialogsIconsSize }"
+					HorizontalTextAlignment="Start" />
+
+                <!-- TITLE -->
+                <Label
+					Grid.Column="1"
+					Text="Setting print"
+					TextColor="White"
+					FontSize="{ StaticResource DialogsTitleFontSize }"
+					VerticalTextAlignment="Center"
+					HorizontalTextAlignment="Start" />
+
+                <!-- ICON CLOSE -->
+                <Label
+					Grid.Column="2"
+					Margin="0"
+					FontSize="{ StaticResource DialogsIconsSize }"
+					TextColor="White"
+					Text="{ x:Static local:GrialIconsFont.CloseCircle }"
+					Style="{ StaticResource FontIconFill }"
+					VerticalTextAlignment="Center"
+					HorizontalTextAlignment="End">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+							Command="{Binding CloseCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+            </Grid>
+
+            <StackLayout   Margin="10"
+				        Grid.Row="1">
+
+                <ScrollView
+            grial:Effects.ApplyIOSSafeAreaAsPadding="All">
+                    <StackLayout
+                Padding="10,20,20,0"
+                Spacing="10">
+                        <Label Margin="0,0,0,18"
+                        FontAttributes="Bold"
+                        Text="MARGIN PRINT TAG"
+                        TextColor="{DynamicResource AccentColor}">
+
+                        </Label>
+
+                        <Grid
+                    ColumnSpacing="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="165"/>
+                                <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label
+                        Text="Left"
+                        VerticalTextAlignment="Center"/>
+
+                            <Entry
+                             grial:EntryProperties.BorderCornerRadius="5"
+                              Placeholder="Left margin..."
+                            Text="{Binding TemplatePrinterValue.Left}"
+                        Grid.Column="1"/>
+
+                            <Label
+                        Grid.Column="2"
+                        Text="Ex. 0.4"
+                                FontSize="13"
+                                FontAttributes="Italic"
+                         HorizontalOptions="Start"
+                        VerticalTextAlignment="End"/>
+                        </Grid>
+
+
+                        <Grid
+                    ColumnSpacing="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="165"/>
+                                <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label
+                        Text="Top"
+                        VerticalTextAlignment="Center"/>
+
+                            <Entry
+                             grial:EntryProperties.BorderCornerRadius="5"
+                              Placeholder="Top margin..."
+                            Text="{Binding TemplatePrinterValue.Top}"
+                        Grid.Column="1"/>
+
+
+                            <Label
+                        Grid.Column="2"
+                        Text="Ex. 0.2"
+                                FontSize="13"
+                                FontAttributes="Italic"
+                         HorizontalOptions="Start"
+                        VerticalTextAlignment="End"/>
+                        </Grid>
+
+
+                        <Grid
+                    ColumnSpacing="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="165"/>
+                                <ColumnDefinition Width="100"/>
+
+                            </Grid.ColumnDefinitions>
+
+                            <Label
+                        Text="Right"
+                        VerticalTextAlignment="Center"/>
+
+                            <Entry
+                             grial:EntryProperties.BorderCornerRadius="5"
+                              Placeholder="Right margin..."
+                            Text="{Binding TemplatePrinterValue.Right}"
+                        Grid.Column="1"/>
+
+                            <Label
+                        Grid.Column="2"
+                        Text="Ex. 0.3"
+                                FontSize="13"
+                                FontAttributes="Italic"
+                         HorizontalOptions="Start"
+                        VerticalTextAlignment="End"/>
+                        </Grid>
+
+
+                        <Grid
+                    ColumnSpacing="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="165"/>
+                                <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label
+                        Text="Bottom"
+                        VerticalTextAlignment="Center"/>
+
+                            <Entry
+                             grial:EntryProperties.BorderCornerRadius="5"
+                              Placeholder="Bottom margin..."
+                            Text="{Binding TemplatePrinterValue.Bottom}"
+                        Grid.Column="1"/>
+
+                            <Label
+                        Grid.Column="2"
+                        Text="Ex. 0"
+                                FontSize="13"
+                                FontAttributes="Italic"
+                         HorizontalOptions="Start"
+                        VerticalTextAlignment="End"/>
+                        </Grid>
+                    </StackLayout>
+                </ScrollView>
+
+            </StackLayout>
+
+            <!-- FOOTER 
+            -->
+
+            <FlexLayout
+				Grid.Row="2"
+				JustifyContent="Center">
+                <Button
+                    HeightRequest="40"
+                    CornerRadius="5"
+					Style="{ StaticResource DialogPrimaryActionButtonStyle }"
+					Text="OK"
+					Command="{Binding CloseCommand}" />
+            </FlexLayout>
+        </Grid>
+    </Grid>
+</pages:PopupPage>

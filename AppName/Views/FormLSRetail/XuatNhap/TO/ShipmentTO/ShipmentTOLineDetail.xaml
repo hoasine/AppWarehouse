@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="AppName.ShipmentTOLineDetail"
+    BackgroundColor="{ DynamicResource CustomActionSheetShimBackgroundColor }"
+    HasSystemPadding="false"
+             x:Name="shipmentTODetail"
+    xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:local="clr-namespace:AppName"
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <local:ConverterBase64ImageSource x:Key="Base64ToImageConverter" />
+        </ResourceDictionary>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:DialogsResources />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+
+    <Grid>
+        <Grid
+		Style="{ StaticResource CustomActionSheetStyle }"
+		VerticalOptions="{ StaticResource DialogsVerticalPositioning }"
+		HeightRequest="340"
+        Margin="30,0"
+		RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="49"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0"  BackgroundColor="{ DynamicResource NavigationBarEndBackgroundColor }" 
+                         Orientation="Horizontal"
+                         HorizontalOptions="FillAndExpand">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label
+				        Grid.Row="0" 
+				        Grid.Column="0"
+				        Text="{ x:Static local:GrialIconsFont.CheckSquare }"
+				        FontSize="18"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+				        Style="{ StaticResource MainMenuIconStyle }"
+				        TextColor="White" />
+
+                    <Label Grid.Row="0" 
+					    Grid.Column="1" Margin="-10,0,0,0"
+                        Padding="0,14,14,14"  
+                        FontAttributes="Bold" 
+                        FontSize="14"
+                          Text="{Binding DataModel.ItemNo}"
+                        TextColor="White" 
+                        VerticalTextAlignment="Start" 
+                        HorizontalTextAlignment="Start"/>
+                </Grid>
+
+                <Label
+                    HorizontalOptions="EndAndExpand"
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="Center"
+                    FontSize="18"
+                    FontFamily="{StaticResource IconsFontFamily}"
+                    TextColor="{DynamicResource InverseTextColor}"
+                    Text="{x:Static local:GrialIconsFont.Close}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="TapGestureRecognizer_Tapped"/>
+                    </Label.GestureRecognizers>
+                    <Label.Margin>
+                        <Thickness
+                            Right="8"/>
+                    </Label.Margin>
+                </Label>
+            </StackLayout>
+
+            <Grid
+            Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <ScrollView>
+                    <Grid>
+                        <!--TẠO MỚI-->
+                        <StackLayout
+                        IsVisible="False"
+                        Padding="10"
+                        Spacing="10">
+                            <StackLayout.Triggers>
+                                <DataTrigger
+                                TargetType="StackLayout"
+                                Binding="{Binding IsUpdate}"
+                                Value="False">
+                                    <Setter Property="IsVisible" Value="True"/>
+                                </DataTrigger>
+                            </StackLayout.Triggers>
+                            <ScrollView>
+                                <Grid VerticalOptions="CenterAndExpand" Margin="0,13,0,0"
+			                Padding="10,0,10,10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition
+				                Width="*" />
+                                        <ColumnDefinition
+				                Width="4*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--<Image Source="{Binding DataModel.Image, Converter={StaticResource Base64ToImageConverter}}" Grid.Row="0" Grid.ColumnSpan="2" HeightRequest="200"  Grid.Column="0" VerticalOptions="Start" ></Image>-->
+
+                                    <Label Grid.Column="0" Grid.Row="1" Text="Code" VerticalTextAlignment="Center" />
+                                    <Entry
+                                    Grid.Column="1" Grid.Row="1"
+                                    TextColor="Black"
+                                    IsReadOnly="True"
+                                    Text="{ Binding DataModel.ItemNo }"
+					                Placeholder="Product code"
+					                VerticalOptions="Center"
+                                          grial:EntryProperties.BorderCornerRadius ="5"
+					                HorizontalOptions="FillAndExpand" />
+
+                                    <Label Grid.Column="0" Grid.Row="2" Text="Name " VerticalTextAlignment="Center" />
+                                    <Entry
+                                 Grid.Column="1" Grid.Row="2"
+                                     TextColor="Black"
+                                        IsReadOnly="True"
+						                 Text="{ Binding DataModel.ItemName }"
+                                          grial:EntryProperties.BorderCornerRadius ="5"
+						                Placeholder="Product's name"
+						                VerticalOptions="Center"
+						                HorizontalOptions="FillAndExpand" />
+
+                                    <Label Grid.Column="0" Grid.Row="3" Text="Quantity" VerticalTextAlignment="Center" />
+                                    <Entry
+                                 Grid.Column="1" Grid.Row="3"
+                                          grial:EntryProperties.BorderCornerRadius ="5"
+                                     TextColor="Black"
+                                Keyboard="Numeric"
+                                        x:Name="quatityEntryUpdate"
+						                 Text="{ Binding DataModel.Quatity }"
+						                Placeholder="Variant "
+						                VerticalOptions="Center"
+						                HorizontalOptions="FillAndExpand" >
+                                        <Entry.Behaviors>
+                                            <b:EventToCommandBehavior EventName="Unfocused" Command="{Binding Source={x:Reference shipmentTODetail}, Path=BindingContext.ChangeQuantity }" CommandParameter="{x:Reference quatityEntryUpdate}"></b:EventToCommandBehavior>
+                                        </Entry.Behaviors>
+
+                                    </Entry>
+
+                                    <Label LineBreakMode="WordWrap"  Grid.Row="4" Grid.Column="1" IsVisible="{ Binding visibleThongBao,Mode=TwoWay}"   Text="{ Binding LBThongBao,Mode=TwoWay}" TextColor="Red" VerticalTextAlignment="Center" />
+
+
+                                </Grid>
+                            </ScrollView>
+                        </StackLayout>
+
+                        <!--UPDATE-->
+                        <StackLayout
+                        IsVisible="False"
+                        Padding="10"
+                        Spacing="10">
+                            <StackLayout.Triggers>
+                                <DataTrigger
+                                TargetType="StackLayout"
+                                Binding="{Binding IsUpdate}"
+                                Value="True">
+                                    <Setter Property="IsVisible" Value="True"/>
+                                </DataTrigger>
+                            </StackLayout.Triggers>
+                            <ScrollView>
+                                <Grid VerticalOptions="CenterAndExpand" Margin="0,13,0,0"
+			                Padding="10,0,10,10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition
+				                Width="*" />
+                                        <ColumnDefinition
+				                Width="4*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--<Image Source="{Binding DataModel.Image, Converter={StaticResource Base64ToImageConverter}}" Grid.Row="0" Grid.ColumnSpan="2" HeightRequest="200"  Grid.Column="0" VerticalOptions="Start" ></Image>-->
+
+                                    <Label Grid.Column="0" Grid.Row="1" Text="Code" VerticalTextAlignment="Center" />
+                                    <Entry
+                                    Grid.Column="1" Grid.Row="1"
+                                    TextColor="Black"
+                                          grial:EntryProperties.BorderCornerRadius ="5"
+                                    IsReadOnly="True"
+                                    Text="{ Binding DataModel.ItemNo }"
+					                Placeholder="Product code"
+					                VerticalOptions="Center"
+					                HorizontalOptions="FillAndExpand" />
+
+                                    <Label Grid.Column="0" Grid.Row="2" Text="Name " VerticalTextAlignment="Center" />
+                                    <Entry
+                                 Grid.Column="1" Grid.Row="2"
+                                     TextColor="Black"
+                                          grial:EntryProperties.BorderCornerRadius ="5"
+                                        IsReadOnly="True"
+						                 Text="{ Binding DataModel.ItemName }"
+						                Placeholder="Product's name"
+						                VerticalOptions="Center"
+						                HorizontalOptions="FillAndExpand" />
+
+                                    <Label Grid.Column="0" Grid.Row="3" Text="Quantity" VerticalTextAlignment="Center" />
+                                    <Entry
+                                 Grid.Column="1" Grid.Row="3"
+                                          grial:EntryProperties.BorderCornerRadius ="5"
+                                     TextColor="Black"
+                                Keyboard="Numeric"
+                                        x:Name="quatityEntry"
+						                 Text="{ Binding DataModel.Quatity }"
+						                Placeholder="Variant "
+						                VerticalOptions="Center"
+						                HorizontalOptions="FillAndExpand" >
+                                        <Entry.Behaviors>
+                                            <b:EventToCommandBehavior EventName="Unfocused" Command="{Binding Source={x:Reference shipmentTODetail}, Path=BindingContext.ChangeQuantity }" CommandParameter="{x:Reference quatityEntry}"></b:EventToCommandBehavior>
+                                        </Entry.Behaviors>
+
+                                    </Entry>
+
+                                    <Label LineBreakMode="WordWrap"  Grid.Row="4" Grid.Column="1" IsVisible="{ Binding visibleThongBao,Mode=TwoWay}"   Text="{ Binding LBThongBao,Mode=TwoWay}" TextColor="Red" VerticalTextAlignment="Center" />
+                               
+                                </Grid>
+                            </ScrollView>
+                        </StackLayout>
+                    </Grid>
+                </ScrollView>
+
+
+                <Button
+                Grid.Row="1"
+                WidthRequest="90"
+                HeightRequest="40"
+                CornerRadius="6"
+                Margin="0,0,20,15"
+                VerticalOptions="End"
+                HorizontalOptions="End"
+                Text="UPDATE"
+                Command="{Binding UpdateShipmentTOLineDetailCommand}"   />
+
+
+            </Grid>
+        </Grid>
+        <ContentView IsVisible="{Binding ShowLoading}"  BackgroundColor="#80000000"   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <ActivityIndicator Margin="155,155,155,155" Opacity="1" IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" />
+        </ContentView>
+
+    </Grid>
+</pages:PopupPage>

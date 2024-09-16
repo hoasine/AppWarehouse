@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "224818046261",
+    "project_id": "ls-retail-app",
+    "storage_bucket": "ls-retail-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:224818046261:android:81fb27a236536b7d59d87c",
+        "android_client_info": {
+          "package_name": "com.lsretail.radiant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "224818046261-s41pnt0am59ohlthsuckp7hi4htivtbp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lsretail.radiant",
+            "certificate_hash": "c98ad42a37fffe1a0832340fc65f052ec5457df8"
+          }
+        },
+        {
+          "client_id": "224818046261-d1etnlinqrvjvbmp3lfj3ka9id7r3svj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQxoYFBiOO2ZxhYwYr0I_NOXhFETa_DsY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "224818046261-d1etnlinqrvjvbmp3lfj3ka9id7r3svj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

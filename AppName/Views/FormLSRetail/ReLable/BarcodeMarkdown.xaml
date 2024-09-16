@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="AppName.BarcodeMarkdown" 
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+    xmlns:local="clr-namespace:AppName"
+    xmlns:renderer="clr-namespace:AppName.CustomRenderer;assembly=AppName"
+    xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+	NavigationPage.HasNavigationBar="True"
+	Title="Discount Percent"
+    BackgroundColor="White">
+    <!--Style="{ StaticResource MainMenuOrModalBackgroundStyle }"-->
+
+    <ContentPage.Content>
+        <Grid RowSpacing="0"  grial:Effects.ApplyIOSSafeAreaAsPadding="Bottom">
+            <!--Define Row Definition-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="115"/>
+                <RowDefinition Height="65"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="65"/>
+            </Grid.RowDefinitions>
+            <!--Title-->
+
+            <Grid Grid.Row="0" BackgroundColor="#ECECEC" >
+                <Grid  Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition
+						    Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid
+                        Margin="20,10,20,0"
+					    Padding="12,0"
+					    grial:Effects.CornerRadius="8"
+					    BackgroundColor="White">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="AUTO" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Label -->
+                        <Label
+					    Grid.Row="0"
+					    Grid.Column="0"
+					    Text="Promotion"
+					    FontSize="13"
+					    VerticalOptions="Center"
+					    HorizontalOptions="Start"
+					    TextColor="{ DynamicResource InverseTextColor }" />
+
+                        <!-- Custom Picker -->
+                        <Grid
+						Grid.Row="0"
+						Grid.Column="1"
+						HorizontalOptions="End">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+								Width="*" />
+                                <ColumnDefinition
+								Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Picker -->
+                            <Picker
+							    HorizontalOptions="EndAndExpand"
+							    Grid.Row="0"
+							    Grid.Column="0"
+                                WidthRequest="150"
+                                ItemDisplayBinding="{Binding NamePeriodicDiscount}"
+                                ItemsSource="{Binding PeriodicDiscountList}"
+                                SelectedItem="{ Binding SelectedPeriodDiscount, Mode=TwoWay }"
+                                grial:PickerProperties.BorderStyle="None"
+                                x:Name="CalendarPicker"
+							    FontSize="12"
+							    TextColor="Transparent"
+							    BackgroundColor="Transparent">
+                            </Picker>
+
+
+                            <!-- Pseudo Picker -->
+                            <Label
+							Grid.Row="0"
+							Grid.Column="0"
+                            Text="{Binding SelectedItem.NamePeriodicDiscount}"
+							BindingContext="{ x:Reference Name=CalendarPicker }"
+							InputTransparent="true"
+							FontSize="14"
+							VerticalOptions="Center"
+							HorizontalOptions="End"
+							TextColor="{ DynamicResource InverseTextColor }"
+							Style="{ StaticResource LabelBoldStyle }" />
+
+                            <!-- Icon -->
+                            <Label
+							Grid.Column="1"
+							Grid.Row="0"
+							VerticalOptions="Center"
+							TextColor="{ DynamicResource InverseTextColor }"
+							Text="{ x:Static local:GrialIconsFont.Dashboard }"
+							Style="{ StaticResource FontIcon }"
+							InputTransparent="true" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+
+                <Grid  Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition
+						    Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid
+                        Margin="20,0,20,0"
+					    Padding="12,0"
+					    grial:Effects.CornerRadius="8"
+					    BackgroundColor="White">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="aUTO"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Label -->
+                        <Label
+					    Grid.Row="0"
+					    Grid.Column="0"
+					    Text="Percent"
+					    FontSize="13"
+					    VerticalOptions="Center"
+					    HorizontalOptions="Start"
+					    TextColor="{ DynamicResource InverseTextColor }" />
+
+                        <!-- Custom Picker -->
+                        <Grid
+						Grid.Row="0"
+						Grid.Column="1"
+						HorizontalOptions="End">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+								Width="*" />
+                                <ColumnDefinition
+								Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Picker -->
+                            <Picker
+							    HorizontalOptions="EndAndExpand"
+							    Grid.Row="0"
+							    Grid.Column="0"
+                                WidthRequest="150"
+                                SelectedItem="{ Binding SelectedPeriodDiscountLine, Mode=TwoWay }"
+                                ItemsSource="{Binding PeriodicDiscountLineList}"
+                                grial:PickerProperties.BorderStyle="None"
+							    x:Name="PeriodDiscoutLinePicker"
+							    FontSize="14"
+							    TextColor="Transparent"
+							    BackgroundColor="Transparent">
+                            </Picker>
+
+                            <!--grial:PickerProperties.BorderStyle="None"-->
+
+
+                            <!-- Pseudo Picker -->
+                            <Label
+							Grid.Row="0"
+							Grid.Column="0"
+							BindingContext="{ x:Reference Name=PeriodDiscoutLinePicker }"
+							InputTransparent="true"
+							Text="{ Binding Path=SelectedItem }"
+							FontSize="14"
+							VerticalOptions="Center"
+							HorizontalOptions="End"
+							TextColor="{ DynamicResource InverseTextColor }"
+							Style="{ StaticResource LabelBoldStyle }" />
+
+                            <!-- Icon -->
+                            <Label
+							Grid.Column="1"
+							Grid.Row="0"
+							VerticalOptions="Center"
+							TextColor="{ DynamicResource InverseTextColor }"
+							Text="{ x:Static local:GrialIconsFont.Filter }"
+							Style="{ StaticResource FontIcon }"
+							InputTransparent="true" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+
+                <Entry
+                    IsVisible="false"
+                    x:Name="txtMaPo"
+                    TextColor="Black"
+					Placeholder="PO Code"
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+            </Grid>
+
+            <!--Result Label-->
+
+            <Label  x:Name="ScanResultLabel" Grid.Row="1" Padding="15,15,5,15"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="Start"
+                                Text="** Enter the barcode or product code to search for current product information."
+                               Grid.Column="0"
+                               TextColor="#696969"
+                               FontSize="14"/>
+            
+            <Grid Grid.Row="2" Grid.RowSpan="2" BackgroundColor="White"></Grid>
+            
+            <Grid VerticalOptions="Start" Margin="0,0,0,0"
+			    Grid.Row="2" Padding="10,0,10,10">
+                
+                <Entry
+                      x:Name="txtMaSP"
+                    Grid.Row="0"
+                    TextColor="Black"
+                    IsReadOnly="True"
+					Placeholder="Product code..."
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+                <Entry
+                        x:Name="txtTenSP"
+                        Grid.Row="1"
+                        TextColor="Black"
+                        IsReadOnly="True"
+						Placeholder="Product name..."
+						VerticalOptions="Center"
+						HorizontalOptions="FillAndExpand" />
+
+                <Entry
+                      x:Name="txtGia"
+                    Grid.Row="2"
+                    TextColor="Black"
+                    IsReadOnly="True"
+					Placeholder="Price..."
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+                <Entry
+                      x:Name="txtKhuyenMai" 
+                    Grid.Row="3"
+                    TextColor="Black"
+                    IsReadOnly="True"
+					Placeholder="Promotion... "
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+                <Entry
+                    x:Name="txtBarcode" Grid.Row="3"
+                    IsVisible="false"
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+                
+                <Entry
+                    x:Name="txtUnitPrice"
+                    Grid.Row="3"
+                    IsVisible="false"
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+                <Entry
+                    x:Name="txtDiscount"
+                    Grid.Row="3"
+                    IsVisible="false"
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+            </Grid>
+
+            
+            <StackLayout Grid.Row="3"
+                    Grid.Column="0"
+                    HorizontalOptions="Center"
+                     Orientation="Horizontal">
+                
+                
+                <Button 
+                    TextColor="White"
+                    BackgroundColor="{ DynamicResource SaveButtonColor }"
+                    CornerRadius="7"
+                    Text="UPDATE &amp; PRINT"
+                    WidthRequest="160"
+                    HeightRequest="43"
+                    Clicked="Printer_Click"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                   Margin="5,0,5,0"/>
+
+                <Button 
+                     x:Name="btConnectPrint"
+                    TextColor="Black"
+                    BackgroundColor="#D1D1D1"
+                    CornerRadius="7"
+                    Text="CONNECT PRINTER"
+                    WidthRequest="160"
+                    HeightRequest="43"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Clicked="ConnectPrint_Click"
+                    Margin="5,0,5,0"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

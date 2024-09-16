@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:AppName" 
+             xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+	         x:Class="AppName.HomePage"
+             xmlns:cv="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions" 
+             BackgroundColor="Transparent"
+             NavigationPage.HasNavigationBar="false">
+
+
+    <Grid
+				RowSpacing="-1">
+        <Grid.RowDefinitions>
+            <RowDefinition
+						Height="1.4*" />
+            <RowDefinition
+						Height="1.5*" />
+            <RowDefinition
+						Height="auto" />
+        </Grid.RowDefinitions>
+
+        <!-- CURVED MASK -->
+        <local:CurvedMask
+                    Grid.Row="0"
+					MaskColor="{ DynamicResource BasePageColor }" />
+
+
+        <BoxView
+					Grid.Row="1"
+					BackgroundColor="{ DynamicResource BasePageColor }" />
+
+
+        <!-- CONTENT -->
+        <StackLayout
+					Grid.Row="0"
+					Grid.RowSpan="3">
+            <Grid
+						RowSpacing="0"
+						Padding="0,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition
+								Height="0.7*" />
+                    <RowDefinition
+								Height="1.3*" />
+                    <RowDefinition
+								Height="3.4*" />
+                </Grid.RowDefinitions>
+
+                <Label 
+                            Grid.Row="0"
+                            TextColor="White"
+                            Margin="15,16,0,0"
+                            Style="{ StaticResource LabelBoldStyle }"
+					        x:Name="textLabel"
+                            Text=""
+                            VerticalTextAlignment="Center"
+					        HorizontalTextAlignment="Start" />
+
+                <Label 
+                            Grid.Row="0"
+                            TextColor="White"
+                            Margin="15,16,0,0"
+                            Style="{ StaticResource LabelBoldStyle }"
+					       x:Name="lbUserName"
+                            VerticalTextAlignment="Center"
+					        HorizontalTextAlignment="Start" />
+
+                <ImageButton
+                            Grid.Row="0"
+                            Margin="0,20,25,0"
+                            WidthRequest="30"
+                            Opacity="0.9"
+                            BackgroundColor="Transparent"
+                            Source="{StaticResource HamburguerIcon }"
+					        VerticalOptions="Center"
+					        HorizontalOptions="End"
+                            Clicked="MenuRightClick">
+                </ImageButton>
+
+                <Grid 
+                            Grid.Row="1"
+							Margin="35,10,35,15">
+                    <grial:CardView
+									Style="{ StaticResource ResponsiveLandscapeMarginStyle }"
+								    HeightRequest="220"
+								    VerticalOptions="End"
+								    CornerRadius="9">
+                        <Grid
+                                    Padding="35,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition
+								            Height="0.6*" />
+                                <RowDefinition
+								            Height="0.6*" />
+                                <RowDefinition
+								            Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <StackLayout   Grid.Row="0">
+                                <Label
+										Text="Fashion and Cosmetic"
+										FontSize="18"
+										Style="{ StaticResource LabelBoldStyle }"
+										HorizontalTextAlignment="Center" />
+                            </StackLayout>
+
+                            <StackLayout   Grid.Row="1">
+                                <Label
+										Text="Mobile Application"
+                                        VerticalTextAlignment="Start"
+										HorizontalTextAlignment="Center" />
+
+                            </StackLayout>
+
+                            <Grid  Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition
+												Width="*" />
+                                    <ColumnDefinition
+												Width="*" />
+                                    <ColumnDefinition
+												Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackLayout
+											Grid.Column="0"
+											Spacing="0">
+                                    <Label
+												Text="{Binding CompanyInfo.Store}"
+												Style="{ StaticResource LabelBoldStyle }"
+												TextColor="#188463"
+												HorizontalTextAlignment="Center" />
+
+                                    <Label
+												Text="Stores"
+												FontSize="13"
+												HorizontalTextAlignment="Center" />
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="StoreClick"/>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+
+                                <StackLayout
+											Grid.Column="1"
+											Spacing="0">
+                                    <Label
+												Text="15"
+												Style="{ StaticResource LabelBoldStyle }"
+												TextColor="#188463"
+												HorizontalTextAlignment="Center" />
+                                    <Label
+												Text="Revenue"
+												FontSize="13"
+												HorizontalTextAlignment="Center" />
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="KPIClick"/>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+
+                                <StackLayout 
+											Grid.Column="2"
+											Spacing="0">
+                                    <Label
+												Text="{Binding CompanyInfo.Promotion}"
+												Style="{ StaticResource LabelBoldStyle }"
+												TextColor="#188463"
+												HorizontalTextAlignment="Center" />
+                                    <Label
+												Text="Staff"
+												FontSize="13"
+												HorizontalTextAlignment="Center" />
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="StaffClick"/>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+
+                            </Grid>
+                        </Grid>
+                    </grial:CardView>
+                </Grid>
+
+                <!--<grial:Repeater
+						    Padding="0"
+                            Grid.Row="1"
+						    ItemsSource="{ Binding Slide }"
+						    Orientation="Horizontal"
+						    HeightRequest="300"
+						    Spacing="0"
+						    VerticalOptions="End"
+						    ScrollBarVisibility="Never"
+						    ScrollPadding="10,0,10,0">
+                            <grial:Repeater.ItemTemplate>
+                                <DataTemplate>
+                                    <local:ArticleBrowserCardItemTemplate
+									Padding="10,0,10,20"
+									WidthRequest="300" />
+                                </DataTemplate>
+                            </grial:Repeater.ItemTemplate>
+
+                        </grial:Repeater>-->
+
+                <Grid Grid.Row="2"  RowSpacing="10"   ColumnSpacing="10" Padding="30,8,30,15" Style="{ StaticResource ResponsiveLandscapeMarginStyle }"  >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <grial:CardView  Grid.Row="0" Grid.Column="0" HeightRequest="100" >
+                        <Grid BackgroundColor="#F8F9F9">
+                            <!-- ICON CLOSE -->
+                            <!--<Image     
+                                        Source="Icon_qr_code.png"
+                                        Margin="0"
+                                        WidthRequest="52"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center">
+                                    </Image>-->
+
+                            <Label
+					                    Margin="0"
+					                    FontSize="25"
+					                    TextColor="#2B9E9E"
+					                    Text="{x:Static local:GrialIconsFont.ShoppingCart}"
+					                    Style="{StaticResource FontIconFill}"
+					                    VerticalTextAlignment="Center"
+					                    HorizontalTextAlignment="Center">
+                            </Label>
+                            <Label
+					                Margin="0,55,0,0"
+					                FontSize="11"
+					                TextColor="{DynamicResource BaseTextColor}"
+					                Text="Product"
+					                VerticalTextAlignment="Center"
+					                HorizontalTextAlignment="Center">
+                            </Label>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="SanPham" Command="{Binding OpenMenu}"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </grial:CardView>
+
+                    <grial:CardView  Grid.Row="0" Grid.Column="1"  HeightRequest="100">
+                        <!-- ICON CLOSE -->
+                        <Grid BackgroundColor="#F8F9F9">
+                            <!--<Image     
+                                        Source="barcode.png"
+                                        Margin="0"
+                                        WidthRequest="23"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center">
+                                    </Image>-->
+                            <Label
+										Margin="0"
+										FontSize="24"
+										TextColor="#3FBCE8"
+										Text="{x:Static local:GrialIconsFont.Layers}"
+										Style="{StaticResource FontIconFill}"
+										VerticalTextAlignment="Center"
+										HorizontalTextAlignment="Center">
+                            </Label>
+                            <Label
+										Margin="0,55,0,0"
+										FontSize="11"
+										TextColor="{DynamicResource BaseTextColor}"
+										Text="Promotion"
+										VerticalTextAlignment="Center"
+										HorizontalTextAlignment="Center">
+                            </Label>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="KhuyenMai" Command="{Binding OpenMenu}"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+
+                    </grial:CardView>
+
+                    <grial:CardView  Grid.Row="0" Grid.Column="2"  HeightRequest="100">
+                        <!-- ICON CLOSE -->
+                        <Grid BackgroundColor="#F8F9F9">
+                            <Label
+					                Margin="0"
+					                FontSize="24"
+					                TextColor="#E8CF3F"
+					                Text="{x:Static local:GrialIconsFont.PieChart}"
+					                Style="{StaticResource FontIconFill}"
+					                VerticalTextAlignment="Center"
+					                HorizontalTextAlignment="Center">
+                            </Label>
+                            <Label
+					                Margin="0,55,0,0"
+					                FontSize="11"
+					                TextColor="{DynamicResource BaseTextColor}"
+					                Text="Inventory"
+					                VerticalTextAlignment="Center"
+					                HorizontalTextAlignment="Center">
+                            </Label>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="TonKho" Command="{Binding OpenMenu}"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </grial:CardView>
+
+                    <grial:CardView  Grid.Row="1" Grid.Column="0" >
+                        <!-- ICON CLOSE -->
+                        <Grid BackgroundColor="#F8F9F9">
+                            <Label
+					                Margin="0"
+					                FontSize="24"
+					                TextColor="#E83F42"
+					                Text="{x:Static local:GrialIconsFont.File}"
+					                Style="{StaticResource FontIconFill}"
+					                VerticalTextAlignment="Center"
+					                HorizontalTextAlignment="Center">
+                            </Label>
+                            <Label
+					                Margin="0,55,0,0"
+					                FontSize="11"
+					                TextColor="{DynamicResource BaseTextColor}"
+					                Text="Size"
+					                VerticalTextAlignment="Center"
+					                HorizontalTextAlignment="Center">
+                            </Label>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="CheckSize" Command="{Binding OpenMenu}"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </grial:CardView>
+
+                    <grial:CardView  Grid.Row="1" Grid.Column="1">
+                        <Grid BackgroundColor="#F8F9F9">
+                            <Label
+					                    Margin="0"
+					                    FontSize="24"
+					                    TextColor="#188463"
+					                    Text="{x:Static local:GrialIconsFont.Shuffle}"
+					                    Style="{StaticResource FontIconFill}"
+					                    VerticalTextAlignment="Center"
+					                    HorizontalTextAlignment="Center">
+                            </Label>
+                            <Label
+					                    Margin="0,55,0,0"
+					                    FontSize="11"
+					                    TextColor="{DynamicResource BaseTextColor}"
+					                    Text="Discount Percent"
+					                    VerticalTextAlignment="Center"
+					                    HorizontalTextAlignment="Center">
+                            </Label>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="GiamGia" Command="{Binding OpenMenu}"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </grial:CardView>
+
+                    <grial:CardView  Grid.Row="1" Grid.Column="2">
+                        <Grid BackgroundColor="#F8F9F9">
+                            <!-- ICON CLOSE -->
+                            <Label
+					                Margin="0"
+					                FontSize="24"
+					                TextColor="#E8693F"
+					                Text="{x:Static local:GrialIconsFont.Home}"
+					                Style="{StaticResource FontIconFill}"
+					                VerticalTextAlignment="Center"
+					                HorizontalTextAlignment="Center">
+                            </Label>
+                            <Label
+					                Margin="0,55,0,0"
+					                FontSize="11"
+					                TextColor="{DynamicResource BaseTextColor}"
+					                Text="Warehouse"
+					                VerticalTextAlignment="Center"
+					                HorizontalTextAlignment="Center">
+                            </Label>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="KiemKe" Command="{Binding OpenMenu}"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </grial:CardView>
+
+                    <grial:CardView  Grid.Row="2" Grid.Column="0">
+                        <Grid BackgroundColor="#F8F9F9">
+                            <Label
+					                Margin="0"
+					                FontSize="24"
+					                TextColor="#287165"
+					                Text="{x:Static local:GrialIconsFont.Download}"
+					                Style="{StaticResource FontIconFill}"
+					                VerticalTextAlignment="Center"
+					                HorizontalTextAlignment="Center">
+                            </Label>
+                            <Label
+					                Margin="0,55,0,0"
+					                FontSize="11"
+					                TextColor="{DynamicResource BaseTextColor}"
+					                Text="Purchase Order"
+					                VerticalTextAlignment="Center"
+					                HorizontalTextAlignment="Center">
+                            </Label>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="Setting" Command="{Binding OpenMenu}"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </grial:CardView>
+
+                    <grial:CardView  Grid.Row="2" Grid.Column="1">
+                        <Grid BackgroundColor="#F8F9F9">
+                            <Label
+					                Margin="0"
+					                FontSize="24"
+					                TextColor="#712D28"
+					                Text="{x:Static local:GrialIconsFont.Upload}"
+					                Style="{StaticResource FontIconFill}"
+					                VerticalTextAlignment="Center"
+					                HorizontalTextAlignment="Center">
+                            </Label>
+                            <Label
+					                Margin="0,55,0,0"
+					                FontSize="11"
+					                TextColor="{DynamicResource BaseTextColor}"
+					                Text="Ship Order"
+					                VerticalTextAlignment="Center"
+					                HorizontalTextAlignment="Center">
+                            </Label>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="Setting" Command="{Binding OpenMenu}"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </grial:CardView>
+
+                    <grial:CardView  Grid.Row="2" Grid.Column="2">
+                        <Grid BackgroundColor="#F8F9F9">
+                            <Label
+					                Margin="0"
+					                FontSize="24"
+					                TextColor="{DynamicResource BaseTextColor}"
+					                Text="{x:Static local:GrialIconsFont.Settings}"
+					                Style="{StaticResource FontIconFill}"
+					                VerticalTextAlignment="Center"
+					                HorizontalTextAlignment="Center">
+                            </Label>
+                            <Label
+					                Margin="0,55,0,0"
+					                FontSize="11"
+					                TextColor="{DynamicResource BaseTextColor}"
+					                Text="Setting"
+					                VerticalTextAlignment="Center"
+					                HorizontalTextAlignment="Center">
+                            </Label>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="Setting" Command="{Binding OpenMenu}"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </grial:CardView>
+
+                </Grid>
+            </Grid>
+        </StackLayout>
+    </Grid>
+</ContentView>
+

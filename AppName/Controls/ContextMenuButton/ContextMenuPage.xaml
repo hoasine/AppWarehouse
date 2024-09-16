@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="AppName.ContextMenuPage"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    x:Name="ContextMenuPopup"
+    BackgroundColor="Transparent">
+    <Frame
+        x:Name="MainFrame"
+        HorizontalOptions="Start"
+        VerticalOptions="Start"
+        BackgroundColor="White"
+        Padding="0"
+        CornerRadius="2"
+        HasShadow="True">
+        <StackLayout
+            Margin="15"
+            Spacing="15"
+            BindableLayout.ItemsSource="{Binding Items, Source={Reference ContextMenuPopup}}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ItemTapGestureRecognizer_Tapped"/>
+                        </Grid.GestureRecognizers>
+                        <Label
+                            HorizontalOptions="StartAndExpand"
+                            VerticalOptions="Center"
+                            Text="{Binding Text}"/>
+                    </Grid>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </StackLayout>
+    </Frame>
+</pages:PopupPage>

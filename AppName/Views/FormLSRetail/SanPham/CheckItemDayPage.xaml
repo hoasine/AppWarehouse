@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="AppName.CheckItemDayPage" 
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+    xmlns:local="clr-namespace:AppName"
+    xmlns:renderer="clr-namespace:AppName.CustomRenderer;assembly=AppName"
+    xmlns:zing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms" xmlns:zxcm="clr-namespace:ZXing.Common;assembly=zxing.portable"
+             Title="Check sales quantity"
+   BackgroundColor="{ DynamicResource BasePageColor }">
+
+    <ContentPage.Resources>
+        <ResourceDictionary
+			Source="/Styles/TabControl/SegmentedTabResources.xaml" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:DialogsResources />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        <ResourceDictionary>
+            <local:ConverterBase64ImageSource x:Key="Base64ToImageConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <grial:GrialNavigationBar
+				UseNavigationPageBarBackgroundColor="true"
+				UseNavigationPageBarBackgroundGradient="true" />
+                <!-- SEARCH BAR -->
+                <Grid
+                Grid.Row="0 "
+				ColumnSpacing="25"
+				Margin="18,5,18,0"
+				grial:Effects.ApplyIOSSafeAreaAsPadding="Left,Right">
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="44" />
+                    </Grid.RowDefinitions>
+
+                    <Entry
+                            Grid.Row="0"
+                            TextColor="{DynamicResource OverImageTextColor}"
+						    Margin="0,0,-8,0" >
+                    </Entry>
+
+                    <SearchBar
+                        x:Name="txtsearch"
+                        Text="{Binding ItemNo}"
+						    CancelButtonColor="{DynamicResource SecondaryPageTextColor}"
+						    Grid.Row="0"
+						    BackgroundColor="Transparent"
+                            grial:Effects.CornerRadius="0"
+						    TextColor="{DynamicResource SecondaryPageTextColor}"
+						    Style="{ StaticResource TranslucidSearchBarStyleVuong }"
+						    Placeholder="Search"
+                        SearchCommand="{Binding SearchItemsCommand}"
+                        SearchCommandParameter="{Binding Source={x:Reference txtsearch}, Path=Text}"/>
+
+                    <!--<grial:Checkbox
+                            Margin="5,10,0,0"
+                            Grid.Row="1"
+                            x:Name="Status_Check"
+                            UncheckedBorderColor="#B6B6B6"
+                            UncheckedBackgroundColor="#D0D0D0"
+                            VerticalOptions="Start"
+                            IsChecked="{Binding IsCheck,Mode=TwoWay}"
+							HorizontalOptions="Start">
+                        <StackLayout
+							Orientation="Horizontal"
+							Margin="8,0,0,0">
+                            <Label
+                                TextColor="White"
+								VerticalTextAlignment="Center"
+								Text="By all store"
+								FontSize="14" />
+                        </StackLayout>
+                    </grial:Checkbox>-->
+                </Grid>
+
+                <ListView
+                     Margin="8,0"
+                    Grid.Row="1"
+                    x:Name="ItemsListView"
+                    ItemsSource="{Binding Items}"
+                    VerticalOptions="FillAndExpand"
+                    HasUnevenRows="True"
+                    IsPullToRefreshEnabled="False"
+                    SeparatorVisibility="None"
+                    IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                    CachingStrategy="RecycleElement"
+                    ItemSelected="OnItemSelected">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <grial:CardView
+                                    Margin="10"
+                                    BackgroundColor="{DynamicResource NavigationBarEndBackgroundColor}"
+                                    CornerRadius="10"
+                                    HasShadow="True"
+                                    ShadowSize="3"
+                                    ShadowOpacity=".7">
+                                    <grial:CardView.RowDefinitions>
+                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="*"/>
+                                    </grial:CardView.RowDefinitions>
+
+                                    <!--HEADER-->
+                                    <Grid
+                                        Margin="10,0"
+                                        VerticalOptions="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label
+                                            Text="{Binding BarcodeNo}"
+                                            TextColor="{DynamicResource InverseTextColor}"
+                                            VerticalTextAlignment="Center"/>
+
+                                        <grial:CardView
+                                            HeightRequest="20"
+                                            CornerRadius="5"
+                                            Grid.Column="1"
+                                            HorizontalOptions="End"
+                                            VerticalOptions="Center"
+                                            BackgroundColor="{DynamicResource BasePageColor}"
+                                            Padding="5">
+                                            <zing:ZXingBarcodeImageView
+                                                BarcodeFormat="CODE_128"
+                                                HorizontalOptions="FillAndExpand" 
+                                                VerticalOptions="StartAndExpand"  
+                                                BarcodeValue="{Binding BarcodeNo}"
+                                                HeightRequest="80" 
+                                               WidthRequest="130"
+                                                InputTransparent="false" >
+                                                <zing:ZXingBarcodeImageView.BarcodeOptions>
+                                                    <zxcm:EncodingOptions  
+                                                        Height="110" 
+                                                        Width="900"
+                                                        PureBarcode="false" />
+                                                </zing:ZXingBarcodeImageView.BarcodeOptions>
+                                            </zing:ZXingBarcodeImageView>
+                                        </grial:CardView>
+                                    </Grid>
+
+                                    <!--BODY-->
+                                    <grial:CardView
+                                        Padding="10"
+                                        Grid.Row="1"
+                                        BackgroundColor="{DynamicResource BasePageColor}"
+                                        CornerRadius="5">
+                                        <StackLayout>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="0.4*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="0.5*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Image Grid.Row="0" VerticalOptions="Start" Grid.RowSpan="4" Grid.Column="0" Source="{Binding ImageSource, Mode=TwoWay}" />
+
+                                                <Grid  Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label FontAttributes="Bold"  Text="Product name: "  Grid.Row="0" Grid.Column="0"
+                                                        LineBreakMode="NoWrap" TextColor="#202020"
+                                                        Style="{DynamicResource ListItemTextStyle}" 
+                                                        FontSize="12" />
+
+                                                    <Label Grid.ColumnSpan="2" Text="{Binding ItemNameVN}"   Grid.Row="0" Grid.Column="1" 
+                                                        LineBreakMode="NoWrap"
+                                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                                        FontSize="11" />
+                                                </Grid>
+
+
+                                                <Grid  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label FontAttributes="Bold"  Text="Location code: "  Grid.Row="0" Grid.Column="0"
+                                                        LineBreakMode="NoWrap" TextColor="#202020"
+                                                        Style="{DynamicResource ListItemTextStyle}" 
+                                                        FontSize="12" />
+
+                                                    <Label FontAttributes="Bold"  Text="{Binding LocationCode}"  Grid.Row="0" Grid.Column="1" 
+                                                        LineBreakMode="NoWrap" 
+                                                        Style="{DynamicResource ListItemTextStyle}" 
+                                                        FontSize="12" />
+                                                </Grid>
+                                                
+
+                                                <Grid  Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label FontAttributes="Bold"  Text="Inventory: "  Grid.Row="0" Grid.Column="0"
+                                                        LineBreakMode="NoWrap" TextColor="#202020"
+                                                        Style="{DynamicResource ListItemTextStyle}" 
+                                                        FontSize="12" />
+
+                                                    <Label Grid.ColumnSpan="2" Text="{Binding Inventory}"   Grid.Row="0" Grid.Column="1" 
+                                                        LineBreakMode="NoWrap"
+                                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                                        FontSize="11" />
+                                                </Grid>
+
+                                                <Grid  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label FontAttributes="Bold"  Text="Fixid shelf: "  Grid.Row="0" Grid.Column="0"
+                                                        LineBreakMode="NoWrap" TextColor="#202020"
+                                                        Style="{DynamicResource ListItemTextStyle}" 
+                                                        FontSize="12" />
+
+                                                    <Label Grid.ColumnSpan="2" Text="{Binding FIXID_SHELF}"   Grid.Row="0" Grid.Column="1" 
+                                                        LineBreakMode="TailTruncation"
+                                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                                        FontSize="11" />
+                                                </Grid>
+
+                                                <Grid  Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label FontAttributes="Bold"  Text="HH POG total unit: "  Grid.Row="0" Grid.Column="0"
+                                                        LineBreakMode="NoWrap" TextColor="#202020"
+                                                        Style="{DynamicResource ListItemTextStyle}" 
+                                                        FontSize="12" />
+
+                                                    <Label Grid.ColumnSpan="2" Text="{Binding HHPOG_TOTALUNIT}"   Grid.Row="0" Grid.Column="1" 
+                                                        LineBreakMode="NoWrap"
+                                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                                        FontSize="11" />
+                                                </Grid>
+
+                                                <Grid  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label FontAttributes="Bold"  Text="Sale (133 day): "  Grid.Row="0" Grid.Column="0"
+                                                        LineBreakMode="NoWrap" TextColor="#202020"
+                                                        Style="{DynamicResource ListItemTextStyle}" 
+                                                        FontSize="12" />
+
+                                                    <Label Grid.ColumnSpan="2" Text="{Binding Sold_Qty_With_Days}"   Grid.Row="0" Grid.Column="1" 
+                                                        LineBreakMode="NoWrap"
+                                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                                        FontSize="11" />
+                                                </Grid>
+                                            </Grid>
+                                        </StackLayout>
+                                    </grial:CardView>
+                                </grial:CardView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

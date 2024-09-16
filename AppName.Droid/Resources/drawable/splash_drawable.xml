@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<layer-list
+  xmlns:android="http://schemas.android.com/apk/res/android">
+	<item>
+		<shape android:shape="rectangle">
+			<solid android:color="#F7F7F7" /> <!--Change background color SplashScreen-->
+			<!--<solid android:color="@android:color/white" /> --><!--Change background color SplashScreen-->
+			<padding
+			  android:left="0dip"
+			  android:top="0dip"
+			  android:right="0dip"
+			  android:bottom="0dip" />
+		</shape>
+	</item>
+	<!--<item>
+		<bitmap
+		  android:gravity="center"
+		  android:src="@drawable/icondafc_180"/> --><!--Change image SplashScreen--><!--
+	</item>-->
+  
+  <item 
+    android:width="220dp"
+    android:height="155dp"
+    android:drawable="@drawable/icondafc_180"
+    android:gravity="center">
+	</item>
+</layer-list>

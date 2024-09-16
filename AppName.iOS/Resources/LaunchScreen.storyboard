@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" launchScreen="YES" colorMatched="YES" initialViewController="23" useAutolayout="YES">
+    <device id="retina4_7" orientation="portrait"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="22">
+            <objects>
+                <viewController id="23" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5799"/>
+                        <viewControllerLayoutGuide type="bottom" id="5800"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="center" id="24">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" colorSpace="calibratedRGB" red="1" green="1" blue="1" alpha="1"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="821" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                <rect key="frame" x="67" y="353" width="280" height="168"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="1020" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="168"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </scrollView>
+                                </subviews>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
+                            <imageView contentMode="scaleAspectFit" width="200" height="60" horizontalHuggingPriority="100" verticalHuggingPriority="100" id="27" image="dafc_icon.png" userInteractionEnabled="NO" tag="0.0" semanticContentAttribute="forceLeftToRight" adjustsImageSizeForAccessibilityContentSizeCategory="YES" horizontalCompressionResistancePriority="740" verifyAmbiguity="ignoreSizes" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="108" y="284" width="163" height="160"/>
+                                <rect key="contentStretch" x="0.0" y="0.0" width="1" height="1"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint id="5801" firstItem="27" firstAttribute="centerX" secondItem="24" secondAttribute="centerX" constant="2"/>
+                            <constraint id="6072" firstItem="27" firstAttribute="leading" secondItem="24" secondAttribute="leadingMargin" constant="92"/>
+                            <constraint id="6076" firstAttribute="trailingMargin" secondItem="27" secondAttribute="trailing" constant="88"/>
+                            <constraint id="6085" firstItem="27" firstAttribute="top" secondItem="5799" secondAttribute="bottom" constant="264"/>
+                            <constraint id="9336" firstItem="5800" firstAttribute="top" secondItem="27" secondAttribute="bottom" constant="223"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="25" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="38" y="97"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="dafc_icon.png" width="500" height="160"/>
+    </resources>
+</document>

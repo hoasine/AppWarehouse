@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:AppName"
+                 xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                   xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
+                 xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+	x:Class="AppName.PogShowImage"
+	BackgroundColor="{ DynamicResource CustomActionSheetShimBackgroundColor }"
+	HasSystemPadding="false">
+
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:DialogsResources />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        <ResourceDictionary>
+            <local:ConverterBase64ImageSource x:Key="Base64ToImageConverter" />
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation
+			PositionIn="Bottom"
+			PositionOut="Bottom" />
+    </pages:PopupPage.Animation>
+
+    <Grid
+		Style="{ StaticResource CustomActionSheetStyle }"
+		VerticalOptions="{ StaticResource CustomActionSheetPositioning }"
+		HeightRequest="300"
+		RowSpacing="0">
+
+        <Image Source="{Binding DataModel.Image}" Grid.Row="0"  VerticalOptions="Start" ></Image>
+    </Grid>
+
+
+</pages:PopupPage>

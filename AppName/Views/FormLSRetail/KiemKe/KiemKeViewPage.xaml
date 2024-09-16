@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="AppName.KiemKeViewPage" 
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+    xmlns:local="clr-namespace:AppName"
+    xmlns:renderer="clr-namespace:AppName.CustomRenderer;assembly=AppName"
+	NavigationPage.HasNavigationBar="True"
+	Title="Warehouse"
+             
+    BackgroundColor="#EFEFEF">
+
+    <ContentPage.Content>
+        <Grid  Margin="10,10"
+               grial:Effects.ApplyIOSSafeAreaAsPadding="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="90"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label x:Name="ScanResultLabel"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="Start"
+                   Margin="10,18,10,0"
+                Grid.Row="0"
+                Text="** Please select the current store area. Then select the tally sheet - Confirm the correct tally before performing the inventory."
+                Grid.Column="0"
+                TextColor="#2A2A2A"
+                FontSize="14"/>
+            
+            <Grid Grid.Row="1" VerticalOptions="Start" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid  Grid.Row="0" VerticalOptions="Start">
+                    <Grid.RowDefinitions>
+                        <RowDefinition
+						    Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid
+                    Margin="20,10,20,0"
+					Padding="12,0"
+					grial:Effects.CornerRadius="8"
+					BackgroundColor="White">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Label -->
+                        <Label
+					    Grid.Row="0"
+					    Grid.Column="0"
+					    Text="Stores"
+					    FontSize="13"
+					    VerticalOptions="Center"
+					    HorizontalOptions="Start"
+					    TextColor="{ DynamicResource InverseTextColor }" />
+
+                        <!-- Custom Picker -->
+                        <Grid
+						Grid.Row="0"
+						Grid.Column="1"
+						HorizontalOptions="Fill">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+								Width="*" />
+                                <ColumnDefinition
+								Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Picker -->
+                            <Picker
+							    HorizontalOptions="Fill"
+							    Grid.Row="0"
+							    Grid.Column="0"
+                                ItemDisplayBinding="{Binding LocationName}"
+                                ItemsSource="{Binding LocationList}"
+                                SelectedItem="{ Binding SelectedLocation, Mode=TwoWay }"
+                                grial:PickerProperties.BorderStyle="None"
+                                x:Name="LocationPicker"
+							    FontSize="12"
+							    TextColor="Transparent"
+							    BackgroundColor="White">
+                            </Picker>
+
+
+                            <!-- Pseudo Picker -->
+                            <Label
+							Grid.Row="0"
+							Grid.Column="0"
+                            Text="{Binding SelectedItem.LocationName}"
+							BindingContext="{ x:Reference Name=LocationPicker }"
+							InputTransparent="true"
+							FontSize="14"
+							VerticalOptions="Center"
+							HorizontalOptions="End"
+							TextColor="{ DynamicResource InverseTextColor }"
+							Style="{ StaticResource LabelBoldStyle }" />
+
+                            <!-- Icon -->
+                            <Label
+							Grid.Column="1"
+							Grid.Row="0"
+							VerticalOptions="Center"
+							TextColor="{ DynamicResource InverseTextColor }"
+							Text="{ x:Static local:GrialIconsFont.Dashboard }"
+							Style="{ StaticResource FontIcon }"
+							InputTransparent="true" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+
+                <Grid  Grid.Row="1" VerticalOptions="Start">
+                    <Grid.RowDefinitions>
+                        <RowDefinition
+						    Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid
+                        Margin="20,0,20,0"
+					Padding="12,0"
+					grial:Effects.CornerRadius="8"
+					BackgroundColor="White">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Label -->
+                        <Label
+					    Grid.Row="0"
+					    Grid.Column="0"
+					    Text="Check sheet"
+					    FontSize="13"
+					    VerticalOptions="Center"
+					    HorizontalOptions="Start"
+					    TextColor="{ DynamicResource InverseTextColor }" />
+
+                        <!-- Custom Picker -->
+                        <Grid
+						Grid.Row="0"
+						Grid.Column="1"
+						HorizontalOptions="Fill">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+								Width="*" />
+                                <ColumnDefinition
+								Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Picker -->
+                            <Picker
+							    HorizontalOptions="Fill"
+							    Grid.Row="0"
+							    Grid.Column="0"
+                                ItemDisplayBinding="{Binding Descriptions}"
+                                ItemsSource="{Binding InventoryMasterList}"
+                                SelectedItem="{ Binding SelectedInventoryMaster, Mode=TwoWay }"
+                                grial:PickerProperties.BorderStyle="None"
+                                x:Name="InventoryMaster"
+							    FontSize="12"
+							    TextColor="Transparent"
+							    BackgroundColor="Transparent">
+                            </Picker>
+
+                            <!-- Pseudo Picker -->
+                            <Label
+							Grid.Row="0"
+							Grid.Column="0"
+							BindingContext="{ x:Reference Name=InventoryMaster }"
+							InputTransparent="true"
+						    Text="{Binding SelectedItem.Descriptions}"
+							FontSize="14"
+							VerticalOptions="Center"
+							HorizontalOptions="End"
+							TextColor="{ DynamicResource InverseTextColor }"
+							Style="{ StaticResource LabelBoldStyle }" />
+
+                            <!-- Icon -->
+                            <Label
+							Grid.Column="1"
+							Grid.Row="0"
+							VerticalOptions="Center"
+							TextColor="{ DynamicResource InverseTextColor }"
+							Text="{ x:Static local:GrialIconsFont.Filter }"
+							Style="{ StaticResource FontIcon }"
+							InputTransparent="true" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <Button
+                Grid.Row="3"
+                VerticalOptions="End"
+                WidthRequest="20"
+                HeightRequest="50"
+                FontSize="15"
+				Text="START"
+                Clicked="KiemKe_click"
+                TextColor="White"
+				Style="{ StaticResource TranslucidButtonStyle }" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

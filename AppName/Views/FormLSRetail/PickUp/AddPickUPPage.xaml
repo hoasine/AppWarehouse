@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="AppName.AddPickUPPage"
+     xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core"
+    BackgroundColor="{DynamicResource MainWrapperBackgroundColor}"
+    xmlns:local="clr-namespace:AppName"
+    Title="Create pickup"
+    x:Name="this">
+
+    <Grid>
+        <Grid
+            RowSpacing="0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ScrollView
+            grial:Effects.ApplyIOSSafeAreaAsPadding="All">
+                <StackLayout
+                Padding="10"
+                Spacing="10">
+                    <Label
+                        Margin="0,15,0,15"
+                        FontAttributes="Bold"
+                        Text="Information"
+                        TextColor="{DynamicResource AccentColor}">
+                    </Label>
+
+                    <Grid
+                    ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                        Text="Description"
+                        VerticalTextAlignment="Center"/>
+
+                        <Entry
+                            grial:EntryProperties.BorderCornerRadius="5"
+                            Placeholder="Description"
+                            Text="{Binding Description}"
+                        Grid.Column="1"/>
+                    </Grid>
+
+                    <Grid
+                    ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="7*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                        Text="Date create"
+                        VerticalTextAlignment="Center"/>
+
+                        <DatePicker
+                             grial:PickerProperties.BorderCornerRadius="5"
+                            Date="{Binding DateCreate}"
+                        Grid.Column="1"/>
+                    </Grid>
+
+                </StackLayout>
+            </ScrollView>
+
+            <Button
+            Grid.Row="1"
+            Margin="50,10,50,20"
+            VerticalOptions="Center"
+            HorizontalOptions="FillAndExpand"
+            Style="{ StaticResource PrimaryActionButtonStyle }"
+            Text="Confirm &#38; SAVE"
+            Command="{Binding ConfirmCommand}"/>
+        </Grid>
+    </Grid>
+    <ContentView IsVisible="{Binding ShowLoading}"  BackgroundColor="#80000000"   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <ActivityIndicator Margin="155,155,155,155" Opacity="1" IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" />
+    </ContentView>
+    </Grid>
+
+</ContentPage>

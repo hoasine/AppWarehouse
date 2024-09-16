@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:AppName" 
+             xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+			x:Class="AppName.LoginFrm"
+             x:Name="loginView"
+               BackgroundImageSource="bg.png"
+			NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <Grid>
+            <!--<grial:GrialNavigationBar
+				UseNavigationPageBarBackgroundColor="true"
+				UseNavigationPageBarBackgroundGradient="true" />-->
+            <Grid RowSpacing="-1">
+                <Grid.RowDefinitions>
+                    <RowDefinition
+						Height="*" />
+                    <RowDefinition
+						Height="1.25*" />
+                </Grid.RowDefinitions>
+
+                <local:CurvedMask
+					MaskColor="{ DynamicResource BasePageColor }" />
+
+                <BoxView
+					Grid.Row="1"
+					BackgroundColor="{ DynamicResource BasePageColor }" />
+
+                <StackLayout Grid.Row="0" Grid.RowSpan="2" VerticalOptions="End" >
+                    <Grid 
+						RowSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition
+								Height="1.1*" />
+                            <RowDefinition
+								Height="Auto" />
+                          
+                        </Grid.RowDefinitions>
+
+                        <StackLayout 
+                            Grid.Row="1"
+							Margin="30,0,30,0">
+                            <grial:CardView VerticalOptions="End"
+								Style="{ StaticResource ResponsiveLandscapeMarginStyle }"
+								CornerRadius="20">
+                                <ScrollView Orientation="Vertical" VerticalScrollBarVisibility ="Never">
+                                    <StackLayout
+									Padding="10"
+									VerticalOptions="Center"
+									HorizontalOptions="Center">
+                                        <Grid
+										grial:Effects.ApplyIOSSafeAreaAsPadding="Bottom"
+										grial:Effects.IOSSafeAreaBottomSize="15"
+										Style="{ StaticResource ResponsiveLandscapeMarginStyle }">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition
+												Height="80" />
+                                                <RowDefinition
+												Height="Auto" />
+                                                <RowDefinition
+												Height="120" />
+                                            </Grid.RowDefinitions>
+
+                                            <Label
+											Grid.Row="0"
+                                                Padding="0,0,0,20"
+											Text="Product Management"
+											FontSize="23"
+											TextColor="{ DynamicResource AccentColor }"
+											Style="{ StaticResource LabelBoldStyle }"
+											HorizontalOptions="Center"
+											VerticalOptions="Center" />
+
+                                            <Grid
+											Grid.Row="1"
+                                                RowSpacing="10"
+											Padding="20,0,20,0"
+											VerticalOptions="Start">
+                                                <Entry
+                                                    Grid.Row="0"
+                                                x:Name="txtStore"
+                                                    IsEnabled="False"
+                                                FontAttributes="Bold"
+                                                Text="{Binding UserConfig.UserName, Mode=TwoWay}"
+												PlaceholderColor="{ DynamicResource OverImageTextColor }"
+												Placeholder="User Retail"
+												Opacity="0.8" >
+                                                </Entry>
+
+                                             
+
+                                                <Picker
+                                                    Grid.Row="1"
+                                                    
+                                                Title="Select a user"
+                                                x:Name="pickerUserStore"
+                                                ItemsSource="{Binding UserStore}"
+                                                ItemDisplayBinding="{Binding RetailName}"
+                                                SelectedItem="{Binding SelectedUserStore}">
+                                                    <Picker.Triggers>
+                                                        <DataTrigger
+                                                            TargetType="Picker"
+                                                            Binding="{Binding SelectedUserStore, Converter={StaticResource IsNotNullConverter}}"
+                                                            Value="false">
+                                                            <!--<Setter Property="grial:PickerProperties.BorderColor" Value="#2392CA"/>-->
+                                                        </DataTrigger>
+                                                    </Picker.Triggers>
+                                                </Picker>
+
+
+                                                <!--<ImageButton    
+                                                Grid.Row="2"
+                                                BackgroundColor="Transparent"  
+                                                 Margin="0,0,23,0"  
+                                                 Opacity="0.9"
+                                                HeightRequest="20"  
+                                                HorizontalOptions="End"  
+                                                Source="hide.png">
+                                                    <ImageButton.Triggers>
+                                                        <EventTrigger Event="Clicked">
+                                                            <local:ShowPasswordTriggerAction ShowIcon="show.png"  
+                                                                           HideIcon="hide.png"  
+                                                                           x:Name="ShowPasswordActualTrigger"/>
+                                                        </EventTrigger>
+                                                    </ImageButton.Triggers>
+                                                </ImageButton>-->
+
+
+                                                <Entry
+                                                     Grid.Row="2"
+                                                 IsPassword="True"
+                                                x:Name="txtPassword"
+												Text="{Binding Password}"
+												PlaceholderColor="{ DynamicResource OverImageTextColor }"
+												Placeholder="Password"
+												Opacity="0.8" />
+                                                
+                                                
+                                                <Button
+                                                    Padding="23,0,0,0"
+                                                    Grid.Row="1"
+                                                    FontSize="23"
+                                                                TextColor="#C3C2C2"
+                                                    BackgroundColor="Transparent"
+                                                    VerticalOptions="Center"
+                                                    HorizontalOptions="End"
+                                                    Command="{Binding Source={x:Reference loginView}, Path=BindingContext.RefreshUserStoreCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    FontFamily="{StaticResource MaterialCommunityIcons}"
+                                                    Text="{x:Static local:MaterialCommunityIconsFont.Refresh }"/>
+                                           
+                                                <!--<Picker Title="Select a monkey"
+                                                    TitleColor="Red">
+                                                    <Picker.Items>
+                                                        <x:String>Baboon</x:String>
+                                                        <x:String>Capuchin Monkey</x:String>
+                                                        <x:String>Blue Monkey</x:String>
+                                                        <x:String>Squirrel Monkey</x:String>
+                                                        <x:String>Golden Lion Tamarin</x:String>
+                                                        <x:String>Howler Monkey</x:String>
+                                                        <x:String>Japanese Macaque</x:String>
+                                                    </Picker.Items>
+                                                </Picker>-->
+
+                                            </Grid>
+
+                                            <StackLayout 
+											    Grid.Row="2"
+                                                Spacing="2"
+											    Padding="45,0,45,0"
+											    VerticalOptions="Center">
+                                                <Label
+												x:Name="lblmassenge"
+                                                Text="Sai"
+                                                IsVisible="false"
+												TextColor="{StaticResource AccentColor}"
+												FontSize="5"
+												HorizontalOptions="Center"
+												VerticalTextAlignment="End" />
+
+                                                <Button
+												Text="Login"
+                                                Margin="0,0"
+                                                TextColor="White"
+                                                Command="{Binding Source={x:Reference loginView}, Path=BindingContext.LoginClickCommand}"
+												Style="{ StaticResource TranslucidButtonStyle }" />
+
+                                                <StackLayout 
+                                                    Margin="0,30,0,0"
+                                                    Padding="0,10"
+											        Grid.Column="0"
+											        Spacing="20">
+                                                    <Label 
+												        Text="Configure connection to LSRetail"
+                                                        TextColor="{StaticResource AccentColor}"
+												        FontSize="12"
+												        HorizontalTextAlignment="Center" />
+                                                    <StackLayout.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding ConfigCommand}"/>
+                                                    </StackLayout.GestureRecognizers>
+                                                </StackLayout>
+
+                                            </StackLayout>
+                                         
+                                        </Grid>
+                                    </StackLayout>
+                                </ScrollView>
+                            </grial:CardView>
+
+                            <StackLayout  Padding="10,20,10,20" HorizontalOptions="Center" VerticalOptions="End" >
+                                <Label
+						        TextColor="{ DynamicResource BaseLightTextColor }"
+						        FontSize="10.5"
+						        Text="@ 2022 Retail Version 3.3.8" />
+                            </StackLayout>
+                        </StackLayout>
+                        
+                       
+                    </Grid>
+                </StackLayout>
+            </Grid>
+
+            <ContentView IsVisible="{Binding ShowLoading}"  BackgroundColor="#80000000"   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <ActivityIndicator Margin="155,155,155,155" Opacity="1" IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" />
+            </ContentView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

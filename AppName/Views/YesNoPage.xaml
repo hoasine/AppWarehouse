@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="AppName.YesNoPage"
+    BackgroundColor="{ DynamicResource CustomActionSheetShimBackgroundColor }"
+    HasSystemPadding="false"
+    xmlns:local="clr-namespace:AppName"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:DialogsResources />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+
+
+    <Grid>
+        <Grid
+		        Style="{ StaticResource CustomActionSheetStyle }"
+		        VerticalOptions="{ StaticResource DialogsVerticalPositioning }"
+		        HeightRequest="190"
+		        RowSpacing="0">
+            <Grid.Margin>
+                <Thickness
+                        Left="14"
+                        Right="15"/>
+            </Grid.Margin>
+            <Grid.RowDefinitions>
+                <RowDefinition
+				        Height="49" />
+                <RowDefinition
+				        Height="*" />
+                <RowDefinition
+				        Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0"  BackgroundColor="{ DynamicResource NavigationBarEndBackgroundColor }" 
+                             Orientation="Horizontal"
+                             HorizontalOptions="FillAndExpand">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label
+				            Grid.Row="0" 
+				            Grid.Column="0"
+				            Text="{ x:Static local:GrialIconsFont.CheckSquare }"
+				            FontSize="18"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+				            Style="{ StaticResource MainMenuIconStyle }"
+				            TextColor="White" />
+
+                    <Label Grid.Row="0" 
+					        Grid.Column="1" Margin="-10,0,0,0"
+                            Padding="0,14,14,14"  
+                            FontAttributes="Bold" 
+                            FontSize="14"
+                              Text="Notification"
+                            TextColor="White" 
+                            VerticalTextAlignment="Start" 
+                            HorizontalTextAlignment="Start"/>
+                </Grid>
+
+                <Label
+                        HorizontalOptions="EndAndExpand"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Center"
+                        FontSize="18"
+                        FontFamily="{StaticResource IconsFontFamily}"
+                        TextColor="{DynamicResource InverseTextColor}"
+                        Text="{x:Static local:GrialIconsFont.Close}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                                Tapped="TapGestureRecognizer_Tapped"/>
+                    </Label.GestureRecognizers>
+                    <Label.Margin>
+                        <Thickness
+                                Right="8"/>
+                    </Label.Margin>
+                </Label>
+            </StackLayout>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="105"/>
+                </Grid.RowDefinitions>
+
+                    <StackLayout
+                        Padding="15,10,15,15"
+                        Spacing="10">
+                        <Label  FontSize="15" Text= "{Binding Description}" ></Label>
+                    </StackLayout>
+
+                <Grid
+                    Grid.Row="1"
+                    ColumnSpacing="5"
+                    Padding="0,10,10,10"
+                    HorizontalOptions="End">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button
+                            Grid.Column="0"
+                            Grid.Row="0"   
+                        FontSize="13"
+                            WidthRequest="95"
+                            HeightRequest="36"
+                             CornerRadius="6"
+                            VerticalOptions="End"
+                            HorizontalOptions="End"
+                            Text="Close"
+                            Command="{Binding CloseCommand }"/>
+
+                    <Button
+                        FontSize="13"
+                            Grid.Column="1"
+                          Grid.Row="0"   
+                            WidthRequest="95"
+                            HeightRequest="36"
+                             CornerRadius="6"
+                            VerticalOptions="End"
+                            HorizontalOptions="End"
+                            Style="{ StaticResource PrimaryActionButtonStyle }"
+                                   Text="Acpect"
+                            Command="{Binding ConfirmCommand }"/>
+                </Grid>
+            </Grid>
+
+        </Grid>
+
+        <ContentView IsVisible="{Binding ShowLoading}"  BackgroundColor="#80000000"   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <ActivityIndicator Margin="155,155,155,155" Opacity="1" IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" />
+        </ContentView>
+
+    </Grid>
+</pages:PopupPage>

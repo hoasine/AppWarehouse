@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+            xmlns:local="clr-namespace:AppName" 
+            xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+            xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+			x:Class="AppName.SanPhamPage"
+            BackgroundColor="White" 
+            Title="Product Management "
+            xmlns:cv="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions" 
+            NavigationPage.HasNavigationBar="true">
+
+    <Grid  grial:Effects.ApplyIOSSafeAreaAsPadding="Top">
+        <grial:GrialNavigationBar
+				UseNavigationPageBarBackgroundColor="true"
+				UseNavigationPageBarBackgroundGradient="true" />
+        <Grid
+				RowSpacing="-1">
+            <Grid.RowDefinitions>
+                <RowDefinition
+						Height="1.1*" />
+            </Grid.RowDefinitions>
+
+            <!-- PAGE BG -->
+            <BoxView
+					Grid.Row="0"
+					BackgroundColor="{ DynamicResource BasePageColor }" />
+
+            <StackLayout
+				Grid.Row="0" Margin="0,1">
+                <ListView
+				ItemsSource="{ Binding Items }"
+				SeparatorVisibility="None"
+				SeparatorColor="Transparent"
+				HasUnevenRows="false"
+				CachingStrategy="RecycleElement"
+                ItemSelected="ListView_ItemSelected"
+				Margin="0,5">
+                    <ListView.RowHeight>
+                        <OnIdiom
+				    x:TypeArguments="x:Int32"
+				    Phone="90"
+				    Tablet="120" />
+                    </ListView.RowHeight>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <grial:CardView IsVisible="{Binding IsVisible}"
+									BackgroundColor="{ DynamicResource BasePageColor }"
+									ColumnSpacing="20"
+									Margin="15,6"
+									grial:Effects.BackgroundGradient="{ DynamicResource DashboardCardItemTemplateGradient }">
+                                    <grial:CardView.RowDefinitions>
+                                        <RowDefinition
+												Height="*" />
+                                        <RowDefinition
+												Height="*" />
+                                    </grial:CardView.RowDefinitions>
+
+                                    <grial:CardView.ColumnDefinitions>
+                                        <ColumnDefinition
+												Width="{ grial:OnOrientationDouble 
+												Default=80,
+												PortraitTablet=110,
+												LandscapeTablet=110 }" />
+                                        <ColumnDefinition
+												Width="*" />
+                                    </grial:CardView.ColumnDefinitions>
+
+                                    <BoxView
+											Grid.Row="0"
+											Grid.RowSpan="2"
+											Grid.Column="0"
+											BackgroundColor="{ Binding BackgroundColor }" />
+
+                                    <BoxView
+											Grid.Row="0"
+											Grid.RowSpan="2"
+											Grid.Column="0"
+											grial:Effects.CornerRadius="{ 
+											grial:OnOrientationDouble 
+												Default=28,
+												PortraitTablet=33,
+												LandscapeTablet=33 
+												}"
+												WidthRequest="{ 
+													grial:OnOrientationDouble 
+														Default=56,
+														PortraitTablet=66,
+														LandscapeTablet=66 
+												}"
+												HeightRequest="{ 
+													grial:OnOrientationDouble 
+														Default=56,
+														PortraitTablet=66,
+														LandscapeTablet=66 
+												}"
+												BackgroundColor="#33000000"
+												VerticalOptions="Center"
+												HorizontalOptions="Center" />
+
+                                    <Label
+											Grid.Row="0"
+											Grid.RowSpan="2"
+											Grid.Column="0"
+											Text="{ Binding Icon }"
+											FontSize="{
+											grial:OnOrientationDouble 
+											Default=27,
+											PortraitTablet=32,
+											LandscapeTablet=32 
+											}"
+											TextColor="White"
+											Style="{ StaticResource FontIcon }"
+											VerticalTextAlignment="Center"
+											HorizontalOptions="Center" />
+
+
+
+                                    <Label
+											Grid.Row="0"
+											Grid.Column="1"
+											Text="{ Binding Name }"
+											TextColor="{ DynamicResource BaseTextColor }"
+											VerticalTextAlignment="End" />
+
+
+
+                                    <Label
+											Grid.Row="1"
+											Grid.Column="1"
+											Text="{ Binding Tittle }"
+											FontAttributes="Italic"
+											FontSize="14"
+											Opacity=".5"
+											VerticalTextAlignment="Start"
+											TextColor="{ DynamicResource BaseTextColor }" />
+
+
+
+
+                                </grial:CardView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </StackLayout>
+
+
+        </Grid>
+
+
+    </Grid>
+</ContentPage>

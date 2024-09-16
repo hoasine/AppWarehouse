@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="AppName.BarCodeKhuyenMai" 
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+              xmlns:zing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms" xmlns:zxcm="clr-namespace:ZXing.Common;assembly=zxing.portable"
+    xmlns:renderer="clr-namespace:AppName.CustomRenderer;assembly=AppName"
+    xmlns:local="clr-namespace:AppName"
+    BackgroundColor="Black"
+    x:Name="currentPage"
+	Title="Promotion">
+
+    <ContentPage.Resources>
+        <ResourceDictionary
+			Source="/Styles/TabControl/SegmentedTabResources.xaml" />
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <grial:GrialNavigationBar
+				UseNavigationPageBarBackgroundColor="true"
+				UseNavigationPageBarBackgroundGradient="true" />
+
+            <BoxView
+				Margin="0,80,0,0"
+				BackgroundColor="{ DynamicResource BasePageColor }" />
+            <grial:TabControl 
+                Margin="0,0,0,0"
+				Style="{ StaticResource SegmentedTabStyle }">
+                <grial:TabItem  Text="Promotions">
+                    <Grid
+                        Padding="0,10,0,0">
+                        <ListView
+                            IsPullToRefreshEnabled="False" 
+                            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                            HasUnevenRows="True"
+                            SeparatorVisibility="None"
+                            ItemsSource="{Binding ListCTKMs}"
+							RefreshCommand="{Binding LoadDanhSachCTKMsCommand}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <grial:CardView
+                                            Margin="15,6,15,5"
+                                            Padding="0,0,0,10"
+                                            CornerRadius="20"
+                                            Opacity="0.9"
+                                            BackgroundColor="{Binding BackgroundColor}"
+                                            HasShadow="True"
+                                            ShadowSize="4"
+                                            ShadowOpacity=".8">
+                                            <!--BACKGROUND IMAGE-->
+                                            <!--<Image
+                                                Source="bg_tablet.png"
+                                                Aspect="AspectFill"
+                                                Opacity=".25"/>-->
+
+                                            <Grid
+                                                ColumnSpacing="10"
+                                                Padding="20,20,20,5">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <!--IMAGE-->
+                                                <local:CircleCachedImage
+                                                    VerticalOptions="Center"
+                                                    HorizontalOptions="Center"
+                                                    HeightRequest="65"
+                                                    WidthRequest="65"
+                                                    Aspect="AspectFit"
+                                                    Grid.RowSpan="3"
+                                                    BorderSize="0"
+                                                    Source="Promotion.png"/>
+
+                                                <!--TÊN CTKM-->
+                                                <Label
+                                                    Grid.Column="1"
+                                                    FontAttributes="Bold"
+                                                    FontSize="17"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="{Binding Name}"
+                                                    TextColor="{DynamicResource InverseTextColor}"/>
+
+                                                <!--MÃ CTKM-->
+                                                <Label
+                                                    FontSize="14"
+                                                    Grid.Column="1"
+                                                    Grid.Row="1"
+                                                    TextColor="{DynamicResource InverseTextColor}">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <FormattedString.Spans>
+                                                                <Span
+                                                                    Text="Scheme code: "/>
+                                                                <Span
+                                                                    Text="{Binding ItemNo}"/>
+                                                            </FormattedString.Spans>
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+
+                                                <!--THỜI GIAN-->
+                                                <Label
+                                                    Grid.Column="1"
+                                                    Grid.Row="2"
+                                                    TextColor="{DynamicResource InverseTextColor}">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <FormattedString.Spans>
+                                                                <Span
+                                                                    Text="{Binding StartTime, StringFormat='{0:dd/MM/yyyy HH:mm}'}"/>
+                                                                <Span
+                                                                    Text="-"/>
+                                                                <Span
+                                                                    Text="{Binding EndTime, StringFormat='{0:dd/MM/yyyy HH:mm}'}"/>
+                                                            </FormattedString.Spans>
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+
+                                                <Grid
+                                                    Grid.Column="1"
+                                                    RowSpacing="2"
+                                                    ColumnSpacing="30"
+                                                    Grid.Row="3">
+                                                    <Grid.Margin>
+                                                        <Thickness
+                                                            Top="10"/>
+                                                    </Grid.Margin>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <!--CỬA HÀNG-->
+                                                    <Label
+                                                        Text="STORE"
+                                                        FontSize="10"
+                                                        HorizontalTextAlignment="Center"
+                                                        TextColor="{DynamicResource InverseTextColor}"/>
+
+                                                    <Label
+                                                        FontSize="13"
+                                                        Grid.Row="1"
+                                                        FontAttributes="Bold"
+                                                        HorizontalTextAlignment="Center"
+                                                        Text="{Binding Store}"
+                                                        TextColor="{DynamicResource InverseTextColor}"/>
+
+                                                    <!--CỬA HÀNG-->
+                                                    <Label
+                                                        FontSize="10"
+                                                        Grid.Column="1"
+                                                        Text="PROMOTION TYPE"
+                                                        HorizontalTextAlignment="Center"
+                                                        TextColor="{DynamicResource InverseTextColor}"/>
+
+                                                    <Label
+                                                        FontSize="13"
+                                                        Grid.Column="1"
+                                                        Grid.Row="1"
+                                                        FontAttributes="Bold"
+                                                        HorizontalTextAlignment="Center"
+                                                        Text="{Binding PromotionType}"
+                                                        TextColor="{DynamicResource InverseTextColor}"/>
+                                                </Grid>
+                                            </Grid>
+                                        </grial:CardView>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </grial:TabItem>
+
+                <grial:TabItem	Text="Search">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="62"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <grial:GrialNavigationBar
+				            UseNavigationPageBarBackgroundColor="true"
+				            UseNavigationPageBarBackgroundGradient="true" />
+                        <!-- SEARCH BAR -->
+
+
+                        <Grid
+                            Grid.Row="0 "
+					        ColumnSpacing="25"
+					        Margin="18,5,18,0"
+					        grial:Effects.ApplyIOSSafeAreaAsPadding="Left,Right">
+                            <Grid.RowDefinitions>
+                                <RowDefinition
+							    Height="44" />
+                            </Grid.RowDefinitions>
+
+                            <Entry
+                            TextColor="{DynamicResource OverImageTextColor}"
+						    Margin="0,0,-8,0" >
+                            </Entry>
+
+
+                            <SearchBar
+                        x:Name="txtsearch"
+                           TextChanged="OnAgeTextChanged"
+						    CancelButtonColor="{DynamicResource SecondaryPageTextColor}"
+						    Grid.Row="0"
+						    BackgroundColor="Transparent"
+                            grial:Effects.CornerRadius="0"
+						    TextColor="{DynamicResource SecondaryPageTextColor}"
+						    Style="{ StaticResource TranslucidSearchBarStyleVuong }"
+						    Placeholder="Search"
+                                SearchCommand="{Binding SearchItemsCommand}"
+                                SearchCommandParameter="{Binding Source={x:Reference txtsearch}, Path=Text}"/>
+                        </Grid>
+
+
+                        <ListView 
+							 IsVisible="{Binding IsHasData}"
+							Grid.Row="1"
+							x:Name="ctkmList" 
+							BackgroundColor="#F7F9F9"
+							IsGroupingEnabled="True"
+							IsPullToRefreshEnabled="False" 
+							IsRefreshing="{Binding IsBusy, Mode=OneWay}" 
+							ItemsSource="{Binding ListCTKM}" 
+							HasUnevenRows="true"
+							RefreshCommand="{Binding LoadCTKMItemCommand}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <ContentView>
+                                            <grial:CardView
+								            Padding="10,13"
+								            Margin="10,6,10,6"
+								            RowSpacing="2"
+								            ColumnSpacing="4"
+								            CornerRadius="5">
+                                                <grial:CardView.ColumnDefinitions>
+                                                    <ColumnDefinition
+											Width="22" />
+                                                    <ColumnDefinition
+											Width="78" />
+                                                    <ColumnDefinition
+											Width="*" />
+                                                </grial:CardView.ColumnDefinitions>
+
+                                                <grial:CardView.RowDefinitions>
+                                                    <RowDefinition
+											Height="Auto" />
+                                                    <RowDefinition
+											Height="*" />
+                                                </grial:CardView.RowDefinitions>
+
+                                                <Label
+										            Grid.Row="0"
+										            Grid.Column="0"
+										            Grid.ColumnSpan="3"
+										            Text="{ x:Static local:GrialIconsFont.Star }"
+										            FontSize="18"
+										            Style="{ StaticResource MainMenuIconStyle }"
+										            TextColor="Red" />
+
+                                                <Label
+										            Grid.Row="0"
+										            Grid.Column="1"
+										            Grid.ColumnSpan="3"
+										            Style="{ StaticResource LabelBoldStyle }"
+										            Text="{ Binding Scheme_Description }"
+										            FontSize="14"
+										            VerticalOptions="Center" />
+
+                                                <!--Mix match-->
+                                                <StackLayout 	
+                                                    IsVisible = "{Binding IsCheckViewMultyMixMatch}"
+										            Grid.Row="1"
+										            Grid.Column="1"
+										            Grid.ColumnSpan="3">
+
+                                                    <Grid RowSpacing="2.1" ColumnSpacing="0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition
+											                    Width="0" />
+                                                            <ColumnDefinition
+											                    Width="95" />
+                                                            <ColumnDefinition
+											                    Width="*" />
+                                                        </Grid.ColumnDefinitions>
+
+
+                                                        <!--<Label
+										                    Grid.Row="0"
+										                    Grid.ColumnSpan="2"
+										                    Grid.Column="1"
+										                    Style="{ StaticResource LabelBoldStyle }"
+										                    Text="Item category:"
+										                    FontSize="14"
+										                    VerticalOptions="Center" />
+                                                        <Label
+										                    Grid.Row="0"
+										                    Grid.ColumnSpan="2"
+										                    VerticalOptions="FillAndExpand"
+										                    Grid.Column="2"
+										                    Text="{ Binding Item_Cate_Desc }"
+										                    LineBreakMode="WordWrap"
+										                    FontSize="14" />
+
+                                                        <Label
+										                    Grid.Row="1"
+										                    Grid.ColumnSpan="2"
+										                    Grid.Column="1"
+										                    Style="{ StaticResource LabelBoldStyle }"
+										                    Text="Product code:"
+										                    FontSize="14"
+										                    VerticalOptions="Center" />
+
+                                                        <Label
+										                    Grid.Row="1"
+										                    Grid.ColumnSpan="2"
+										                    VerticalOptions="FillAndExpand"
+										                    Grid.Column="2"
+										                    Text="{ Binding Product_Group_Code }"
+										                    LineBreakMode="WordWrap"
+										                    FontSize="14" />-->
+                                                    </Grid>
+
+                                                </StackLayout>
+
+                                                <!--Discount Offer-->
+                                                <StackLayout 	
+                                        IsVisible = "{Binding IsCheckViewDiscoutOffer}"
+										Grid.Row="1"
+										Grid.Column="1"
+										Grid.ColumnSpan="3">
+                                                    <Grid RowSpacing="2" ColumnSpacing="0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition
+											Width="0" />
+                                                            <ColumnDefinition
+											Width="78" />
+                                                            <ColumnDefinition
+											Width="*" />
+                                                        </Grid.ColumnDefinitions>
+
+
+                                                        <Label
+										Grid.Row="0"
+										Grid.ColumnSpan="2"
+										Grid.Column="1"
+										Style="{ StaticResource LabelBoldStyle }"
+										Text="Price:"
+										FontSize="14"
+										VerticalOptions="Center" />
+                                                        <Label
+										Grid.Row="0"
+										Grid.ColumnSpan="2"
+										VerticalOptions="FillAndExpand"
+										Grid.Column="2"
+										Text="{ Binding Standard_Price_Including_VAT }"
+										LineBreakMode="WordWrap"
+										FontSize="14" />
+
+                                                        <Label
+										Grid.Row="1"
+										Grid.ColumnSpan="2"
+										Grid.Column="1"
+										Style="{ StaticResource LabelBoldStyle }"
+										Text="Discount:"
+										FontSize="14"
+										VerticalOptions="Center" />
+
+                                                        <Label
+										Grid.Row="1"
+										Grid.ColumnSpan="2"
+										VerticalOptions="FillAndExpand"
+										Grid.Column="2"
+										Text="{ Binding Disc_Amount_Include_VAT }"
+										LineBreakMode="WordWrap"
+										FontSize="14" />
+                                                        <Label
+										Grid.Row="2"
+										Grid.ColumnSpan="2"
+										Grid.Column="1"
+										Style="{ StaticResource LabelBoldStyle }"
+										Text="Total:"
+										FontSize="14"
+										VerticalOptions="Center" />
+
+                                                        <Label
+										Grid.Row="2"
+										Grid.ColumnSpan="2"
+										VerticalOptions="FillAndExpand"
+										Grid.Column="2"
+										Text="{ Binding Offer_Price_Including_VAT }"
+										LineBreakMode="WordWrap"
+										FontSize="14" />
+                                                    </Grid>
+
+                                                </StackLayout>
+
+                                            </grial:CardView>
+                                        </ContentView>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <ListView.GroupHeaderTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Grid BackgroundColor="#E5E7E9">
+                                            <Label Padding="13" FontAttributes="Bold" FontSize="Small" Text="{Binding Name}" TextColor="{DynamicResource BaseTextColor}" VerticalTextAlignment="Center" />
+                                            <Image x:Name="ImgA" Source="{Binding StateIcon}" Margin="0,0,5,0" HeightRequest="20" WidthRequest="20" HorizontalOptions="End" />
+                                            <Grid.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference currentPage}, Path=BindingContext.RefreshItemsCommand}" NumberOfTapsRequired="1"  CommandParameter="{Binding .}"/>
+                                            </Grid.GestureRecognizers>
+                                        </Grid>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.GroupHeaderTemplate>
+                        </ListView>
+                    </Grid>
+                </grial:TabItem>
+            </grial:TabControl>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

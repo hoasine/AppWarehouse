@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="AppName.EditCheckStockCustomPage"
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core"
+    BackgroundColor="{DynamicResource MainWrapperBackgroundColor}"
+    xmlns:local="clr-namespace:AppName"
+    Title="Edit Cycle Count">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ScrollView
+            grial:Effects.ApplyIOSSafeAreaAsPadding="All">
+            <StackLayout
+                Margin="0,10,0,0"
+
+                Padding="10"
+                Spacing="18">
+                <Label
+                        FontAttributes="Bold"
+                    Text="Information"
+                        TextColor="{DynamicResource AccentColor}">
+                    <Label.Margin>
+                        <Thickness
+                                Left="0"/>
+                    </Label.Margin>
+                </Label>
+
+                <Grid
+                    ColumnSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="7*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                        Text="Description"
+                        VerticalTextAlignment="Center"/>
+
+                    <Entry
+                         grial:EntryProperties.BorderCornerRadius="5"
+                        Text="{Binding DataModel.Desciption}"
+                        IsEnabled="{Binding IsReadOnly, Converter={StaticResource NegateBooleanConverter}}"
+                        Grid.Column="1">
+
+                        <Entry.Triggers>
+                            <DataTrigger
+                                    TargetType="Entry"
+                                    Binding="{Binding DataModel.Desciption}"
+                                    Value="false">
+                                <Setter Property="grial:PickerProperties.BorderColor" Value="{StaticResource AccentColor}"/>
+                            </DataTrigger>
+                        </Entry.Triggers>
+
+
+                    </Entry>
+                </Grid>
+
+                <Grid
+                    ColumnSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="7*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                        Text="Store"
+                        VerticalTextAlignment="Center"/>
+
+                    <Label
+                        Grid.Column="1"
+                        Text="{Binding DataModel.LocationCode}"
+                        VerticalTextAlignment="Center"/>
+                </Grid>
+
+                <Grid
+                    ColumnSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="7*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                        Text="Date create"
+                        VerticalTextAlignment="Center"/>
+
+                    <Label
+                        Grid.Column="1"
+                        Text="{Binding DataModel.DateCreate}"
+                        VerticalTextAlignment="Center"/>
+                </Grid>
+
+                <Grid
+                    ColumnSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="7*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                        Text="Management"
+                        VerticalTextAlignment="Center"/>
+
+                    <Label
+                        Grid.Column="1"
+                        Text="{Binding DataModel.Management}"
+                        VerticalTextAlignment="Center"/>
+                </Grid>
+
+
+                <BoxView
+                        Margin="0,10,0,0"
+                        HeightRequest="0.2"
+                        Style="{StaticResource Horizontal1ptLineStyle}"/>
+
+                
+                <!--<Grid      Padding="0,5,0,0">
+                    <Label
+                        FontAttributes="Bold"
+                    Text="STOCK TAKE LINES"
+                        TextColor="{DynamicResource AccentColor}">
+                        <Label.Margin>
+                            <Thickness
+                                Left="0"/>
+                        </Label.Margin>
+                    </Label>
+                    
+                    --><!--MẶC ĐỊNH ẨN NÚT NÀY. SAU KHI IMPORT CÓ DỮ LIỆU MỚI HIỂN THỊ--><!--
+                    <Label
+                        IsVisible="{Binding IsReadOnly, Converter={StaticResource NegateBooleanConverter}}"
+                        HorizontalOptions="End"
+                        HorizontalTextAlignment="End"
+                        FontSize="20"
+                        TextColor="{DynamicResource AccentColor}"
+                        FontFamily="{StaticResource MaterialCommunityIcons}"
+                        Text="{x:Static local:MaterialCommunityIconsFont.PlusCircleOutline}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding PickerFileCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>--><!--
+                </Grid>
+
+
+                --><!--HIỂN THỊ VIEW ITEM LIST SAU KHI IMPORT--><!--
+                <StackLayout
+                    Spacing="10"
+                    BindableLayout.ItemsSource="{Binding ListStockLine}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout
+                                Spacing="10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="7*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <FormattedString.Spans>
+                                                    <Span
+                                                            Text="{Binding ItemName}"/>
+                                                    --><!--<Span
+                                                            Text="-"/>
+                                                            <Span
+                                                            Text="{Binding ItemNo}"/>--><!--
+                                                </FormattedString.Spans>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+
+
+                                    <Label
+                                            VerticalTextAlignment="Center"
+                                            HorizontalTextAlignment="Center"
+                                            Grid.Column="1">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <FormattedString.Spans>
+                                                    --><!--<Span
+                                                            Text="Qty: "/>--><!--
+                                                    <Span
+                                                                FontAttributes="Bold"
+                                                            Text="{Binding ItemNo}"/>
+                                                </FormattedString.Spans>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </Grid>
+
+                                <BoxView
+                                    Margin="-10,0"
+                                    HeightRequest="0.2"
+                                    Style="{StaticResource Horizontal1ptLineStyle}"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>-->
+            </StackLayout>
+        </ScrollView>
+
+
+
+        
+        <Button
+            IsVisible="{Binding IsReadOnly, Converter={StaticResource NegateBooleanConverter}}"
+            Grid.Row="1"
+            Margin="50,10,50,20"
+            VerticalOptions="Center"
+            HorizontalOptions="FillAndExpand"
+            Style="{ StaticResource PrimaryActionButtonStyle }"
+            Text="Save"
+            Command="{Binding ConfirmCommand}"/>
+    </Grid>
+</ContentPage>

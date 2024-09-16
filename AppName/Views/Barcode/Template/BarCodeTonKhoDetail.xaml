@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:AppName" xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+	x:Class="AppName.BarCodeTonKhoDetail"
+	BackgroundColor="{ DynamicResource CustomActionSheetShimBackgroundColor }"
+	HasSystemPadding="false">
+
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:DialogsResources />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation
+			PositionIn="Bottom"
+			PositionOut="Bottom" />
+    </pages:PopupPage.Animation>
+
+    <Grid
+		Style="{ StaticResource CustomActionSheetStyle }"
+		VerticalOptions="{ StaticResource CustomActionSheetPositioning }"
+		HeightRequest="380"
+		RowSpacing="0">
+
+        <Grid.RowDefinitions>
+            <RowDefinition
+				Height="49" />
+            <RowDefinition
+				Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackLayout Grid.Row="0"  BackgroundColor="{ DynamicResource RatingsColor }" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label
+				    Grid.Row="0" 
+				    Grid.Column="0"
+				    Text="{ x:Static local:GrialIconsFont.CheckSquare }"
+				    FontSize="18"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+				    Style="{ StaticResource MainMenuIconStyle }"
+				    TextColor="White" />
+
+                <Label Grid.Row="0" 
+					Grid.Column="1" Margin="-10,0,0,0"
+                    Padding="0,14,14,14"  
+                    FontAttributes="Bold" 
+                    FontSize="14"
+                      Text="{Binding ItemNo}"
+                    TextColor="White" 
+                    VerticalTextAlignment="Start" 
+                    HorizontalTextAlignment="Start"/>
+            </Grid>
+        </StackLayout>
+
+        <StackLayout  IsVisible="{Binding IsMess}"  VerticalOptions="Start" Margin="0,13,0,0"
+			Grid.Row="1" Padding="10,0,10,40">
+            <Label
+                Text="No products found. Please try again!">
+            </Label>
+        </StackLayout>
+        
+        <Grid IsVisible="{Binding IsHasData}" VerticalOptions="CenterAndExpand" Margin="0,13,0,0"
+			Grid.Row="1" Padding="10,0,10,40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+				Width="0.8*" />
+                <ColumnDefinition
+				Width="4*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0" Text="Barcode" VerticalTextAlignment="Center" />
+            <Entry
+                    Grid.Column="1" Grid.Row="0"
+                    TextColor="Black"
+                    IsReadOnly="True"
+                    Text="{ Binding TonKho.ItemNo }"
+					Placeholder="Barcode"
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+            <Label Grid.Column="0" Grid.Row="1" Text="Name" VerticalTextAlignment="Center" />
+            <Entry
+                    Grid.Column="1" Grid.Row="1"
+                    TextColor="Black"
+                    IsReadOnly="True"
+                    Text="{ Binding TonKho.TENSP }"
+					Placeholder="Tên sản phẩm"
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+            <Label Grid.Column="0" Grid.Row="2" Text="Variant" VerticalTextAlignment="Center" />
+            <Entry
+                    Grid.Column="1" Grid.Row="2"
+                    TextColor="Black"
+                    IsReadOnly="True"
+                    Text="{ Binding TonKho.VariantCode }"
+					Placeholder="Variant"
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+            
+            <Label Grid.Column="0" Grid.Row="3" Text="Category" VerticalTextAlignment="Center" />
+            <Entry
+                    Grid.Column="1" Grid.Row="3"
+                    TextColor="Black"
+                    IsReadOnly="True"
+                    Text="{ Binding TonKho.ItemCategory }"
+					Placeholder="Category"
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+            <Label Grid.Column="0" Grid.Row="4" Text="Year" VerticalTextAlignment="Center" />
+            <Entry
+                    Grid.Column="1" Grid.Row="4"
+                    TextColor="Black"
+                    IsReadOnly="True"
+                    Text="{ Binding TonKho.Year }"
+					Placeholder="Year"
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+            <Label Grid.Column="0" Grid.Row="5" Text="Brand" VerticalTextAlignment="Center" />
+            <Entry
+                    Grid.Column="1" Grid.Row="5"
+                    TextColor="Black"
+                    IsReadOnly="True"
+                    Text="{ Binding TonKho.BrandName }"
+					Placeholder="Brand"
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+            
+            <Label Grid.Column="0" Grid.Row="6" Text="Quantity" VerticalTextAlignment="Center" />
+            <Entry
+                    Grid.Column="1" Grid.Row="6"
+                    TextColor="Black"
+                    IsReadOnly="True"
+                    Text="{ Binding TonKho.TONCUOIKY }"
+					Placeholder="Tồn"
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+        </Grid>
+    </Grid>
+
+
+</pages:PopupPage>

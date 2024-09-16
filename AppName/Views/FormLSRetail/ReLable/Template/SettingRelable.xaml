@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:AppName"
+                 xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
+                 xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+     xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+	x:Class="AppName.SettingRelable"
+                 x:Name="settingRelable"
+	BackgroundColor="{ DynamicResource CustomActionSheetShimBackgroundColor }"
+	HasSystemPadding="false">
+
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:DialogsResources />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+        <Style
+			x:Key="PseudoTableSectionSwitchStyle"
+			TargetType="Switch">
+            <Setter
+				Property="HorizontalOptions"
+				Value="End" />
+            <Setter
+				Property="VerticalOptions"
+				Value="Center" />
+        </Style>
+
+    </pages:PopupPage.Resources>
+
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation
+			PositionIn="Top"
+			PositionOut="Top" />
+    </pages:PopupPage.Animation>
+
+
+    <Grid
+        HeightRequest="550"
+		Margin="20"
+		Style="{ StaticResource BlurredShadow }"
+		VerticalOptions="{ DynamicResource DialogsVerticalPositioning }">
+        <Grid
+			RowSpacing="0"
+			grial:Effects.CornerRadius="{ DynamicResource DialogsCornerRadius }"
+			grial:Effects.BackgroundGradient="{ DynamicResource SimpleDialogBodyGradient }"
+			BackgroundColor="{ DynamicResource BasePageColor }">
+
+            <Grid.RowDefinitions>
+                <RowDefinition
+					Height="44" />
+                <RowDefinition
+					Height="150" />
+                <RowDefinition
+					Height="*" />
+                <RowDefinition
+					Height="55" />
+            </Grid.RowDefinitions>
+
+            <!--TITLE AND ICON-->
+            <Grid
+				Grid.Row="0"
+				BackgroundColor="{ DynamicResource AccentColor }"
+				Padding="14,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+						Width="Auto" />
+                    <ColumnDefinition
+						Width="Auto" />
+                    <ColumnDefinition
+						Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- ICON -->
+                <Label
+					Grid.Column="0"
+					TextColor="White"
+					Text="{ x:Static local:GrialIconsFont.Box }"
+					Style="{ StaticResource FontIcon}"
+					VerticalTextAlignment="Center"
+					FontSize="{ StaticResource DialogsIconsSize }"
+					HorizontalTextAlignment="Start" />
+
+                <!-- TITLE -->
+                <Label
+					Grid.Column="1"
+					Text="Bluetooth connection"
+					TextColor="White"
+					FontSize="{ StaticResource DialogsTitleFontSize }"
+					VerticalTextAlignment="Center"
+					HorizontalTextAlignment="Start" />
+
+                <!-- ICON CLOSE -->
+                <Label
+					Grid.Column="2"
+					Margin="0"
+					FontSize="{ StaticResource DialogsIconsSize }"
+					TextColor="White"
+					Text="{ x:Static local:GrialIconsFont.CloseCircle }"
+					Style="{ StaticResource FontIconFill }"
+					VerticalTextAlignment="Center"
+					HorizontalTextAlignment="End">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+							Command="{Binding CloseCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+            </Grid>
+
+            <!-- CONTENT -->
+            <StackLayout
+				        Margin="10"
+				        Grid.Row="1">
+                <StackLayout >
+
+                    <Label
+                        Text="TEMPLATE PRINTER"
+                            FontAttributes="Bold"
+                        TextColor="{StaticResource AccentColor}"
+                        Margin="5"/>
+
+                    <grial:Checkbox
+                        HeightRequest="70"
+                            Margin="5,10,0,0"
+                            Grid.Row="0"
+                            x:Name="tagtamplate"
+                            UncheckedBorderColor="#B6B6B6"
+                            UncheckedBackgroundColor="#D0D0D0"
+                             CheckedBackgroundColor="{StaticResource AccentColor}"
+                            CheckedBorderColor="{StaticResource AccentColor}"
+                            VerticalOptions="Start"
+                            IsChecked="{Binding IStagtamplate, Mode=TwoWay}"
+							HorizontalOptions="Start">
+                        <StackLayout
+							Orientation="Horizontal"
+							Margin="8,0,0,0">
+                            <Label
+                                TextColor="{StaticResource BaseTextColor}"
+								VerticalTextAlignment="Center"
+								Text="Price Tag template"
+								FontSize="14" />
+                        </StackLayout>
+                    </grial:Checkbox>
+
+                    <grial:Checkbox
+                            Margin="5,10,0,0"  
+                            HeightRequest="70"
+                            Grid.Row="1"
+                            x:Name="shelfTemplate"
+                            IsChecked="{Binding ISshelfTemplate, Mode=TwoWay}"
+                            CheckedBackgroundColor="{StaticResource AccentColor}"
+                            CheckedBorderColor="{StaticResource AccentColor}"
+                            UncheckedBorderColor="#B6B6B6"
+                            UncheckedBackgroundColor="#D0D0D0"
+                            VerticalOptions="Start"
+							HorizontalOptions="Start">
+                        <StackLayout
+							Orientation="Horizontal"
+							Margin="8,0,0,0">
+                            <Label
+                                TextColor="{StaticResource BaseTextColor}"
+								VerticalTextAlignment="Center"
+								Text="Shelf talker template"
+								FontSize="14" />
+                        </StackLayout>
+                    </grial:Checkbox>
+
+                    <!--<grial:Checkbox
+                            Margin="5,10,0,0"  
+                            HeightRequest="70"
+                            Grid.Row="1"
+                            x:Name="iSCTemplate"
+                            IsChecked="{Binding ISISCTemplate, Mode=TwoWay}"
+                            CheckedBackgroundColor="{StaticResource AccentColor}"
+                            CheckedBorderColor="{StaticResource AccentColor}"
+                            UncheckedBorderColor="#B6B6B6"
+                            UncheckedBackgroundColor="#D0D0D0"
+                            VerticalOptions="Start"
+							HorizontalOptions="Start">
+                        <StackLayout
+							Orientation="Horizontal"
+							Margin="8,0,0,0">
+                            <Label
+                                TextColor="{StaticResource BaseTextColor}"
+								VerticalTextAlignment="Center"
+								Text="ISC template"
+								FontSize="14" />
+                        </StackLayout>
+                    </grial:Checkbox>-->
+
+                    <BoxView
+                        Margin="0,10,0,0"
+                        HeightRequest="0.2"
+                        Style="{StaticResource Horizontal1ptLineStyle}"/>
+
+                </StackLayout>
+
+                <!--<Label
+                        Text="TEMPLATE PRINTER"
+                            FontAttributes="Bold"
+                        TextColor="{StaticResource AccentColor}"
+                        Margin="5"/>
+
+                    <Picker Title="Select a monkey"
+                        TitleColor="Red">
+                        <Picker.Items>
+                            <x:String>Baboon</x:String>
+                            <x:String>Capuchin Monkey</x:String>
+                            <x:String>Blue Monkey</x:String>
+                            <x:String>Squirrel Monkey</x:String>
+                            <x:String>Golden Lion Tamarin</x:String>
+                            <x:String>Howler Monkey</x:String>
+                            <x:String>Japanese Macaque</x:String>
+                        </Picker.Items>
+                    </Picker>-->
+            </StackLayout>
+
+
+            <!-- CONTENT -->
+            <StackLayout
+				Margin="10,0"
+                Spacing="10"
+				Grid.Row="2">
+
+                <Label
+                        Text="BLUETOOTH"
+                            FontAttributes="Bold"
+                        TextColor="{StaticResource AccentColor}"
+                        Margin="5"/>
+
+                <StackLayout HeightRequest="150" IsVisible="{Binding IsShowConnected,Mode=TwoWay}">
+                    <Grid RowSpacing="7" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Padding="0,10,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="listBulletIcon" VerticalOptions="CenterAndExpand" Margin="10,20,10,10"  BackgroundColor="red"/>
+
+                        <Label
+                                        Grid.Row="0"
+                                        Margin="0,-17,0,0"
+                                        Grid.RowSpan="2"
+					                    Grid.Column="0"
+					                    TextColor="{StaticResource AccentColor}"
+                                        FontSize="16"
+					                    Text="{ x:Static local:GrialIconsFont.Bluetooth } "
+					                    Style="{ StaticResource FontIcon}"
+					                    VerticalTextAlignment="Center"
+					                    HorizontalTextAlignment="Center" />
+
+                        <Label Grid.Column="1" Grid.Row="0" Text="{Binding DataBluetoothConneted.BlueName,Mode=TwoWay}" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource AccentColor}" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" VerticalOptions="CenterAndExpand" />
+                        <Label Grid.Column="1" Grid.Row="1" Text="{Binding DataBluetoothConneted.MacID}" FontSize="12" TextColor="Black" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" VerticalOptions="CenterAndExpand" />
+
+
+                        <Label
+                                        Grid.Row="0"
+					                    Grid.Column="2"
+                                        Grid.RowSpan="2"
+					                    TextColor="{StaticResource ErrorColor}"
+                                        FontSize="14"
+					                    Text="Disconnect "
+					                    Style="{ StaticResource FontIcon}"
+					                    VerticalTextAlignment="Center"
+					                    HorizontalTextAlignment="Start" >
+
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference settingRelable}, Path=BindingContext.DiscoinnectCommand}" NumberOfTapsRequired="1"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </StackLayout>
+
+                <BoxView
+                        Margin="0,0,0,0"
+                        HeightRequest="0.2"
+                        Style="{StaticResource Horizontal1ptLineStyle}"/>
+
+                <ListView x:Name="lstAllLists" ItemsSource="{Binding BluetoothList}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HasUnevenRows="True" SelectionMode="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid RowSpacing="0" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Padding="0,10,0,10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Source="listBulletIcon" VerticalOptions="CenterAndExpand" Margin="10" />
+
+
+                                    <!-- ICON -->
+                                    <Label
+                                        Grid.Row="0"
+					                    Grid.Column="0"
+					                    TextColor="Black"
+   Margin="0,-17,0,0"
+                                        Grid.RowSpan="2"
+                                        FontSize="16"
+					                    Text="{ x:Static local:GrialIconsFont.Bluetooth } "
+					                    Style="{ StaticResource FontIcon}"
+					                    VerticalTextAlignment="Center"
+					                    HorizontalTextAlignment="Start" />
+
+
+                                    <Label Grid.Column="1" Grid.Row="0" Text="{Binding BlueName}" FontSize="15" TextColor="Black" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" VerticalOptions="CenterAndExpand" />
+                                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding MacID}" FontSize="12" TextColor="Black" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" VerticalOptions="CenterAndExpand" />
+
+                                    <!--<Switch Grid.Column="2" Grid.RowSpan="2"
+						                Style="{ StaticResource PseudoTableSectionSwitchStyle }"
+						                IsToggled="{Binding IsConnect,Mode=TwoWay}" >
+                                        <Switch.Behaviors>
+                                            <b:EventToCommandBehavior EventName="Toggled" Command="{Binding Source={x:Reference settingRelable}, Path=BindingContext.BluetoothCommad}"   CommandParameter="{Binding .}" ></b:EventToCommandBehavior>
+                                        </Switch.Behaviors>
+                                    </Switch>-->
+
+                                    <!--<Switch Grid.Column="3"
+						                Style="{ StaticResource PseudoTableSectionSwitchStyle }"
+						                IsToggled="{Binding IsConnect, Converter={StaticResource CheckBluetoothConvert}}" >
+                                        <Switch.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference bluetoothPage}, Path=BindingContext.BluetoothCommad}" NumberOfTapsRequired="1"  CommandParameter="{Binding .}"/>
+                                        </Switch.GestureRecognizers>-->
+                                    <!--</Switch>-->
+
+                                    <!-- ICON -->
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.RowSpan="2"
+					                    Grid.Column="2"
+					                    TextColor="{StaticResource BaseLightTextColor}"
+                                        FontSize="14"
+					                    Text="Connect "
+					                    Style="{ StaticResource FontIcon}"
+					                    VerticalTextAlignment="Center"
+					                    HorizontalTextAlignment="Start" >
+
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference settingRelable}, Path=BindingContext.BluetoothCommad}" NumberOfTapsRequired="1"  CommandParameter="{Binding .}"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+
+                                    <!--<Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference settingRelable}, Path=BindingContext.BluetoothCommad}" NumberOfTapsRequired="1"  CommandParameter="{Binding .}"/>
+                                    </Grid.GestureRecognizers>-->
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </StackLayout>
+
+            <!-- FOOTER 
+            
+            -->
+            <FlexLayout
+				Margin="20,0"
+				Grid.Row="3"
+				JustifyContent="Center">
+                <Button
+					Style="{ StaticResource DialogPrimaryActionButtonStyle }"
+					Text="OK"
+					Command="{Binding CloseCommand}" />
+            </FlexLayout>
+
+        </Grid>
+
+    </Grid>
+
+</pages:PopupPage>

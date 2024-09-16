@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:AppName" xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+	x:Class="AppName.BarCodeSanPhamDetail"
+	BackgroundColor="{ DynamicResource CustomActionSheetShimBackgroundColor }"
+	HasSystemPadding="false">
+
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:DialogsResources />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation
+			PositionIn="Bottom"
+			PositionOut="Bottom" />
+    </pages:PopupPage.Animation>
+
+    <Grid
+		Style="{ StaticResource CustomActionSheetStyle }"
+		VerticalOptions="{ StaticResource CustomActionSheetPositioning }"
+		HeightRequest="550"
+		RowSpacing="0">
+
+        <Grid.RowDefinitions>
+            <RowDefinition
+				Height="45" />
+            <RowDefinition
+				Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackLayout Grid.Row="0"  BackgroundColor="{ DynamicResource NavigationBarEndBackgroundColor }" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label
+				    Grid.Row="0" 
+				    Grid.Column="0"
+				    Text="{ x:Static local:GrialIconsFont.CheckSquare }"
+				    FontSize="18"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+				    Style="{ StaticResource MainMenuIconStyle }"
+				    TextColor="White" />
+
+                <Label Grid.Row="0" 
+					Grid.Column="1" Margin="-10,0,0,0"
+                    Padding="0,14,14,14"  
+                    FontAttributes="Bold" 
+                    FontSize="14"
+                      Text="{Binding ItemNo}"
+                    TextColor="White" 
+                    VerticalTextAlignment="Start" 
+                    HorizontalTextAlignment="Start"/>
+            </Grid>
+        </StackLayout >
+
+        <StackLayout  IsVisible="{Binding IsMess}"  VerticalOptions="Start" Margin="0,13,0,0"
+			Grid.Row="1" Padding="10,0,10,40">
+            <Label
+                Text="No products found. Please try again!">
+            </Label>
+        </StackLayout>
+
+        <Grid IsVisible="{Binding IsHasData}" VerticalOptions="CenterAndExpand" Margin="0,13,0,0"
+			Grid.Row="1" Padding="10,0,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*" />
+                <RowDefinition	Height="*" />
+                <RowDefinition	Height="*" />
+                <RowDefinition	Height="*" />
+                <RowDefinition	Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+				Width="0.8*" />
+                <ColumnDefinition
+				Width="4*" />
+            </Grid.ColumnDefinitions>
+
+            <Image Source="{Binding BarCode.ImageSource, Mode=TwoWay}" Grid.Row="0" Grid.ColumnSpan="2"  Grid.Column="0" VerticalOptions="Start" ></Image>
+
+            <Label Grid.Column="0" Grid.Row="1" Text="Item" VerticalTextAlignment="Center" />
+            <Entry
+                    Grid.Column="1" Grid.Row="1"
+                    TextColor="Black"
+                    IsReadOnly="True"
+                    Text="{ Binding BarCode.ItemNo }"
+					Placeholder="ItemNo"
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+            <Label Grid.Column="0" Grid.Row="2" Text="Name" VerticalTextAlignment="Center" />
+            <Entry
+                 Grid.Column="1" Grid.Row="2"
+                     TextColor="Black"
+                        IsReadOnly="True"
+						 Text="{ Binding BarCode.ItemName }"
+						Placeholder="Product name"
+						VerticalOptions="Center"
+						HorizontalOptions="FillAndExpand" />
+
+            <Label Grid.Column="0" Grid.Row="3" Text="Price" VerticalTextAlignment="Center" />
+            <Entry
+                 Grid.Column="1" Grid.Row="3"
+                     TextColor="Black"
+                        IsReadOnly="True"
+						 Text="{ Binding BarCode.UnitPrice }"
+						Placeholder="Price product "
+						VerticalOptions="Center"
+						HorizontalOptions="FillAndExpand" />
+
+            <Label Grid.Column="0" Grid.Row="4" Text="Division" VerticalTextAlignment="Center" />
+            <Entry
+                 Grid.Column="1" Grid.Row="4"
+                     TextColor="Black"
+                        IsReadOnly="True"
+						 Text="{ Binding BarCode.Division }"
+						Placeholder="Planogram description "
+						VerticalOptions="Center"
+						HorizontalOptions="FillAndExpand" />
+
+
+            <Label Grid.Column="0" Grid.Row="5" Text="Category" VerticalTextAlignment="Center" />
+            <Entry
+                 Grid.Column="1" Grid.Row="5"
+                     TextColor="Black"
+                        IsReadOnly="True"
+						 Text="{ Binding BarCode.ItemCategory } "
+						Placeholder="Position "
+						VerticalOptions="Center"
+						HorizontalOptions="FillAndExpand" />
+
+            <Label Grid.Column="0" Grid.Row="6" Text="Return" VerticalTextAlignment="Center" />
+            <Entry
+                 Grid.Column="1" Grid.Row="6"
+                     TextColor="Black"
+                        IsReadOnly="True"
+						 Text="{ Binding BarCode.ReturnDesc }"
+						Placeholder="Return Type "
+						VerticalOptions="Center"
+						HorizontalOptions="FillAndExpand" />
+
+            
+            <Label Grid.Column="0" Grid.Row="7" Text="Status" VerticalTextAlignment="Center" />
+            <Entry
+                 Grid.Column="1" Grid.Row="7"
+                     TextColor="Black"
+                        IsReadOnly="True"
+						 Text="{ Binding BarCode.StatusItem }"
+						Placeholder="Item Status "
+						VerticalOptions="Center"
+						HorizontalOptions="FillAndExpand" />
+
+
+            <Label Grid.Column="0" Grid.Row="8" Text="Status" VerticalTextAlignment="Center" />
+            <Entry
+                 Grid.Column="1" Grid.Row="8"
+                     TextColor="Black"
+                        IsReadOnly="True"
+						 Text="{ Binding BarCode.ReturnComment }"
+						Placeholder="Comment"
+						VerticalOptions="Center"
+						HorizontalOptions="FillAndExpand" />
+
+        </Grid>
+    </Grid>
+
+
+</pages:PopupPage>

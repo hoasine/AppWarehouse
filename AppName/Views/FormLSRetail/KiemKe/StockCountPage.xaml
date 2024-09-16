@@ -1,0 +1,434 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="AppName.StockCountPage"
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+    BackgroundColor="{DynamicResource MainWrapperBackgroundColor}"
+    NavigationPage.HasNavigationBar="true"
+    xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    Title="Stock count">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <x:Double x:Key="PseudoTableSectionLineHeight">1</x:Double>
+            <Color x:Key="PseudoTableSectionLineBackgroundColor">#22000000</Color>
+            <Thickness x:Key="Padding02">0,6</Thickness>
+            <Thickness x:Key="Padding0200">0,6,0,0</Thickness>
+
+            <grial:LinearGradient
+		        x:Key="BackgroundColorApproved"
+		        Angle="135">
+                <grial:GradientColor
+			        Color="#bd7afe"
+			        Position="0" />
+                <grial:GradientColor
+			        Color="#f2a1f3"
+			        Position=".65" />
+            </grial:LinearGradient>
+
+            <grial:LinearGradient
+		        x:Key="BackgroundColorPending"
+		        Angle="135">
+                <grial:GradientColor
+			        Color="#6d8dff"
+			        Position="0" />
+                <grial:GradientColor
+			        Color="#74cfff"
+			        Position=".65" />
+            </grial:LinearGradient>
+
+            <grial:LinearGradient
+		        x:Key="BackgroundColorRejected"
+		        Angle="135">
+                <grial:GradientColor
+			        Color="#f7759f"
+			        Position="0" />
+                <grial:GradientColor
+			        Color="#fca883"
+			        Position=".65" />
+            </grial:LinearGradient>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!--ROW 0-->
+            <Grid
+                ColumnSpacing="10"
+                Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <grial:CardView
+                    Padding="8,13"
+                    CornerRadius="5"
+                    RowSpacing="0"
+                    grial:Effects.BackgroundGradient="{DynamicResource BackgroundColorApproved}">
+                    <grial:CardView.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </grial:CardView.RowDefinitions>
+
+                    <!--Text="{Binding CountApproved}"-->
+                    <Label
+                        Text="{Binding CountStock.StockTake}"
+                        FontSize="19"
+                        TextColor="{DynamicResource InverseTextColor}"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="End"/>
+
+                    <Label
+                        Grid.Row="1"
+                        FontSize="14"
+                       Text="Stock take"
+                        TextColor="{DynamicResource InverseTextColor}"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Start"/>
+                    <grial:CardView.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding StockTakeCommand}"
+                            CommandParameter="StockTake"/>
+                    </grial:CardView.GestureRecognizers>
+                </grial:CardView>
+
+                <grial:CardView
+                    Grid.Column="1"
+                    CornerRadius="5"
+                    Padding="8,13"
+                    RowSpacing="0"
+                    grial:Effects.BackgroundGradient="{DynamicResource BackgroundColorPending}">
+                    <grial:CardView.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </grial:CardView.RowDefinitions>
+
+                    <!--Text="{Binding CountPending}"-->
+                    <Label
+                       Text="{Binding CountStock.GapCheck}"
+                         FontSize="19"
+                        TextColor="{DynamicResource InverseTextColor}"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="End"/>
+
+                    <Label
+                        Grid.Row="1"
+                        FontSize="14"
+                        Text="Gap check"
+                        TextColor="{DynamicResource InverseTextColor}"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Start"/>
+                    <grial:CardView.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding GapCheckCommand}"
+                            CommandParameter="GapCheck"/>
+                    </grial:CardView.GestureRecognizers>
+                </grial:CardView>
+
+                <grial:CardView
+                    Grid.Column="2"
+                    CornerRadius="5"
+                    Padding="8,13"
+                    RowSpacing="0"
+                    grial:Effects.BackgroundGradient="{DynamicResource BackgroundColorRejected}">
+                    <grial:CardView.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </grial:CardView.RowDefinitions>
+
+                    <!--Text="{Binding CountRejected}"-->
+                    <Label
+                        Text="{Binding CountStock.CycleCount}"
+                         FontSize="19"
+                        TextColor="{DynamicResource InverseTextColor}"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="End"/>
+
+                    <Label
+                        Grid.Row="1"
+                        FontSize="14"
+                        Text="Cycle count"
+                        TextColor="{DynamicResource InverseTextColor}"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Start"/>
+                    <grial:CardView.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding CycleCountCommand}"
+                            CommandParameter="CycleCount"/>
+                    </grial:CardView.GestureRecognizers>
+                </grial:CardView>
+            </Grid>
+
+            <!--ROW 1-->
+            <Grid
+                Margin="15,0,15,15"
+                ColumnSpacing="10"
+                RowSpacing="10"
+                Grid.Row="1"
+                Padding="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <grial:CardView
+                    IsVisible="{Binding VisibleStockTakePage}"
+                    CornerRadius="4"
+                    VerticalOptions="CenterAndExpand"
+                    Padding="0,20"
+                    BackgroundColor="{DynamicResource BasePageColor}">
+                    <grial:CardView.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding NavigatePageCommand}"
+                            CommandParameter="StockTakePage"/>
+                    </grial:CardView.GestureRecognizers>
+                    <Grid
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        RowSpacing="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <ffimage:CachedImage
+                            VerticalOptions="Center"
+                            HeightRequest="50"
+                            WidthRequest="50"
+                            Source="ic_boxes.png">
+                            <ffimage:CachedImage.Transformations>
+                                <fftransformations:TintTransformation
+                                    HexColor="#A7B6BF"
+                                    EnableSolidColor="True"/>
+                            </ffimage:CachedImage.Transformations>
+                        </ffimage:CachedImage>
+
+                        <Label
+                            Grid.Row="1"
+                            TextColor="{DynamicResource CircleActionButtonFlatTextColor}"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="stock take"/>
+                    </Grid>
+                </grial:CardView>
+
+                <grial:CardView
+                     IsVisible="{Binding VisibleStockCountPage}"
+                    Grid.Column="1"
+                    CornerRadius="4"
+                    VerticalOptions="CenterAndExpand"
+                    Padding="0,20"
+                    BackgroundColor="{DynamicResource BasePageColor}">
+                    <grial:CardView.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding NavigatePageCommand}"
+                            CommandParameter="CycleCountPage"/>
+                    </grial:CardView.GestureRecognizers>
+                    <Grid
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        RowSpacing="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <ffimage:CachedImage
+                            VerticalOptions="Center"
+                            HeightRequest="50"
+                            WidthRequest="50"
+                            Source="ic_boxes.png">
+                            <ffimage:CachedImage.Transformations>
+                                <fftransformations:TintTransformation
+                                    HexColor="#A7B6BF"
+                                    EnableSolidColor="True"/>
+                            </ffimage:CachedImage.Transformations>
+                        </ffimage:CachedImage>
+
+                        <Label
+                            Grid.Row="1"
+                            TextColor="{DynamicResource CircleActionButtonFlatTextColor}"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="Cycle count"/>
+                    </Grid>
+                </grial:CardView>
+
+                <grial:CardView
+                      IsVisible="{Binding VisibleGapCheckPage}"
+                    Grid.Row="1"
+                    CornerRadius="4"
+                    VerticalOptions="CenterAndExpand"
+                    Padding="0,20"
+                    BackgroundColor="{DynamicResource BasePageColor}">
+                    <grial:CardView.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding NavigatePageCommand}"
+                            CommandParameter="GapCheckPage"/>
+                    </grial:CardView.GestureRecognizers>
+                    <Grid
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        RowSpacing="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <ffimage:CachedImage
+                            VerticalOptions="Center"
+                            HeightRequest="50"
+                            WidthRequest="50"
+                            Source="ic_boxes.png">
+                            <ffimage:CachedImage.Transformations>
+                                <fftransformations:TintTransformation
+                                    HexColor="#A7B6BF"
+                                    EnableSolidColor="True"/>
+                            </ffimage:CachedImage.Transformations>
+                        </ffimage:CachedImage>
+
+                        <Label
+                            Grid.Row="1"
+                            TextColor="{DynamicResource CircleActionButtonFlatTextColor}"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="Gap check"/>
+                    </Grid>
+                </grial:CardView>
+
+                <grial:CardView
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    CornerRadius="4"
+                    VerticalOptions="CenterAndExpand"
+                    Padding="0,20"
+                    BackgroundColor="{DynamicResource BasePageColor}">
+                    <grial:CardView.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding NavigatePageCommand}"
+                            CommandParameter="CheckStockCustomPage"/>
+                    </grial:CardView.GestureRecognizers>
+                    <Grid
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        RowSpacing="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <ffimage:CachedImage
+                            VerticalOptions="Center"
+                            HeightRequest="50"
+                            WidthRequest="50"
+                            Source="ic_boxes.png">
+                            <ffimage:CachedImage.Transformations>
+                                <fftransformations:TintTransformation
+                                    HexColor="#A7B6BF"
+                                    EnableSolidColor="True"/>
+                            </ffimage:CachedImage.Transformations>
+                        </ffimage:CachedImage>
+
+                        <Label
+                            Grid.Row="1"
+                            TextColor="{DynamicResource CircleActionButtonFlatTextColor}"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="Stock count"/>
+                    </Grid>
+                </grial:CardView>
+
+                
+                <!--<grial:CardView
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    CornerRadius="4"
+                    VerticalOptions="CenterAndExpand"
+                    Padding="0,20"
+                    BackgroundColor="{DynamicResource BasePageColor}">
+                    <grial:CardView.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding NavigatePageCommand}"
+                            CommandParameter="PickupPage"/>
+                    </grial:CardView.GestureRecognizers>
+                    <Grid
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        RowSpacing="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <ffimage:CachedImage
+                            VerticalOptions="Center"
+                            HeightRequest="50"
+                            WidthRequest="50"
+                            Source="ic_boxes.png">
+                            <ffimage:CachedImage.Transformations>
+                                <fftransformations:TintTransformation
+                                    HexColor="#A7B6BF"
+                                    EnableSolidColor="True"/>
+                            </ffimage:CachedImage.Transformations>
+                        </ffimage:CachedImage>
+
+                        <Label
+                            Grid.Row="1"
+                            TextColor="{DynamicResource CircleActionButtonFlatTextColor}"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="Pickup"/>
+                    </Grid>
+                </grial:CardView>-->
+
+                <!--<grial:CardView
+                    Grid.Row="2"
+                    CornerRadius="4"
+                    VerticalOptions="CenterAndExpand"
+                    Padding="0,20"
+                    BackgroundColor="{DynamicResource BasePageColor}">
+                    <grial:CardView.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding NavigatePageCommand}"
+                            CommandParameter="CycleCountPage"/>
+                    </grial:CardView.GestureRecognizers>
+                    <Grid
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        RowSpacing="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <ffimage:CachedImage
+                            VerticalOptions="Center"
+                            HeightRequest="50"
+                            WidthRequest="50"
+                            Source="ic_boxes.png">
+                            <ffimage:CachedImage.Transformations>
+                                <fftransformations:TintTransformation
+                                    HexColor="#A7B6BF"
+                                    EnableSolidColor="True"/>
+                            </ffimage:CachedImage.Transformations>
+                        </ffimage:CachedImage>
+
+                        <Label
+                            Grid.Row="1"
+                            TextColor="{DynamicResource CircleActionButtonFlatTextColor}"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="Report"/>
+                    </Grid>
+                </grial:CardView>-->
+            </Grid>
+        </Grid>
+    </ScrollView>
+</ContentPage>

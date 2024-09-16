@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:AppName" xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+	x:Class="AppName.CheckItemDayDetailPage"
+	BackgroundColor="{ DynamicResource CustomActionSheetShimBackgroundColor }"
+	HasSystemPadding="false">
+
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:DialogsResources />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        <ResourceDictionary>
+            <local:ConverterBase64ImageSource x:Key="Base64ToImageConverter" />
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation
+			PositionIn="Bottom"
+			PositionOut="Bottom" />
+    </pages:PopupPage.Animation>
+
+    <Grid
+		Style="{ StaticResource CustomActionSheetStyle }"
+		VerticalOptions="{ StaticResource CustomActionSheetPositioning }"
+		HeightRequest="500"
+		RowSpacing="0">
+
+        <Grid.RowDefinitions>
+            <RowDefinition
+				Height="45" />
+            <RowDefinition
+				Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackLayout Grid.Row="0"  BackgroundColor="{ DynamicResource NavigationBarEndBackgroundColor }" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label
+				    Grid.Row="0" 
+				    Grid.Column="0"
+				    Text="{ x:Static local:GrialIconsFont.CheckSquare }"
+				    FontSize="18"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+				    Style="{ StaticResource MainMenuIconStyle }"
+				    TextColor="White" />
+
+                <Label Grid.Row="0" 
+					Grid.Column="1" Margin="-10,0,0,0"
+                    Padding="0,14,14,14"  
+                    FontAttributes="Bold" 
+                    FontSize="14"
+                      Text="{Binding ItemNo}"
+                    TextColor="White" 
+                    VerticalTextAlignment="Start" 
+                    HorizontalTextAlignment="Start"/>
+            </Grid>
+        </StackLayout >
+
+        <StackLayout  IsVisible="{Binding IsMess}"  VerticalOptions="Start" Margin="0,13,0,0"
+			Grid.Row="1" Padding="10,0,10,40">
+            <Label
+                Text="No products found. Please try again!">
+            </Label>
+        </StackLayout>
+
+        <ScrollView
+	        Grid.Row="1"
+            IsVisible="{Binding IsHasData}"
+            grial:Effects.ApplyIOSSafeAreaAsPadding="All">
+            <StackLayout
+                Spacing="0">
+                <Label
+                    FontAttributes="Bold"
+                    Text="PRODUCT INFOMATION"
+                    TextColor="{DynamicResource AccentColor}"
+                    Margin="10"/>
+
+                <StackLayout
+                    Spacing="10"
+                    Padding="20, 0">
+                    <Label
+                        Text="{Binding BarCode.StoreName}"
+                        Style="{StaticResource LabelBoldStyle}"/>
+
+                    <Grid
+                        ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3.5*"/>
+                            <ColumnDefinition Width="6.5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--TITLE-->
+                        <Label
+                            Text="ItemName"/>
+
+                        <!--VALUE-->
+                        <Label
+                            Text="{Binding BarCode.ItemName}"
+                            Grid.Column="1"/>
+                    </Grid>
+
+                    <BoxView
+                        HeightRequest="0.2"
+                        Style="{StaticResource Horizontal1ptLineStyle}"/>
+
+                    <Grid
+                        ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3.5*"/>
+                            <ColumnDefinition Width="6.5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--TITLE-->
+                        <Label
+                            Text="Price"/>
+
+                        <!--VALUE-->
+                        <Label
+                            Text="{Binding BarCode.UnitPrice}"
+                            Grid.Column="1"/>
+                    </Grid>
+
+                    <BoxView
+                        HeightRequest="0.2"
+                        Style="{StaticResource Horizontal1ptLineStyle}"/>
+
+                    <Grid
+                        ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3.5*"/>
+                            <ColumnDefinition Width="6.5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--TITLE-->
+                        <Label
+                            Text="Category"/>
+
+                        <!--VALUE-->
+                        <Label
+                            Text="{Binding BarCode.Category}"
+                            Grid.Column="1"/>
+                    </Grid>
+
+                    <BoxView
+                        HeightRequest="0.2"
+                        Style="{StaticResource Horizontal1ptLineStyle}"/>
+
+                </StackLayout>
+
+                <Label
+                    FontAttributes="Bold"
+                    Margin="10,20,10,10"
+                    Text="STOCK ON HAND"
+                    TextColor="{DynamicResource AccentColor}"/>
+
+                
+                
+                <StackLayout
+                    Spacing="10"
+                    Padding="20, 0">
+                    <Grid
+                        ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3.5*"/>
+                            <ColumnDefinition Width="6.5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        
+                        <!--TITLE-->
+                        <Label
+                            Text="Location code"/>
+
+                        <!--VALUE-->
+                        <Label
+                            TextColor="Red"
+                            Text="{Binding BarCode.LocationCode}"
+                            Grid.Column="1"/>
+                    </Grid>
+
+                    <BoxView
+                        HeightRequest="0.2"
+                        Style="{StaticResource Horizontal1ptLineStyle}"/>
+
+                    <Grid
+                        ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3.5*"/>
+                            <ColumnDefinition Width="6.5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--TITLE-->
+                        <Label
+                            Text="Inventory"/>
+
+                        <!--VALUE-->
+                        <Label
+                            Text="{Binding BarCode.Inventory}"
+                            Grid.Column="1"/>
+                    </Grid>
+
+                    <BoxView
+                        HeightRequest="0.2"
+                        Style="{StaticResource Horizontal1ptLineStyle}"/>
+
+                    <Grid
+                        ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3.5*"/>
+                            <ColumnDefinition Width="6.5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--TITLE-->
+                        <Label
+                            Text="POG total unit"/>
+
+                        <!--VALUE-->
+                        <Label
+                            Text="{Binding BarCode.HHPOG_TOTALUNIT}"
+                            Grid.Column="1"/>
+                    </Grid>
+
+                    <BoxView
+                        HeightRequest="0.2"
+                        Style="{StaticResource Horizontal1ptLineStyle}"/>
+
+                    <Grid
+                        ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3.5*"/>
+                            <ColumnDefinition Width="6.5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--TITLE-->
+                        <Label
+                            Text="Fixid shelf"/>
+
+                        <!--VALUE-->
+                        <Label
+                            Text="{Binding BarCode.FIXID_SHELF}"
+                            Grid.Column="1"/>
+                    </Grid>
+
+                    <BoxView
+                        HeightRequest="0.2"
+                        Style="{StaticResource Horizontal1ptLineStyle}"/>
+
+                    <Grid
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Margin="0,10,0,0"
+                        ColumnSpacing="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.3*"/>
+                            <ColumnDefinition Width="0.9*"/>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="0.7*"/>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="0.7*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--TITLE-->
+                        <Label
+                             Grid.Column="0"
+                            FontAttributes="Bold"
+                            Text="InBound:"/>
+
+                        <!--VALUE-->
+                        <Label
+                           FontAttributes="Bold"
+                        FontSize="15"
+                            Text="{Binding BarCode.Nhap}"
+                            Grid.Column="1"/>
+                        
+                        <!--TITLE-->
+                        <Label
+                            Grid.Column="2"
+                            FontAttributes="Bold"
+                            Text="OutBound:"/>
+
+                        <!--VALUE-->
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="15"
+                            Text="{Binding BarCode.Xuat}"
+                            Grid.Column="3"/>
+                        
+                        <!--TITLE-->
+                        <Label
+                            FontAttributes="Bold"
+                            Grid.Column="4"
+                            Text="UnPosted:"/>
+
+                        <!--VALUE-->
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="15"
+                            Text="{Binding BarCode.UnPosted}"
+                            Grid.Column="5"/>
+                    </Grid>
+
+
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+
+        <!--<Grid IsVisible="{Binding IsHasData}" VerticalOptions="CenterAndExpand" Margin="0,13,0,0"
+			Grid.Row="1" Padding="10,0,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3.85*" />
+                <RowDefinition	Height="*" />
+                <RowDefinition	Height="*" />
+                <RowDefinition	Height="*" />
+                <RowDefinition	Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+				Width="0.8*" />
+                <ColumnDefinition
+				Width="4*" />
+            </Grid.ColumnDefinitions>
+
+            <Image Source="{Binding ImageSource, Mode=TwoWay}" Grid.Row="0" Grid.ColumnSpan="2"  Grid.Column="0" VerticalOptions="Start" ></Image>
+            
+            --><!--<Image Grid.Row="0" Grid.ColumnSpan="2"  Grid.Column="0" Source="{Binding BarCode.URLImage}" />--><!--
+            
+            <Label Grid.Column="0" Grid.Row="1" Text="Item" VerticalTextAlignment="Center" />
+            <Entry
+                    Grid.Column="1" Grid.Row="1"
+                    TextColor="Black"
+                    IsReadOnly="True"
+                    Text="{ Binding BarCode.ItemNo }"
+					Placeholder="ItemNo"
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+            <Label Grid.Column="0" Grid.Row="2" Text="Name" VerticalTextAlignment="Center" />
+            <Entry
+                 Grid.Column="1" Grid.Row="2"
+                     TextColor="Black"
+                        IsReadOnly="True"
+						 Text="{ Binding BarCode.ItemName }"
+						Placeholder="Product name"
+						VerticalOptions="Center"
+						HorizontalOptions="FillAndExpand" />
+
+            <Label Grid.Column="0" Grid.Row="3" Text="Price" VerticalTextAlignment="Center" />
+            <Entry
+                 Grid.Column="1" Grid.Row="3"
+                     TextColor="Black"
+                        IsReadOnly="True"
+						 Text="{ Binding BarCode.UnitPrice }"
+						Placeholder="Price product "
+						VerticalOptions="Center"
+						HorizontalOptions="FillAndExpand" />
+
+            <Label Grid.Column="0" Grid.Row="4" Text="Stock" VerticalTextAlignment="Center" />
+            <Entry
+                 Grid.Column="1" Grid.Row="4"
+                    TextColor="Black"
+                    IsReadOnly="True"
+					Text="{ Binding BarCode.Inventory }"
+					Placeholder="Stock on hand"
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+
+            <Label Grid.Column="0" Grid.Row="5" Text="Store" VerticalTextAlignment="Center" />
+            <Entry
+                 Grid.Column="1" Grid.Row="5"
+                     TextColor="Red"
+                        IsReadOnly="True"
+						 Text="{ Binding BarCode.Nhap } "
+						Placeholder="SubCategoryName "
+						VerticalOptions="Center"
+						HorizontalOptions="FillAndExpand" />
+            
+            <Label Grid.Column="0" Grid.Row="6" Text="Group" VerticalTextAlignment="Center" />
+            <Entry
+                 Grid.Column="1" Grid.Row="6"
+                     TextColor="Black"
+                        IsReadOnly="True"
+						 Text="{ Binding BarCode.Xuat } "
+						Placeholder="SubCategoryName "
+						VerticalOptions="Center"
+						HorizontalOptions="FillAndExpand" />
+
+            --><!--<Label Grid.Column="0" Grid.Row="6" Text="Category" VerticalTextAlignment="Center" />
+            <Entry
+                 Grid.Column="1" Grid.Row="6"
+                     TextColor="Black"
+                        IsReadOnly="True"
+						 Text="{ Binding BarCode.Category }"
+						Placeholder="Category"
+						VerticalOptions="Center"
+						HorizontalOptions="FillAndExpand" />--><!--
+
+        </Grid>-->
+    </Grid>
+
+
+</pages:PopupPage>

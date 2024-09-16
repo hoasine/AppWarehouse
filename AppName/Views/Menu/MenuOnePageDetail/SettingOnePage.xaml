@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:AppName" 
+             xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+			x:Class="AppName.SettingOnePage"
+			Title="Menu"         
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Color
+				x:Key="PrimaryTextColor">#333333</Color>
+            <Color
+				x:Key="PseudoTableSectionTitleBackgroundColor">#05000000</Color>
+            <Color
+				x:Key="PseudoTableSectionLineBackgroundColor">#22000000</Color>
+
+            <x:Double
+				x:Key="PseudoTableSectionTitleFontSize">12</x:Double>
+            <x:Double
+				x:Key="PseudoTableSectionTitleHeight">60</x:Double>
+            <x:Double
+				x:Key="PseudoTableSectionTitleLineHeight">1</x:Double>
+
+            <x:Double
+				x:Key="PseudoTableSectionTextHeight">44</x:Double>
+            <x:Double
+				x:Key="PseudoTableSectionLineHeight">1</x:Double>
+
+            <Style
+				x:Key="PseudoTableSectionTitleStyle"
+				TargetType="Label">
+                <Setter
+					Property="TextColor"
+					Value="{ DynamicResource BaseTextColor }" />
+                <Setter
+					Property="VerticalTextAlignment"
+					Value="End" />
+                <Setter
+					Property="FontSize"
+					Value="{ StaticResource PseudoTableSectionTitleFontSize }" />
+                <Setter
+					Property="FontAttributes"
+					Value="Bold" />
+                <Setter
+					Property="HorizontalTextAlignment"
+					Value="Start" />
+                <Setter
+					Property="TranslationY"
+					Value="-10" />
+                <Setter
+					Property="HeightRequest"
+					Value="{ StaticResource PseudoTableSectionTitleHeight }" />
+            </Style>
+
+            <Style
+				x:Key="PseudoTableSectionTitleIconStyle"
+				TargetType="Label"
+				BasedOn="{ StaticResource FontIcon }">
+                <Setter
+					Property="TextColor"
+					Value="{ DynamicResource AccentColor }" />
+                <Setter
+					Property="VerticalTextAlignment"
+					Value="End" />
+                <Setter
+					Property="FontSize"
+					Value="{ StaticResource BaseFontSize }" />
+                <Setter
+					Property="TranslationY"
+					Value="-10" />
+            </Style>
+
+            <Style
+				x:Key="PseudoTableSectionLineBaseStyle"
+				TargetType="BoxView">
+                <Setter
+					Property="HeightRequest"
+					Value="{ StaticResource PseudoTableSectionLineHeight }" />
+            </Style>
+
+            <Style
+				x:Key="PseudoTableSectionLineStyle"
+				BasedOn="{ StaticResource PseudoTableSectionLineBaseStyle }"
+				TargetType="BoxView">
+                <Setter
+					Property="BackgroundColor"
+					Value="{ StaticResource PseudoTableSectionLineBackgroundColor }" />
+            </Style>
+            
+            <!--duong ke giua to-->
+            <Style
+				x:Key="LineSpacingTableStyle"
+				TargetType="BoxView">
+                <Setter
+					Property="HeightRequest"
+					Value="8" />
+            </Style>
+
+            <Color
+				x:Key="LineSpacingTableColor">#EEEEEE</Color>
+            
+            <Style
+				x:Key="LineSpacingStyle"
+				BasedOn="{ StaticResource LineSpacingTableStyle }"
+				TargetType="BoxView">
+                <Setter
+					Property="BackgroundColor"
+					Value="{ StaticResource LineSpacingTableColor }" />
+            </Style>
+            <!--duong ke giua to-->
+
+            <Style
+				x:Key="PseudoTableSectionTitleLineStyle"
+				BasedOn="{ StaticResource PseudoTableSectionLineBaseStyle }"
+				TargetType="BoxView">
+                <Setter
+					Property="BackgroundColor"
+					Value="{  DynamicResource BaseTextColor }" />
+                <Setter
+					Property="HeightRequest"
+					Value="{ StaticResource PseudoTableSectionTitleLineHeight }" />
+                <Setter
+					Property="VerticalOptions"
+					Value="End" />
+                <Setter
+					Property="Margin"
+					Value="-10,0" />
+            </Style>
+
+            <Style
+				x:Key="PseudoTableSectionTitleBackgroundStyle"
+				TargetType="Grid">
+                <Setter
+					Property="BackgroundColor"
+					Value="{ StaticResource PseudoTableSectionTitleBackgroundColor }" />
+                <Setter
+					Property="Padding"
+					Value="10,0" />
+            </Style>
+
+            <Style
+				x:Key="PseudoTableSectionTextStyle"
+				TargetType="Label">
+                <Setter
+					Property="FontSize"
+					Value="{ StaticResource BaseFontSize }" />
+                <Setter
+					Property="HorizontalOptions"
+					Value="FillAndExpand" />
+                <Setter
+					Property="VerticalOptions"
+					Value="FillAndExpand" />
+                <Setter
+					Property="VerticalTextAlignment"
+					Value="Center" />
+                <Setter
+					Property="HorizontalTextAlignment"
+					Value="Start" />
+                <Setter
+					Property="TextColor"
+					Value="{ DynamicResource BaseTextColor }" />
+                <Setter
+					Property="HeightRequest"
+					Value="{ StaticResource PseudoTableSectionTextHeight }" />
+            </Style>
+
+            <Style
+				x:Key="PseudoTableSectionSwitchStyle"
+				TargetType="Switch">
+                <Setter
+					Property="HorizontalOptions"
+					Value="End" />
+                <Setter
+					Property="VerticalOptions"
+					Value="Center" />
+            </Style>
+
+            <Style
+				x:Key="PseudoTableSectionGroupStyle"
+				TargetType="StackLayout">
+                <Setter
+					Property="Padding"
+					Value="10,0" />
+                <Setter
+					Property="Orientation"
+					Value="Horizontal" />
+            </Style>
+
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ScrollView>
+
+        <StackLayout
+				Spacing="0"
+				Padding="0,0,0,20">
+
+            <Grid
+				HorizontalOptions="Center"
+				VerticalOptions="Center"
+				TranslationY="25">
+
+                <local:CircleCachedImage
+							BorderColor="White"
+							Source="avatar_empty.png"
+							WidthRequest="80"
+							Margin="0,0,0,40"
+							HeightRequest="80">
+                   
+                </local:CircleCachedImage>
+
+                <local:Badge
+					Text="7+"
+					TextColor="{ DynamicResource InverseTextColor }"
+					BackgroundColor="#22c064"
+					HorizontalOptions="Center"
+					VerticalOptions="Start"
+					TranslationX="40" />
+            </Grid>
+
+            <BoxView
+					Style="{ StaticResource LineSpacingStyle }" />
+
+
+            <StackLayout
+					Style="{ StaticResource PseudoTableSectionGroupStyle }">
+
+                <Label
+						Text="{ x:Static local:GrialIconsFont.Printer }"
+						TextColor="#00ACED"
+						Margin="0,0,8,3"
+						Style="{ StaticResource PseudoTableSectionTitleIconStyle }" />
+
+                <Label
+						VerticalOptions="Center"
+						Text="Automatically connect the printer"
+						Style="{ StaticResource PseudoTableSectionTextStyle }" />
+
+
+                <Switch
+						Style="{ StaticResource PseudoTableSectionSwitchStyle }"
+						IsToggled="true" />
+            </StackLayout>
+
+            <BoxView
+					Style="{ StaticResource PseudoTableSectionLineStyle }" />
+
+            <StackLayout
+					Style="{ StaticResource PseudoTableSectionGroupStyle }">
+
+                <Label
+						Text="{ x:Static local:GrialIconsFont.LogIn }"
+						TextColor="#49659F"
+						Margin="0,0,8,3"
+						Style="{ StaticResource PseudoTableSectionTitleIconStyle }" />
+
+                <Label
+						VerticalOptions="Center"
+						Text="Local internet connection"
+						Style="{ StaticResource PseudoTableSectionTextStyle }" />
+
+
+                <Switch
+						Style="{ StaticResource PseudoTableSectionSwitchStyle }" />
+            </StackLayout>
+
+            <BoxView
+					Style="{ StaticResource PseudoTableSectionLineStyle }" />
+
+            <StackLayout
+					Style="{ StaticResource PseudoTableSectionGroupStyle }">
+                <Label
+					Text="{ x:Static local:GrialIconsFont.Bluetooth }"
+					TextColor="#49659F"
+					Margin="0,0,8,3"
+					Style="{ StaticResource PseudoTableSectionTitleIconStyle }" >
+                </Label>
+                <Label
+					VerticalOptions="Center"
+					Text="Bluetooth"
+					Style="{ StaticResource PseudoTableSectionTextStyle }" />
+                <Switch
+						Style="{ StaticResource PseudoTableSectionSwitchStyle }" />
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Template_clik"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+          
+ <!--Box 2-->
+            <BoxView
+					Style="{ StaticResource LineSpacingStyle }" />
+
+            <StackLayout
+					Style="{ StaticResource PseudoTableSectionGroupStyle }">
+
+
+                <Label
+						VerticalOptions="Center"
+						Text="Decentralization"
+						Style="{ StaticResource PseudoTableSectionTextStyle }" />
+
+            </StackLayout>
+
+            <BoxView
+					Style="{ StaticResource PseudoTableSectionLineStyle }" />
+
+            <StackLayout
+					Style="{ StaticResource PseudoTableSectionGroupStyle }">
+
+                <Label
+						VerticalOptions="Center"
+						Text="Introduce"
+						Style="{ StaticResource PseudoTableSectionTextStyle }" />
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="GioiThieu_Click"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+            
+            <BoxView
+					Style="{ StaticResource PseudoTableSectionLineStyle }" />
+
+
+            <StackLayout
+					Style="{ StaticResource PseudoTableSectionGroupStyle }">
+
+                <Label
+                    x:Name="lblDangXuat"
+						VerticalOptions="Center"
+						Text="Log out"
+						Style="{ StaticResource PseudoTableSectionTextStyle }" >
+                </Label>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="DangXuatClick"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+            
+            <BoxView
+					Style="{ StaticResource PseudoTableSectionLineStyle }" />
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
+

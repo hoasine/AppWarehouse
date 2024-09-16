@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="AppName.ReceiveTOLinePage"
+    xmlns:local="clr-namespace:AppName"
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+    BackgroundColor="{DynamicResource MainWrapperBackgroundColor}"
+    x:Name="receiveTOLine"
+    Title="Transfer Line">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <grial:GrialNavigationBar
+            UseNavigationPageBarBackgroundColor="True"
+            UseNavigationPageBarBackgroundGradient="True"/>
+
+        <!-- SEARCH BAR -->
+        <Grid
+            Padding="10,0"
+            Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="44" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Entry
+                TextColor="{DynamicResource OverImageTextColor}"
+                Margin="0,0,-8,0"/>
+
+            <SearchBar
+                x:Name="searchBar"
+				CancelButtonColor="White"
+				BackgroundColor="Transparent"
+				Style="{ StaticResource TranslucidSearchBarStyleVuong }"
+				Placeholder="Search"
+                SearchCommand="{Binding OpenShipmentTODetailCommand}"
+                SearchCommandParameter="{Binding Source={x:Reference searchBar}, Path=Text}"/>
+        </Grid>
+
+        <ListView
+            Grid.Row="1"
+            ItemsSource="{Binding ListTOLine}"
+            SelectionMode="None"
+             HasUnevenRows="True"
+                    IsPullToRefreshEnabled="False"
+                    SeparatorVisibility="None"
+                    IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                SeparatorColor="{DynamicResource ListViewSeparatorColor}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem 
+                                        IconImageSource="edit_icon.png"
+                                        BackgroundColor="#4A9DE2"
+                                        Command="{Binding Source={x:Reference receiveTOLine}, Path=BindingContext.EditTOLineCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Grid
+                                BackgroundColor="{DynamicResource BasePageColor}"
+                                RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="0.2"/>
+                                </Grid.RowDefinitions>
+                                <Grid
+                            BackgroundColor="{DynamicResource BasePageColor}"
+                            Padding="10,10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Label
+                                Text="{Binding ItemName}"/>
+
+                                    <Label
+                                Grid.Column="1"
+                                HorizontalTextAlignment="End">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <FormattedString.Spans>
+                                                    <Span
+                                                Text="Qty to Ship: "/>
+                                                    <Span
+                                                Text="{Binding Quatity}"/>
+                                                </FormattedString.Spans>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <Label
+                                
+                                        FontAttributes="Bold"
+                                        Grid.Row="1"
+                                        Text="Qty. to Receive:"/>
+
+                                    <Label
+                                    FontAttributes="Bold"
+                                Grid.Column="1"
+                                    Grid.Row="1"
+                                HorizontalTextAlignment="End">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <FormattedString.Spans>
+                                                    <Span
+                                                       TextColor="{Binding ColorText}"
+                                                Text="{Binding Quantity_Scan,Mode=TwoWay}"/>
+                                                    <Span
+                                                Text="  PCS"/>
+                                                </FormattedString.Spans>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+
+                                </Grid>
+                                <BoxView
+                                    Grid.Row="1"
+                                    HeightRequest="0.2"
+                                    Style="{StaticResource Horizontal1ptLineStyle}"/>
+                            </Grid>
+                        </SwipeView>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button
+            Grid.Row="2"
+            Margin="50,10,50,10"
+            VerticalOptions="Center"
+            HorizontalOptions="FillAndExpand"
+            Style="{ StaticResource PrimaryActionButtonStyle }"
+            Text="Next"
+            Command="{Binding NextCommand}"/>
+    </Grid>
+</ContentPage>

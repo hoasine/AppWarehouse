@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pages:PopupPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:AppName" 
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    x:Name="currentPage"
+	x:Class="AppName.BarCodeKhuyenMaiDetail"
+	BackgroundColor="{ DynamicResource CustomActionSheetShimBackgroundColor }"
+	HasSystemPadding="false">
+
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:DialogsResources />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation
+			PositionIn="Bottom"
+			PositionOut="Bottom" />
+    </pages:PopupPage.Animation>
+
+    <Grid
+		Style="{ StaticResource CustomActionSheetStyle }"
+		VerticalOptions="{ StaticResource CustomActionSheetPositioning }"
+		HeightRequest="400"
+		RowSpacing="0">
+
+        <Grid.RowDefinitions>
+            <RowDefinition
+				Height="49" />
+            <RowDefinition
+				Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackLayout Grid.Row="0"  BackgroundColor="{ DynamicResource RatingsColor }" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label
+				    Grid.Row="0" 
+				    Grid.Column="0"
+				    Text="{ x:Static local:GrialIconsFont.CheckSquare }"
+				    FontSize="18"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+				    Style="{ StaticResource MainMenuIconStyle }"
+				    TextColor="White" />
+
+                <Label Grid.Row="0" 
+					Grid.Column="1" Margin="-10,0,0,0"
+                    Padding="0,14,14,14"  
+                    FontAttributes="Bold" 
+                    FontSize="14"
+                    Text="{Binding ItemNo}"
+                    TextColor="White" 
+                    VerticalTextAlignment="Start" 
+                    HorizontalTextAlignment="Start"/>
+            </Grid>
+        </StackLayout>
+
+        <StackLayout  IsVisible="{Binding IsMess}"  VerticalOptions="Start" Margin="0,13,0,0"
+			Grid.Row="1" Padding="10,0,10,40">
+            <Label
+                Text="No promotions found. Please try again !">
+            </Label>
+        </StackLayout>
+
+        <ListView 
+             IsVisible="{Binding IsHasData}"
+			Grid.Row="1"
+			x:Name="ctkmList" 
+            BackgroundColor="#F7F9F9"
+			IsGroupingEnabled="True"
+			IsPullToRefreshEnabled="False" 
+			IsRefreshing="{Binding IsBusy, Mode=OneWay}" 
+			ItemsSource="{Binding ListCTKM}" 
+            HasUnevenRows="true"
+			RefreshCommand="{Binding LoadCTKMsCommand}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ContentView>
+                            <grial:CardView
+								Padding="10,13"
+								Margin="10,6,10,6"
+								RowSpacing="2"
+								ColumnSpacing="4"
+								CornerRadius="5">
+                                <grial:CardView.ColumnDefinitions>
+                                    <ColumnDefinition
+											Width="22" />
+                                    <ColumnDefinition
+											Width="78" />
+                                    <ColumnDefinition
+											Width="*" />
+                                </grial:CardView.ColumnDefinitions>
+
+                                <grial:CardView.RowDefinitions>
+                                    <RowDefinition
+											Height="22" />
+                                    <RowDefinition
+											Height="*" />
+                                </grial:CardView.RowDefinitions>
+
+                                <Label
+										Grid.Row="0"
+										Grid.Column="0"
+										Grid.ColumnSpan="3"
+										Text="{ x:Static local:GrialIconsFont.Star }"
+										FontSize="18"
+										Style="{ StaticResource MainMenuIconStyle }"
+										TextColor="Red" />
+
+                                <Label
+										Grid.Row="0"
+										Grid.Column="1"
+										Grid.ColumnSpan="3"
+										Style="{ StaticResource LabelBoldStyle }"
+										Text="{ Binding Scheme_Description }"
+										FontSize="14"
+										VerticalOptions="Center" />
+
+								<!--Mix match-->
+                                <StackLayout 	
+                                        IsVisible = "{Binding IsCheckViewMultyMixMatch}"
+										Grid.Row="1"
+										Grid.Column="1"
+										Grid.ColumnSpan="3">
+
+                                    <Grid RowSpacing="2.1" ColumnSpacing="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition
+											Width="0" />
+                                            <ColumnDefinition
+											Width="95" />
+                                            <ColumnDefinition
+											Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+
+                                        <Label
+										Grid.Row="0"
+										Grid.ColumnSpan="2"
+										Grid.Column="1"
+										Style="{ StaticResource LabelBoldStyle }"
+										Text="Item category:"
+										FontSize="14"
+										VerticalOptions="Center" />
+                                        <Label
+										Grid.Row="0"
+										Grid.ColumnSpan="2"
+										VerticalOptions="FillAndExpand"
+										Grid.Column="2"
+										Text="{ Binding Item_Cate_Desc }"
+										LineBreakMode="WordWrap"
+										FontSize="14" />
+
+                                        <Label
+										Grid.Row="1"
+										Grid.ColumnSpan="2"
+										Grid.Column="1"
+										Style="{ StaticResource LabelBoldStyle }"
+										Text="Product code:"
+										FontSize="14"
+										VerticalOptions="Center" />
+
+                                        <Label
+										Grid.Row="1"
+										Grid.ColumnSpan="2"
+										VerticalOptions="FillAndExpand"
+										Grid.Column="2"
+										Text="{ Binding Product_Group_Code }"
+										LineBreakMode="WordWrap"
+										FontSize="14" />
+                                    </Grid>
+
+                                </StackLayout>
+
+                                <!--Discount Offer-->
+                                <StackLayout 	
+                                        IsVisible = "{Binding IsCheckViewDiscoutOffer}"
+										Grid.Row="1"
+										Grid.Column="1"
+										Grid.ColumnSpan="3">
+                                    <Grid RowSpacing="2" ColumnSpacing="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition
+											Width="0" />
+                                            <ColumnDefinition
+											Width="78" />
+                                            <ColumnDefinition
+											Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+
+                                        <Label
+										Grid.Row="0"
+										Grid.ColumnSpan="2"
+										Grid.Column="1"
+										Style="{ StaticResource LabelBoldStyle }"
+										Text="Price:"
+										FontSize="14"
+										VerticalOptions="Center" />
+                                        <Label
+										Grid.Row="0"
+										Grid.ColumnSpan="2"
+										VerticalOptions="FillAndExpand"
+										Grid.Column="2"
+										Text="{ Binding Standard_Price_Including_VAT }"
+										LineBreakMode="WordWrap"
+										FontSize="14" />
+
+                                        <Label
+										Grid.Row="1"
+										Grid.ColumnSpan="2"
+										Grid.Column="1"
+										Style="{ StaticResource LabelBoldStyle }"
+										Text="Discount:"
+										FontSize="14"
+										VerticalOptions="Center" />
+
+                                        <Label
+										Grid.Row="1"
+										Grid.ColumnSpan="2"
+										VerticalOptions="FillAndExpand"
+										Grid.Column="2"
+										Text="{ Binding Disc_Amount_Include_VAT }"
+										LineBreakMode="WordWrap"
+										FontSize="14" />
+                                        <Label
+										Grid.Row="2"
+										Grid.ColumnSpan="2"
+										Grid.Column="1"
+										Style="{ StaticResource LabelBoldStyle }"
+										Text="Total:"
+										FontSize="14"
+										VerticalOptions="Center" />
+
+                                        <Label
+										Grid.Row="2"
+										Grid.ColumnSpan="2"
+										VerticalOptions="FillAndExpand"
+										Grid.Column="2"
+										Text="{ Binding Offer_Price_Including_VAT }"
+										LineBreakMode="WordWrap"
+										FontSize="14" />
+                                    </Grid>
+
+                                </StackLayout>
+
+                            </grial:CardView>
+                        </ContentView>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid BackgroundColor="#E5E7E9">
+                            <Label Padding="13" FontAttributes="Bold" FontSize="Small" Text="{Binding Name}" TextColor="{DynamicResource BaseTextColor}" VerticalTextAlignment="Center" />
+                            <Image x:Name="ImgA" Source="{Binding StateIcon}" Margin="0,0,5,0" HeightRequest="20" WidthRequest="20" HorizontalOptions="End" />
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference currentPage}, Path=BindingContext.RefreshItemsCommand}" NumberOfTapsRequired="1"  CommandParameter="{Binding .}"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.GroupHeaderTemplate>
+        </ListView>
+    </Grid>
+</pages:PopupPage>

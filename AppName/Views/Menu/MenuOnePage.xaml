@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:AppName" 
+             xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+	        x:Class="AppName.MenuOnePage"
+            xmlns:cv="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions" 
+            Title="Home"
+             BackgroundColor="White"
+             NavigationPage.HasNavigationBar="false">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style
+                x:Key="CardViewMenu"
+                TargetType="grial:CardView">
+                <Setter Property="BackgroundColor" Value="#F8F9F9"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="HasShadow" Value="True"/>
+                <Setter Property="ShadowSize" Value="5"/>
+                <Setter Property="ShadowOpacity" Value=".8"/>
+            </Style>
+
+            <Style
+                x:Key="LabelIconMenu"
+                TargetType="Label"
+                BasedOn="{StaticResource FontIconFill}">
+                <Setter Property="FontSize" Value="28"/>
+                <Setter Property="TextColor" Value="{DynamicResource AccentColor}"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+            
+            <Style
+                x:Key="LabelTitleMenu"
+                TargetType="Label">
+                <Setter Property="Grid.Row" Value="1"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid Padding="0,0,0,-60">
+            <Grid
+            RowSpacing="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="260"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!--ROW 0-->
+                <ffimageloading:CachedImage
+                Aspect="AspectFill"
+                Source="warehouse.jpg"/>
+
+                <Grid
+                HeightRequest="30"
+                VerticalOptions="EndAndExpand"
+                Opacity=".5"
+                BackgroundColor="{DynamicResource AccentColor}">
+                    <Label
+                    FontSize="28"
+                    TextColor="White"
+                    Text="{x:Static local:GrialIconsFont.Aperture}"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource FontIconFill}"/>
+                </Grid>
+
+                <Grid
+                Padding="0,8,0,0"
+                VerticalOptions="Start">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label 
+                    TextColor="White"
+                    FontSize="16"
+                    Margin="15,15,0,0"
+                    Style="{ StaticResource LabelBoldStyle }"
+				    x:Name="lbUserName"
+                    VerticalTextAlignment="Center"
+				    HorizontalTextAlignment="Start" />
+
+                    <Button
+                    Grid.Column="1"
+                    Margin="0,15,15,0"
+                    WidthRequest="30"
+                    Opacity="0.9"
+                    BackgroundColor="Transparent"
+                    FontAttributes="Bold"
+                    FontSize="26"
+                    FontFamily="{StaticResource GrialIconsFill}"
+                    Text="{x:Static local:GrialIconsFont.LogOut }"
+                    TextColor="{DynamicResource InverseTextColor}"
+				    VerticalOptions="Center"
+				    HorizontalOptions="End"
+                    Clicked="DangXuatClick"/>
+                </Grid>
+
+                <!--ROW 1-->
+                <Label
+                Grid.Row="1"
+                VerticalTextAlignment="End"
+                HorizontalTextAlignment="Center"
+                Text="The LS Retail is your great assistant"/>
+
+                <!--ROW 2-->
+                <ScrollView
+                Grid.Row="2">
+                    <Grid
+                    RowSpacing="10"
+                    ColumnSpacing="10"
+                    Padding="10,0"
+                    Style="{ StaticResource ResponsiveLandscapeMarginStyle }">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="100"/>
+                        </Grid.RowDefinitions>
+                        <!--SẢN PHẨM-->
+                        <grial:CardView 
+                        Style="{StaticResource CardViewMenu}">
+                            <grial:CardView.GestureRecognizers>
+                                <TapGestureRecognizer
+                                Command="{Binding OpenMenu}"
+                                CommandParameter="SanPham"/>
+                            </grial:CardView.GestureRecognizers>
+                            <Grid
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Label
+					            Text="{x:Static local:GrialIconsFont.ShoppingCart}"
+					            Style="{StaticResource LabelIconMenu}"/>
+
+                                <Label
+					            Text="Product"
+                                Style="{StaticResource LabelTitleMenu}"/>
+                            </Grid>
+                        </grial:CardView>
+
+                        <!--XUẤT NHẬP-->
+                        <grial:CardView 
+                        Grid.Column="1"
+                        Style="{StaticResource CardViewMenu}">
+                            <grial:CardView.GestureRecognizers>
+                                <TapGestureRecognizer
+                                Command="{Binding OpenMenu}"
+                                CommandParameter="XuatNhap"/>
+                            </grial:CardView.GestureRecognizers>
+                            <Grid
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Label
+					            Text="{x:Static local:GrialIconsFont.AudioRepeat}"
+					            Style="{StaticResource LabelIconMenu}"/>
+
+                                <Label
+					            Text="Manage TO/PO"
+                                Style="{StaticResource LabelTitleMenu}"/>
+                            </Grid>
+                        </grial:CardView>
+
+                        <!--KHUYẾN MÃI-->
+                        <grial:CardView 
+                        Grid.Row="1"
+                        Style="{StaticResource CardViewMenu}">
+                            <grial:CardView.GestureRecognizers>
+                                <TapGestureRecognizer
+                                Command="{Binding OpenMenu}"
+                                CommandParameter="KhuyenMai"/>
+                            </grial:CardView.GestureRecognizers>
+                            <Grid
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Label
+					            Text="{x:Static local:GrialIconsFont.CreditCard}"
+					            Style="{StaticResource LabelIconMenu}"/>
+
+                                <Label
+					            Text="Promotion"
+                                Style="{StaticResource LabelTitleMenu}"/>
+                            </Grid>
+                        </grial:CardView>
+
+                        <!--KIỂM KÊ-->
+                        <grial:CardView 
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Style="{StaticResource CardViewMenu}">
+                            <grial:CardView.GestureRecognizers>
+                                <TapGestureRecognizer
+                                Command="{Binding OpenMenu}"
+                                CommandParameter="KiemKe"/>
+                            </grial:CardView.GestureRecognizers>
+                            <Grid
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Label
+					            Text="{x:Static local:GrialIconsFont.Search}"
+					            Style="{StaticResource LabelIconMenu}"/>
+
+                                <Label
+					            Text="Stock Count"
+                                Style="{StaticResource LabelTitleMenu}"/>
+                            </Grid>
+                        </grial:CardView>
+                    </Grid>
+                </ScrollView>
+
+                <!--ROW 3-->
+                <Grid BackgroundColor="Transparent"
+                Padding="0,0,0,10"
+                      Margin="0,0,0,65"
+                Grid.Row="3"
+                ColumnSpacing="3"
+                HorizontalOptions="Center"
+                VerticalOptions="End">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                    FontSize="14"
+                    Text="Developed by"
+                    VerticalTextAlignment="Center"/>
+
+                    <Label
+                    Grid.Column="1"
+                    FontSize="25"
+                    VerticalTextAlignment="Center"
+                    Text="{x:Static local:GrialIconsFont.Aperture}"
+                    TextColor="{DynamicResource AccentColor}"
+                    Style="{StaticResource FontIconFill}"/>
+
+                    <Label
+                    Grid.Column="2"
+                    FontSize="16" 
+                    Text="Radiant Global ADC Việt Nam"
+                    VerticalTextAlignment="Center"
+                    TextColor="{DynamicResource AccentColor}"
+                    Style="{StaticResource LabelBoldStyle}"/>
+                </Grid>
+            </Grid>
+
+            <ContentView IsVisible="{Binding ShowLoading}"  BackgroundColor="#80000000"   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <ActivityIndicator Margin="155,155,155,155" Opacity="1" IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" />
+            </ContentView>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
+

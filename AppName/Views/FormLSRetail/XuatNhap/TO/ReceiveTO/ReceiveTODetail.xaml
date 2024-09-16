@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="AppName.ReceiveTODetail"
+    BackgroundColor="{ DynamicResource CustomActionSheetShimBackgroundColor }"
+    HasSystemPadding="false"
+    xmlns:local="clr-namespace:AppName"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:DialogsResources />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+
+    <Grid>
+        <Grid
+		    Style="{ StaticResource CustomActionSheetStyle }"
+		    VerticalOptions="{ StaticResource DialogsVerticalPositioning }"
+		    HeightRequest="350"
+		    RowSpacing="0">
+            <Grid.Margin>
+                <Thickness
+                    Left="30"
+                    Right="30"/>
+            </Grid.Margin>
+            <Grid.RowDefinitions>
+                <RowDefinition
+				    Height="49" />
+                <RowDefinition
+				    Height="*" />
+                <RowDefinition
+				    Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0"  BackgroundColor="{ DynamicResource NavigationBarEndBackgroundColor }" 
+                         Orientation="Horizontal"
+                         HorizontalOptions="FillAndExpand">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label
+				        Grid.Row="0" 
+				        Grid.Column="0"
+				        Text="{ x:Static local:GrialIconsFont.CheckSquare }"
+				        FontSize="18"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+				        Style="{ StaticResource MainMenuIconStyle }"
+				        TextColor="White" />
+
+                    <Label Grid.Row="0" 
+					    Grid.Column="1" Margin="-10,0,0,0"
+                        Padding="0,14,14,14"  
+                        FontAttributes="Bold" 
+                        FontSize="14"
+                          Text="{Binding DataModel.DocumentNo}"
+                        TextColor="White" 
+                        VerticalTextAlignment="Start" 
+                        HorizontalTextAlignment="Start"/>
+                </Grid>
+
+                <Label
+                    HorizontalOptions="EndAndExpand"
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="Center"
+                    FontSize="18"
+                    FontFamily="{StaticResource IconsFontFamily}"
+                    TextColor="{DynamicResource InverseTextColor}"
+                    Text="{x:Static local:GrialIconsFont.Close}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="TapGestureRecognizer_Tapped"/>
+                    </Label.GestureRecognizers>
+                    <Label.Margin>
+                        <Thickness
+                            Right="8"/>
+                    </Label.Margin>
+                </Label>
+            </StackLayout>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <ScrollView>
+                    <StackLayout
+                    Padding="20"
+                    Spacing="10">
+                        <Label
+                        Text="{Binding DataModel.BuyerID}"
+                        Style="{StaticResource LabelBoldStyle}"/>
+
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span
+                                        Text="Document No: "/>
+                                        <Span
+                                        Text="{Binding DataModel.DocumentNo}"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span
+                                        Text="Status: "/>
+                                        <Span
+                                        Text="{Binding DataModel.Status}"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span
+                                        Text="Qty left: "/>
+                                        <Span
+                                        Text="{Binding DataModel.ItemCount}"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span
+                                        Text="TransferfromCode: "/>
+                                        <Span
+                                        Text="{Binding DataModel.TransferfromCode}"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span
+                                        Text="TransfertoCode: "/>
+                                        <Span
+                                        Text="{Binding DataModel.TransfertoCode}"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span
+                                        Text="PostingDate: "/>
+                                        <Span
+                                        Text="{Binding DataModel.PostingDate, StringFormat='{0:dddd MMMM d, yyyy}'}"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+                </ScrollView>
+
+                <StackLayout
+                Grid.Row="1"
+                Spacing="10"
+                Orientation="Horizontal"
+                HorizontalOptions="CenterAndExpand">
+                    <StackLayout.Padding>
+                        <Thickness
+                        Bottom="20"
+                        Left="0" 
+                        Right="0"
+                        Top="10"/>
+                    </StackLayout.Padding>
+
+
+                    <!--<Label
+                    TextColor="{StaticResource BaseTextColor}"
+                    FontAttributes="Bold"
+                    Text="POST SHIPMENT">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="CheckSize" Command="{Binding ConfirmCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>-->
+
+                    <Button
+                      Grid.Row="1"   
+                        WidthRequest="155"
+                      CornerRadius="6"
+                        HeightRequest="40"
+                        Grid.Column="0"
+                        VerticalOptions="Center"
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{ StaticResource PrimaryActionButtonStyle }"
+                        Text="Post Receiving"
+                        Command="{Binding ConfirmCommand}"/>
+
+                    <Button
+                       Grid.Row="1"     
+                        WidthRequest="100"
+                      CornerRadius="6"
+                        Grid.Column="1"                        
+                        HeightRequest="40"
+                        VerticalOptions="Center"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="OPEN"
+                    Clicked="TapGestureRecognizer_Tapped_1"
+                    />
+
+
+                    <!--<Label
+                    Text="OPEN">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                            Tapped="TapGestureRecognizer_Tapped_1"/>
+                        </Label.GestureRecognizers>
+                    </Label>-->
+                </StackLayout>
+            </Grid>
+
+        </Grid>
+        <ContentView IsVisible="{Binding ShowLoading}"  BackgroundColor="#80000000"   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <ActivityIndicator Margin="155,155,155,155" Opacity="1" IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" />
+        </ContentView>
+    </Grid>
+</pages:PopupPage>

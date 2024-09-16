@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:AppName"
+             Title="Sản phẩm"
+             x:Class="AppName.ProductItemPage">
+    <ContentPage.Content>
+        <Grid x:Name="mainGrid" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="0" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1.5*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" BackgroundColor="#B9B9B9">
+                <Image x:Name="resultImage" Aspect="AspectFit" HorizontalOptions="Fill" VerticalOptions="Fill" />
+                <local:ScannerControl x:Name="scannerControl" ResultReceived="OnReadResultReceived" ConnectionStateChanged="OnConnectionStateChanged" ConnectionCompleted="OnConnectionCompleted"/>
+            </Grid>
+
+            <StackLayout  Grid.Row="3" VerticalOptions="End" HorizontalOptions="FillAndExpand" Padding="20">
+                <Image     
+                    Opacity="0.2"
+                    Source="touch.png"
+                    Margin="0"
+                    WidthRequest="35"
+                    VerticalOptions="End"
+                    HorizontalOptions="End">
+                </Image>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"  Tapped="AddNew_Tapped" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <Grid  Grid.Row="1" VerticalOptions="CenterAndExpand"
+			 Padding="20,0,20,40">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+				Width="0.8*" />
+                    <ColumnDefinition
+				Width="4*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" Text="Mã" VerticalTextAlignment="Center" />
+                <Entry
+                    Grid.Column="1" Grid.Row="0"
+                    TextColor="Black"
+                    IsReadOnly="True"
+                    x:Name="txtItemNo"
+					Placeholder="Mã sản phẩm"
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+                <Label Grid.Column="0" Grid.Row="1" Text="Tên " VerticalTextAlignment="Center" />
+                <Entry
+                 Grid.Column="1" Grid.Row="1"
+                     TextColor="Black"
+                        IsReadOnly="True"
+						x:Name="txtItemName"
+						Placeholder="Tên sản phẩm"
+						VerticalOptions="Center"
+						HorizontalOptions="FillAndExpand" />
+
+                <Label Grid.Column="0" Grid.Row="2" Text="Loại" VerticalTextAlignment="Center" />
+                <Entry
+                 Grid.Column="1" Grid.Row="2"
+                     TextColor="Black"
+                        IsReadOnly="True"
+						  x:Name="txtCatVendor"
+						Placeholder="Loại"
+						VerticalOptions="Center"
+						HorizontalOptions="FillAndExpand" />
+
+                <Label Grid.Column="0" Grid.Row="3" Text="Màu" VerticalTextAlignment="Center" />
+                <Entry
+                 Grid.Column="1" Grid.Row="3"
+                     TextColor="Black"
+                        IsReadOnly="True"
+						  x:Name="txtColour"
+						Placeholder="Màu "
+						VerticalOptions="Center"
+						HorizontalOptions="FillAndExpand" />
+
+                <Label Grid.Column="0" Grid.Row="4" Text="Giá" VerticalTextAlignment="Center" />
+                <Entry
+                 Grid.Column="1" Grid.Row="4"
+                     TextColor="Black"
+                        IsReadOnly="True"
+						 x:Name="txtUniprice"
+						Placeholder="Giá "
+						VerticalOptions="Center"
+						HorizontalOptions="FillAndExpand" />
+
+                <Label Grid.Column="0" Grid.Row="5" Text="Variant" VerticalTextAlignment="Center" />
+                <Entry
+                 Grid.Column="1" Grid.Row="5"
+                     TextColor="Black"
+                        IsReadOnly="True"
+						 x:Name="txtVariantCode"
+						Placeholder="Variant "
+						VerticalOptions="Center"
+						HorizontalOptions="FillAndExpand" />
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

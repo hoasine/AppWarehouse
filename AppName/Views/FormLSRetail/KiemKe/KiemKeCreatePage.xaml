@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="AppName.KiemKeCreatePage" 
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+    xmlns:local="clr-namespace:AppName"
+    xmlns:renderer="clr-namespace:AppName.CustomRenderer;assembly=AppName"
+	Title="Tạo phiếu kiểm"
+    BackgroundColor="#EFEFEF">
+
+    <ContentPage.Resources>
+        <ResourceDictionary
+			Source="/Styles/TabControl/SegmentedTabResources.xaml" />
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid Margin="10,10" HorizontalOptions="Start"
+              	grial:Effects.ApplyIOSSafeAreaAsPadding="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="90"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label x:Name="ScanResultLabel"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="Start"
+                   Margin="0,8,0,0"
+                Grid.Row="0"
+                Text="** Please fill in the area and content to register the tally. Confirm the correct information before creating the tally"
+                Grid.Column="0"
+                TextColor="#2A2A2A"
+                FontSize="14"/>
+
+            <Grid Grid.Row="1" VerticalOptions="Start">
+                <Grid  Grid.Row="0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid
+                            Grid.Row="0"
+                            grial:EntryProperties.BorderWidth="{ DynamicResource EntryAndEditorsBorderWidth }"
+                            grial:EntryProperties.BorderColor="{ DynamicResource EntryAndEditorsBorderColor }"
+                            grial:EntryProperties.BorderStyle="{ DynamicResource EntryBorderStyle }"
+                            grial:EntryProperties.BorderCornerRadius="{ DynamicResource EntryBorderCornerRadiusCornerRadius }"
+                            Margin="20,10,20,0"
+					        Padding="12,0"
+                            RowSpacing="1"
+					        grial:Effects.CornerRadius="8"
+					        BackgroundColor="White">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="AUTO" />
+                        </Grid.ColumnDefinitions>
+
+
+                        <Label
+					            Grid.Row="0"
+					            Grid.Column="0"
+					            Text="Loại"
+					            FontSize="13"
+					            VerticalOptions="Center"
+					            HorizontalOptions="Start"
+					            TextColor="{ DynamicResource InverseTextColor }" />
+
+
+                        <Grid
+						        Grid.Row="0"
+						        Grid.Column="1"
+						        HorizontalOptions="End">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+								        Width="*" />
+                                <ColumnDefinition
+								        Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+
+
+                            <Picker
+							    HorizontalOptions="EndAndExpand"
+							    Grid.Row="0"
+							    Grid.Column="0"
+                                WidthRequest="150"
+                                SelectedItem="{ Binding SelectedTypes, Mode=TwoWay }"
+                                ItemsSource="{Binding TypesList}"
+                                grial:PickerProperties.BorderStyle="None"
+                                x:Name="TypeKiemKes"
+							    FontSize="12"
+							    TextColor="Transparent"
+							    BackgroundColor="Transparent">
+                            </Picker>
+
+                            <Label
+							        Grid.Row="0"
+							        Grid.Column="0"
+                                    BindingContext="{ x:Reference Name=TypeKiemKes }"
+							        InputTransparent="true"
+							        Text="{ Binding Path=SelectedItem }"
+							        FontSize="14"
+							        VerticalOptions="Center"
+							        HorizontalOptions="End"
+							        TextColor="{ DynamicResource InverseTextColor }"
+							        Style="{ StaticResource LabelBoldStyle }" />
+
+                            <Label
+							        Grid.Column="1"
+							        Grid.Row="0"
+							        VerticalOptions="Center"
+							        TextColor="{ DynamicResource InverseTextColor }"
+							        Text="{ x:Static local:GrialIconsFont.Dashboard }"
+							        Style="{ StaticResource FontIcon }"
+							        InputTransparent="true" />
+                        </Grid>
+                    </Grid>
+
+                    <Grid
+                            Grid.Row="1"
+                            grial:EntryProperties.BorderWidth="{ DynamicResource EntryAndEditorsBorderWidth }"
+                            grial:EntryProperties.BorderColor="{ DynamicResource EntryAndEditorsBorderColor }"
+                            grial:EntryProperties.BorderStyle="{ DynamicResource EntryBorderStyle }"
+                            grial:EntryProperties.BorderCornerRadius="{ DynamicResource EntryBorderCornerRadiusCornerRadius }"
+                            Margin="20,4,20,0"
+					        Padding="12,0"
+                            RowSpacing="1"
+					        grial:Effects.CornerRadius="8"
+					        BackgroundColor="White">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="AUTO" />
+                        </Grid.ColumnDefinitions>
+
+
+                        <Label
+					            Grid.Row="0"
+					            Grid.Column="0"
+					            Text="Khu vực"
+					            FontSize="13"
+					            VerticalOptions="Center"
+					            HorizontalOptions="Start"
+					            TextColor="{ DynamicResource InverseTextColor }" />
+
+
+                        <Grid
+						        Grid.Row="0"
+						        Grid.Column="1"
+						        HorizontalOptions="End">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+								        Width="*" />
+                                <ColumnDefinition
+								        Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+
+
+                            <Picker
+							    HorizontalOptions="EndAndExpand"
+							    Grid.Row="0"
+							    Grid.Column="0"
+                                WidthRequest="150"
+                                ItemDisplayBinding="{Binding LocationName}"
+                                ItemsSource="{Binding LocationList}"
+                                SelectedItem="{ Binding SelectedLocation, Mode=TwoWay }"
+                                grial:PickerProperties.BorderStyle="None"
+                                x:Name="LocationPicker"
+							    FontSize="12"
+							    TextColor="Transparent"
+							    BackgroundColor="Transparent">
+                            </Picker>
+
+                            <Label
+							        Grid.Row="0"
+							        Grid.Column="0"
+                                    Text="{Binding SelectedItem.LocationName}"
+							        BindingContext="{ x:Reference Name=LocationPicker }"
+							        InputTransparent="true"
+							        FontSize="14"
+							        VerticalOptions="Center"
+							        HorizontalOptions="End"
+							        TextColor="{ DynamicResource InverseTextColor }"
+							        Style="{ StaticResource LabelBoldStyle }" />
+
+
+
+                            <Label
+							        Grid.Column="1"
+							        Grid.Row="0"
+							        VerticalOptions="Center"
+							        TextColor="{ DynamicResource InverseTextColor }"
+							        Text="{ x:Static local:GrialIconsFont.Filter }"
+							        Style="{ StaticResource FontIcon }"
+							        InputTransparent="true" />
+                        </Grid>
+                    </Grid>
+
+                    <Entry
+                         Grid.Row="2"
+                         Margin="20,4,20,0"
+                        x:Name="txtDes"
+                        HeightRequest="47"
+                        TextColor="Black"
+					    Placeholder="Nội dung..."
+					    VerticalOptions="Start"
+					    HorizontalOptions="FillAndExpand" />
+                </Grid
+                       
+>
+            </Grid>
+
+            <Button
+                Grid.Row="3"
+                VerticalOptions="End"
+                WidthRequest="20"
+                HeightRequest="50"
+                FontSize="15"
+				Text="Tạo Phiếu Kiểm"
+                Clicked="CreateInventoryMaster_Click"
+                TextColor="White"
+				Style="{ StaticResource TranslucidButtonStyle }" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

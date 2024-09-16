@@ -1,0 +1,382 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="AppName.ReLablePDFSmallWithImportExcel" 
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+    xmlns:local="clr-namespace:AppName"
+    x:Name="reLablePDFSmallWithImportExcel"
+   xmlns:renderer="clr-namespace:AppName.CustomRenderer;assembly=AppName"
+    xmlns:zing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms" xmlns:zxcm="clr-namespace:ZXing.Common;assembly=zxing.portable" xmlns:effects1="clr-namespace:StrikethroughEntry.Effects;assembly=AppName.Core"
+        Title="Price tag with excel"
+   BackgroundColor="{ DynamicResource BasePageColor }">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem  Text="Setting" Command="{Binding OpenSettingCommand}"  Order="Secondary" Priority="0"/>
+    </ContentPage.ToolbarItems>
+
+
+    <ContentPage.Resources>
+        <ResourceDictionary
+			Source="/Styles/TabControl/SegmentedTabResources.xaml" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:DialogsResources />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <StackLayout>
+            <Grid>
+                <Grid BackgroundColor="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="42"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.ColumnSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="122"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <grial:GrialNavigationBar
+				    UseNavigationPageBarBackgroundColor="true"
+				    UseNavigationPageBarBackgroundGradient="true" />
+
+                        <!-- SEARCH BAR -->
+                        <Grid
+                                Grid.Row="0 "
+					            Margin="18,5,18,0"
+					            grial:Effects.ApplyIOSSafeAreaAsPadding="Left,Right">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="44" />
+                                <RowDefinition Height="60" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2.4*"/>
+                                <ColumnDefinition Width="7.4*"/>
+                            </Grid.ColumnDefinitions>
+
+
+                            <Label Grid.Column="0" Text="Date print"    VerticalTextAlignment="Center" TextColor="White"></Label>
+
+                            <DatePicker
+                            grial:PickerProperties.BorderCornerRadius="7"
+                            Date="{Binding DatePrinter}"
+                            Grid.Column="1"/>
+
+                            <Label Grid.Column="0" Text="Import Item" Grid.Row="1"   VerticalTextAlignment="Center" TextColor="White"></Label>
+
+                            <grial:CardView CornerRadius="7" BackgroundColor="White"  Grid.Row="1"  Grid.Column="1" Padding="0,10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--SAU KHI IMPORT CÓ DỮ LIỆU SẼ ẨN VIEW NÀY-->
+                                    <Label
+                                    Padding="5"
+                                    BackgroundColor="#EDEDED"
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                HorizontalTextAlignment="Center"
+                                FontSize="30"
+                                TextColor="{DynamicResource AccentColor}"
+                                FontFamily="{StaticResource MaterialCommunityIcons}"
+                                Text="{x:Static local:MaterialCommunityIconsFont.FileExport}">
+                                        <Label.Triggers>
+                                            <MultiTrigger
+                                TargetType="Label">
+                                                <MultiTrigger.Conditions>
+                                                    <BindingCondition
+                                        Binding="{Binding ListStockLine, Converter={StaticResource IsNotNullConverter}}"
+                                        Value="true"/>
+                                                    <BindingCondition
+                                        Binding="{Binding ListStockLine.Count, Converter={StaticResource GreaterThanZeroConverter}}"
+                                        Value="true"/>
+                                                </MultiTrigger.Conditions>
+                                                <Setter Property="IsVisible" Value="false"/>
+                                            </MultiTrigger>
+                                        </Label.Triggers>
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                Command="{Binding PickerFileCommand}"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+
+                                    <!--SAU KHI IMPORT CÓ DỮ LIỆU SẼ ẨN VIEW NÀY-->
+                                    <Label
+                                 Grid.Column="0"
+                                HorizontalOptions="Center"
+                                HorizontalTextAlignment="Center"
+                                Text="Click on the &quot;+&quot; to import items (.xls or .xlsx)">
+                                        <Label.Triggers>
+                                            <MultiTrigger
+                                TargetType="Label">
+                                                <MultiTrigger.Conditions>
+                                                    <BindingCondition
+                                        Binding="{Binding ListStockLine, Converter={StaticResource IsNotNullConverter}}"
+                                        Value="true"/>
+                                                    <BindingCondition
+                                        Binding="{Binding ListStockLine.Count, Converter={StaticResource GreaterThanZeroConverter}}"
+                                        Value="true"/>
+                                                </MultiTrigger.Conditions>
+                                                <Setter Property="IsVisible" Value="false"/>
+                                            </MultiTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                </Grid>
+
+                            </grial:CardView>
+
+                            <!--<Entry
+                            Grid.Column="1"
+                             grial:EntryProperties.BorderCornerRadius="8"
+                                TextColor="{DynamicResource OverImageTextColor}"
+						        Margin="0,0,-8,0" >
+                        </Entry>
+
+                        <SearchBar
+                            Margin="-10,0,0,0"
+                            Grid.Column="1"
+                            grial:SearchBarProperties.BorderWidth="7"
+                            x:Name="txtsearch"
+						        CancelButtonColor="{DynamicResource SecondaryPageTextColor}"
+						        Grid.Row="0"
+						        BackgroundColor="Transparent"
+                                grial:Effects.CornerRadius="0"
+						        TextColor="{DynamicResource SecondaryPageTextColor}"
+						        Style="{ StaticResource TranslucidSearchBarStyleVuong }"
+						        Placeholder="Search"
+                            SearchCommand="{Binding SearchItemsCommand}"
+                            SearchCommandParameter="{Binding Source={x:Reference txtsearch}, Path=Text}"/>-->
+                        </Grid>
+
+                        <ListView
+                        Margin="8,0"
+                        Grid.Row="1"
+                        x:Name="ItemsListView"
+                        ItemsSource="{Binding Items}"
+                        VerticalOptions="FillAndExpand"
+                        HasUnevenRows="True"
+                        IsPullToRefreshEnabled="False"
+                        SeparatorVisibility="None"
+                        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                        CachingStrategy="RecycleElement">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <grial:CardView
+                                        ColumnSpacing="5"
+                                        Margin="5"
+                                        Padding="10"
+                                        BackgroundColor="{DynamicResource MainWrapperBackgroundColor}"
+                                        HasShadow="True"
+                                        ShadowSize="3"
+                                        ShadowOpacity=".7">
+                                            <grial:CardView.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="50"/>
+                                            </grial:CardView.ColumnDefinitions>
+
+
+
+                                            <StackLayout
+                                            Padding="10,5,5,5"
+                                            Spacing="7">
+
+                                                <!--<Grid>
+                                                <zing:ZXingBarcodeImageView x:Name="BarCodeId"   
+                                                        BarcodeFormat="CODE_128"
+                                                     BarcodeValue="{Binding Barcode, FallbackValue='BarcodeDefault'}"
+                                                    HeightRequest="25">
+                                                    <zing:ZXingBarcodeImageView.BarcodeOptions>
+                                                        <zxcm:EncodingOptions  Height="10" Width="20"   PureBarcode="false" />
+                                                    </zing:ZXingBarcodeImageView.BarcodeOptions>
+                                                </zing:ZXingBarcodeImageView>
+                                            </Grid>-->
+
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label FontAttributes="Bold"  Text="Name: "  Grid.Row="0" Grid.Column="0"
+                                                    LineBreakMode="HeadTruncation" TextColor="{DynamicResource AccentColor}"
+                                                    Style="{DynamicResource ListItemTextStyle}" 
+                                                    FontSize="12" />
+
+                                                    <Label FontAttributes="Bold"  Text="{Binding ItemName}"  Grid.Row="0" Grid.Column="1" 
+                                                    LineBreakMode="TailTruncation" 
+                                                    Style="{DynamicResource ListItemTextStyle}" 
+                                                    FontSize="12" />
+                                                </Grid>
+
+                                                <Grid    ColumnSpacing="10">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label FontAttributes="Bold"  Text="Code: "  Grid.Row="0" Grid.Column="0"
+                                                    LineBreakMode="NoWrap" TextColor="{DynamicResource AccentColor}"
+                                                    Style="{DynamicResource ListItemTextStyle}" 
+                                                    FontSize="12" />
+
+                                                    <Label Text="{Binding Barcode}"   Grid.Row="0" Grid.Column="1" 
+                                                    LineBreakMode="NoWrap"
+                                                    Style="{DynamicResource ListItemDetailTextStyle}"
+                                                    FontSize="11" />
+                                                </Grid>
+
+                                                <Grid   IsVisible="{Binding IsDiscPercentNguoc}">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label FontAttributes="Bold"  Text="Price: "  Grid.Row="0" Grid.Column="0"
+                                                    LineBreakMode="NoWrap" TextColor="{DynamicResource AccentColor}"
+                                                    Style="{DynamicResource ListItemTextStyle}" 
+                                                    FontSize="12" />
+
+                                                    <Label Text="{Binding Unit_PriceStr}"   Grid.Row="0" Grid.Column="1" 
+                                                    LineBreakMode="NoWrap"
+                                                    Style="{DynamicResource ListItemDetailTextStyle}"
+                                                    FontSize="11" />
+                                                </Grid>
+
+                                                <Grid   IsVisible="{Binding IsDiscPercent}">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label FontAttributes="Bold"  Text="Price: "  Grid.Row="0" Grid.Column="0"
+                                                    LineBreakMode="NoWrap" TextColor="{DynamicResource AccentColor}"
+                                                    Style="{DynamicResource ListItemTextStyle}" 
+                                                    FontSize="12" />
+
+                                                    <Label  Grid.Row="0" Grid.Column="1" 
+                                                    LineBreakMode="TailTruncation"
+                                                    Style="{DynamicResource ListItemDetailTextStyle}"
+                                                    FontSize="11">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <FormattedString.Spans>
+                                                                    <Span
+                                                                    Text="{Binding Unit_PriceStr, StringFormat={StaticResource DateFortmatString}}" 
+                                                                    TextDecorations="Strikethrough"/>
+                                                                    <Span
+                                                                    Text=" - "/>
+                                                                    <Span
+                                                                    Text="{Binding DiscoutStr}"/>
+                                                                </FormattedString.Spans>
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                </Grid>
+
+                                                <Grid IsVisible="{Binding IsMixMatch}">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label FontAttributes="Bold"  Text="Mix &#38; Match: "  Grid.Row="0" Grid.Column="0"
+                                                    LineBreakMode="NoWrap" TextColor="{DynamicResource AccentColor}"
+                                                    Style="{DynamicResource ListItemTextStyle}" 
+                                                    FontSize="12" />
+
+                                                    <Label  Grid.Row="0" Grid.Column="1" 
+                                                    LineBreakMode="TailTruncation"
+                                                    Style="{DynamicResource ListItemDetailTextStyle}"
+                                                    FontSize="11">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <FormattedString.Spans>
+                                                                    <Span
+                                                                    Text="{Binding SchemeDescriptionMixMatch}"/>
+                                                                    <Span
+                                                                    Text=" - "/>
+                                                                    <Span
+                                                                    Text="{Binding DatetimeMixMatch, StringFormat={StaticResource DateFortmatString}}"/>
+                                                                </FormattedString.Spans>
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                </Grid>
+
+                                                <Grid   IsVisible="{Binding IsMultil}">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label FontAttributes="Bold"  Text="Multibuy: "  Grid.Row="0" Grid.Column="0"
+                                                    LineBreakMode="NoWrap" TextColor="{DynamicResource AccentColor}"
+                                                    Style="{DynamicResource ListItemTextStyle}" 
+                                                    FontSize="12" />
+
+                                                    <Label  Grid.Row="0" Grid.Column="1" 
+                                                    LineBreakMode="TailTruncation"
+                                                    Style="{DynamicResource ListItemDetailTextStyle}"
+                                                    FontSize="11">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <FormattedString.Spans>
+                                                                    <Span
+                                                                    Text="{Binding SchemeDescriptionMultiBuy, StringFormat={StaticResource DateFortmatString}}"/>
+                                                                    <Span
+                                                                    Text=" - "/>
+                                                                    <Span
+                                                                    Text="{Binding DatetimeMultil, StringFormat={StaticResource DateFortmatString}}"/>
+                                                                </FormattedString.Spans>
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                </Grid>
+
+                                            </StackLayout>
+
+                                            <Button
+                                            Margin="20,0,0,0"
+                                            Grid.Column="1"
+                                            FontSize="30"
+                                            TextColor="{StaticResource AccentColor}"
+                                            BackgroundColor="Transparent"
+                                            VerticalOptions="Start"
+                                            HorizontalOptions="End"
+                                            Command="{Binding Source={x:Reference reLablePDFSmallWithImportExcel}, Path=BindingContext.DeleteItemCommand}"
+                                            CommandParameter="{Binding .}"
+                                            FontFamily="{StaticResource MaterialCommunityIcons}"
+                                            Text="{x:Static local:MaterialCommunityIconsFont.DeleteForever }"/>
+                                        </grial:CardView>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+
+                    <Button
+                Grid.Row="1"
+                Grid.Column="0"
+                FontSize="12"
+                CornerRadius="0"
+                Style="{ StaticResource PrimaryActionButtonStyle }"
+                Text="{Binding LablePromotion}"
+                Command="{Binding CommandPrinterPromotion}"/>
+
+                    <Button
+                Grid.Row="1"
+                Grid.Column="1"
+                CornerRadius="0"
+                FontSize="12"
+                Style="{ StaticResource PrimaryActionButtonStyle }"
+                Text="{Binding LableNotPromotion}"
+                Command="{Binding CommandPrinter}"/>
+
+                </Grid>
+
+                <ContentView IsVisible="{Binding ShowLoading}"  BackgroundColor="#80000000"   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <ActivityIndicator Margin="155,155,155,155" Opacity="1" IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" />
+                </ContentView>
+            </Grid>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

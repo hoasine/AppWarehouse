@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="AppName.ShipmentTOLinePage"
+    xmlns:local="clr-namespace:AppName"
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+    BackgroundColor="{DynamicResource MainWrapperBackgroundColor}"
+    Title="Shipment TO"
+    x:Name="shipmentTOLine">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <grial:GrialNavigationBar
+            UseNavigationPageBarBackgroundColor="True"
+            UseNavigationPageBarBackgroundGradient="True"/>
+
+            <!-- SEARCH BAR -->
+            <Grid
+            Padding="10,0"
+            Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="44" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Entry
+                TextColor="{DynamicResource OverImageTextColor}"
+                Margin="0,0,-8,0"/>
+
+                <SearchBar
+                x:Name="searchBar"
+				CancelButtonColor="White"
+				BackgroundColor="Transparent"
+				Style="{ StaticResource TranslucidSearchBarStyleVuong }"
+				Placeholder="Search"
+                SearchCommand="{Binding OpenShipmentTODetailCommand}"
+                SearchCommandParameter="{Binding Source={x:Reference searchBar}, Path=Text}"/>
+            </Grid>
+
+            <ListView
+            Grid.Row="1"
+            ItemsSource="{Binding ListTOLine}"
+            SelectionMode="None"
+            HasUnevenRows="True"
+            IsPullToRefreshEnabled="False"
+            SeparatorVisibility="Default"
+            SeparatorColor="{DynamicResource ListViewSeparatorColor}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                        <SwipeItem
+                                         IconImageSource="delete_icon.png"
+                                        BackgroundColor="{StaticResource BaseTextColor}"
+                                        Command="{Binding Source={x:Reference shipmentTOLine}, Path=BindingContext.DeleteShipmentTOLineCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                        <SwipeItem 
+                                        IconImageSource="edit_icon.png"
+                                        BackgroundColor="#4A9DE2"
+                                        Command="{Binding Source={x:Reference shipmentTOLine}, Path=BindingContext.EditShipmentTOLineCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <Grid
+                                BackgroundColor="{DynamicResource BasePageColor}"
+                                Padding="10,10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Label Text="{Binding ItemName}" Grid.ColumnSpan="2" Margin="0" />
+
+                                    <Label
+                                    Grid.Row="1"
+                                    FontAttributes="bold"
+                                    Text="Qty. to Ship:"/>
+
+                                    <Label
+                                    FontAttributes="Bold"
+                                    Grid.Row="1"
+                                            Grid.Column="1"
+                                            HorizontalTextAlignment="End">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <FormattedString.Spans>
+
+                                                    <Span
+                                                            Text="{Binding Quatity}"/>
+
+                                                    <Span
+                                                            Text=" PCS"/>
+                                                </FormattedString.Spans>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                </Grid>
+                            </SwipeView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button
+            Grid.Row="2"
+            Margin="50,10,50,10"
+            VerticalOptions="Center"
+            HorizontalOptions="FillAndExpand"
+            Style="{ StaticResource PrimaryActionButtonStyle }"
+            Text="NEXT"
+            Command="{Binding NextCommand}"/>
+        </Grid>
+        <ContentView IsVisible="{Binding ShowLoading}"  BackgroundColor="#80000000"   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <ActivityIndicator Margin="155,155,155,155" Opacity="1" IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" />
+        </ContentView>
+    </Grid>
+</ContentPage>

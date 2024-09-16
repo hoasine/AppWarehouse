@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="com.internal.dafc" android:versionName="3.3.8" android:versionCode="1">
+	<uses-sdk android:minSdkVersion="16" android:targetSdkVersion="28" />
+	<application android:icon="@drawable/icon_dafc" android:label="Application" android:largeHeap="@bool/largeheap" android:usesCleartextTraffic="true">
+		<meta-data android:name="MX_MOBILE_LICENSE" android:value="XAaPA3Q/9zyI5MiaL3l2x6sS766Mju9QsGAuzD5fK/A=" />
+		<receiver android:name="com.onesignal.GcmBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND">
+			<intent-filter>
+				<action android:name="com.google.android.c2dm.intent.RECEIVE" />
+				<category android:name="com.internal.dafc" />
+			</intent-filter>
+		</receiver>
+
+
+		<provider android:name="android.support.v4.content.FileProvider" android:authorities="com.internal.dafc.fileprovider"
+		android:exported="false" android:grantUriPermissions="true">
+			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"></meta-data>
+		</provider>
+	</application>
+	<permission android:name="com.ems.portal.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.BLUETOOTH"></uses-permission>
+	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN"></uses-permission>
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+	<uses-permission android:name="android.Manifest.permission.READ_PHONE_STATE"></uses-permission>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.CAMERA" />
+</manifest>

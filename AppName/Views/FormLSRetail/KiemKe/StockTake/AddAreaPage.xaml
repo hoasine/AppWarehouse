@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+    x:Class="AppName.AddAreaPage"
+    BackgroundColor="{ DynamicResource CustomActionSheetShimBackgroundColor }"
+    HasSystemPadding="false"
+    xmlns:local="clr-namespace:AppName"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:DialogsResources />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+
+    <Grid
+		Style="{ StaticResource CustomActionSheetStyle }"
+		VerticalOptions="{ StaticResource DialogsVerticalPositioning }"
+		HeightRequest="300"
+        Margin="30,0"
+		RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="49"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid
+            BackgroundColor="{ DynamicResource NavigationBarEndBackgroundColor }">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label
+				Grid.Row="0" 
+				Grid.Column="0"
+				Text="{ x:Static local:GrialIconsFont.CheckSquare }"
+				FontSize="18"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+				Style="{ StaticResource MainMenuIconStyle }"
+				TextColor="White" />
+
+            <Label Grid.Row="0" 
+				Grid.Column="1" Margin="-10,0,0,0"
+                Padding="0,14,14,14"  
+                FontAttributes="Bold" 
+                FontSize="14"
+                TextColor="White" 
+                VerticalTextAlignment="Start" 
+                HorizontalTextAlignment="Start">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <FormattedString.Spans>
+                            <Span
+                                Text="Add Area"/>
+                        </FormattedString.Spans>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </Grid>
+
+        <Grid
+            Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <ScrollView>
+                <Grid>
+                    <StackLayout
+                        IsVisible="False"
+                        Padding="10"
+                        Spacing="10">
+                        <StackLayout.Triggers>
+                            <DataTrigger
+                                TargetType="StackLayout"
+                                Binding="{Binding IsUpdate}"
+                                Value="True">
+                                <Setter Property="IsVisible" Value="True"/>
+                            </DataTrigger>
+                        </StackLayout.Triggers>
+                        <ScrollView>
+                            <Grid VerticalOptions="CenterAndExpand" Margin="0,13,0,0"
+			                Padding="10,0,10,10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition
+				                Width="*" />
+                                    <ColumnDefinition
+				                Width="4*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Column="0" Grid.Row="1" Text="Area" VerticalTextAlignment="Center" />
+                                <Entry
+                                    Grid.Column="1" Grid.Row="1"
+                                    TextColor="Black"
+                                    Text="{ Binding DataModel.AreasName }"
+                                    grial:EntryProperties.BorderCornerRadius="5"
+                                            
+					                Placeholder="Area Name"
+					                VerticalOptions="Center"
+					                HorizontalOptions="FillAndExpand" />
+
+                                <Label Grid.Column="0" Grid.Row="3" Text="Number" VerticalTextAlignment="Center" />
+                                <Entry
+                                 Grid.Column="1" Grid.Row="3"
+                                     TextColor="Black"
+                                Keyboard="Numeric"
+                                     Placeholder="Number of areas"
+						                 Text="{ Binding DataModel.Quantity }"
+                                    grial:EntryProperties.BorderCornerRadius="5"
+                                    grial:EntryProperties.BorderColor="{StaticResource AccentColor}"
+						                VerticalOptions="Center"
+						                HorizontalOptions="FillAndExpand" />
+                            </Grid>
+                        </ScrollView>
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
+
+            <Button
+                Grid.Row="1"
+                WidthRequest="90"
+                HeightRequest="40"
+                CornerRadius="6"
+                Margin="0,0,20,15"
+                VerticalOptions="End"
+                HorizontalOptions="End"
+                Text="UPDATE"
+                Command="{Binding AddAreaCommand}"   />
+        </Grid>
+    </Grid>
+</pages:PopupPage>

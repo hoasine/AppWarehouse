@@ -1,0 +1,458 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+  xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
+                 xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+     xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    x:Class="AppName.GapCheckPreviewPage"
+    x:Name="gcPreviewPage"
+      xmlns:local="clr-namespace:AppName"
+    BackgroundColor="{DynamicResource MainWrapperBackgroundColor}"
+    Title="Gap Check Lines">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem  Command="{Binding ReleaseCommand}" Text="{Binding Release}"  Order="Default" Priority="0"/>
+    </ContentPage.ToolbarItems>
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackLayout
+                Spacing="0">
+                <StackLayout 
+                    Padding="10"
+                    HeightRequest="280"
+                  BackgroundColor="#1B6279"
+                    Spacing="10">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.8*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.8*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                        Margin="2,5,0,0"
+                        FontAttributes="Bold"
+                        TextColor="White">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span
+                                           Text="No. "/>
+                                        <Span
+                                        FontSize="16"
+                                             Text="{Binding DataModel.DocumentNo}"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+
+                        <Label
+                        Margin="0,5,0,0"
+                        Grid.Column="1"
+                        HorizontalTextAlignment="End"
+                        FontAttributes="Bold"
+                        TextColor="White">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span
+                                           Text="{Binding ListStockLineFull.Count}"/>
+                                        <Span
+                                        FontSize="16"
+                                             Text=" Items"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Grid    Grid.Column="0"  Grid.Row="1">
+                            <Picker
+                        Title="Select a FixelID"
+                        FontAttributes="Bold"
+                        ItemsSource="{Binding ListFixelID}"
+                        grial:PickerProperties.BorderCornerRadius="3"
+                        ItemDisplayBinding="{Binding FixelID}"
+                        SelectedItem="{Binding SelectedFixelID ,Mode=TwoWay}">
+                                <Picker.Behaviors>
+                                    <b:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding Source={x:Reference gcPreviewPage}, Path=BindingContext.ChangeFixelIDCommand}"></b:EventToCommandBehavior>
+                                </Picker.Behaviors>
+                            </Picker>
+
+                            <Label
+                            Margin="5"
+                            HorizontalOptions="End"
+                            FontAttributes="Bold"
+				            Text="{ x:Static local:GrialIconsFont.ChevronDown }"
+				            Style="{ StaticResource MainMenuIconStyle }"
+				            TextColor="{StaticResource BaseLightTextColor}" />
+
+                        </Grid>
+
+                        <Grid    Grid.Column="1"  Grid.Row="1">
+                            <Picker
+                             x:Name="pickerDate"
+                        Title="Select a POG"
+                        grial:PickerProperties.BorderCornerRadius="3"
+                        FontAttributes="Bold"
+                        IsEnabled="{Binding IsEnablePOG}"
+                        ItemsSource="{Binding ListPOG}"
+                        ItemDisplayBinding="{Binding POG}"
+                        SelectedItem="{Binding SelectedPOG ,Mode=TwoWay}">
+                                <Picker.Behaviors>
+                                    <b:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding Source={x:Reference gcPreviewPage}, Path=BindingContext.ChangePOGCommand }" CommandParameter="{x:Reference pickerDate}"></b:EventToCommandBehavior>
+                                </Picker.Behaviors>
+                            </Picker>
+                            <Label
+                            Margin="5"
+                            HorizontalOptions="End"
+				           FontAttributes="Bold"
+				            Text="{ x:Static local:GrialIconsFont.ChevronDown }"
+				            Style="{ StaticResource MainMenuIconStyle }"
+				            TextColor="{StaticResource BaseLightTextColor}" />
+                        </Grid>
+                    </Grid>
+
+                    <BoxView
+                        HeightRequest="0.2"
+                        Style="{StaticResource Horizontal1ptLineStyle}"/>
+
+
+                    <StackLayout>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label
+                                TextColor="White"
+                                Text="Quantity of POG"/>
+
+
+                            <Label
+                            Grid.Column="1"
+                                  FontAttributes="Bold"                     
+                            TextColor="White"
+                            HorizontalOptions="End"
+                            HorizontalTextAlignment="End">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <FormattedString.Spans>
+                                            <Span
+                                            Text="{Binding SelectedPOG.Quantity, Mode=TwoWay}"/>
+                                            <Span
+                                            Text=" PCS"/>
+                                        </FormattedString.Spans>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label
+                                TextColor="White"
+                                Text="Items"/>
+
+
+                            <Label
+                            Grid.Column="1"
+                                  FontAttributes="Bold"                     
+                            TextColor="White"
+                            HorizontalOptions="End"
+                            HorizontalTextAlignment="End">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <FormattedString.Spans>
+                                            <Span
+                                            Text="{Binding DataModel.CountItem, Mode=TwoWay}"/>
+                                            <Span
+                                            Text=" PCS"/>
+                                        </FormattedString.Spans>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label
+                                TextColor="White"
+                                Text="Scanned"/>
+
+
+                            <Label
+                            Grid.Column="1"
+                                  FontAttributes="Bold"                     
+                            TextColor="{DynamicResource WarningColor}"
+                            HorizontalOptions="End"
+                            HorizontalTextAlignment="End">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <FormattedString.Spans>
+                                            <Span
+                                            Text="{Binding DataModel.SumQuantity_Scan, Mode=TwoWay}"/>
+                                            <Span
+                                            Text=" PCS"/>
+                                        </FormattedString.Spans>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+
+                        </Grid>
+
+
+                    </StackLayout>
+
+
+                </StackLayout>
+
+                <!--<Label
+                    FontAttributes="Bold"
+                    Text="CYCLE COUNT LINES"
+                    TextColor="{DynamicResource AccentColor}"
+                    Margin="10,20,10,10"/>-->
+
+                <StackLayout>
+                    <SearchBar
+                        x:Name="txtsearch"
+                        Text="{Binding ItemNo}"
+						    CancelButtonColor="{DynamicResource SecondaryPageTextColor}"
+						    Grid.Row="0"
+						    BackgroundColor="#EBEBEB"
+                            grial:Effects.CornerRadius="0"
+						    TextColor="{DynamicResource SecondaryPageTextColor}"
+						    Style="{ StaticResource TranslucidSearchBarStyleVuong }"
+						    Placeholder="Search"
+                        SearchCommand="{Binding SearchItemsCommand}"
+                        SearchCommandParameter="{Binding Source={x:Reference txtsearch}, Path=Text}"/>
+
+                    <!--<SearchBar
+                        x:Name="txtsearch"
+                        Text="{Binding ItemNo}"
+						    CancelButtonColor="{DynamicResource SecondaryPageTextColor}"
+						    Grid.Row="0"
+						    BackgroundColor="Transparent"
+                            grial:Effects.CornerRadius="0"
+						    TextColor="{DynamicResource SecondaryPageTextColor}"
+						    Style="{ StaticResource TranslucidSearchBarStyleVuong }"
+						    Placeholder="Search" />-->
+
+
+                </StackLayout>
+
+                <BoxView
+                    HeightRequest="0.2"
+                    Style="{StaticResource Horizontal1ptLineStyle}"/>
+
+                <ListView
+                    Grid.Row="1"
+                    x:Name="ItemsListView"
+                    ItemsSource="{Binding PartnersGrouped}"
+                    VerticalOptions="FillAndExpand"
+                    HasUnevenRows="True"
+                    IsPullToRefreshEnabled="False"
+                    SeparatorVisibility="Default"
+                    IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                    CachingStrategy="RecycleElement"
+                SeparatorColor="{DynamicResource ListViewSeparatorColor}"
+                     GroupDisplayBinding="{Binding Key}"
+                          IsGroupingEnabled="true"
+                          GroupShortNameBinding="{Binding Key}">
+                    <ListView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <ViewCell Height="28">
+                                <StackLayout VerticalOptions="Start"
+                                             Padding="5,5,5,5"
+                                             BackgroundColor="{StaticResource BaseTextColor}">
+                                    <Label Text="{Binding Key}" TextColor="White" VerticalOptions="Center" VerticalTextAlignment="Center"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.GroupHeaderTemplate>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <SwipeView x:Name="check" >
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItem
+                                        IconImageSource="delete_icon.png"
+                                        BackgroundColor="{StaticResource BaseTextColor}"
+                                        Command="{x:Binding Source={x:Reference gcPreviewPage}, Path=BindingContext.DeleteGapCheckLineCommand,Mode=TwoWay}"
+                                        CommandParameter="{Binding .}"/>
+                                            <SwipeItem 
+                                        IconImageSource="edit_icon.png"
+                                        BackgroundColor="#4A9DE2"
+                                        Command="{x:Binding Source={x:Reference gcPreviewPage}, Path=BindingContext.EditGapCheckLineCommand,Mode=TwoWay}"
+                                        CommandParameter="{Binding .}"/>
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                    <Grid
+                                BackgroundColor="{DynamicResource BasePageColor}"
+                                RowSpacing="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="0.2"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid
+                                    Padding="5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="10*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Label Grid.ColumnSpan="2" Margin="0,0,0,4"
+                                        Text="{Binding ItemName}"/>
+
+                                            <Label  IsVisible="{Binding BindingContext.IsStaff,Source={x:Reference gcPreviewPage},Mode=TwoWay}"
+                                                
+                                             Grid.Row="1"
+                                        Grid.Column="1"
+                                        HorizontalTextAlignment="End">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <FormattedString.Spans>
+                                                            <Span
+                                                        Text="Scanned: "/>
+
+                                                            <Span
+                                                            FontAttributes="Bold"
+                                                            TextColor="{Binding ColorIsScan,Mode=TwoWay }"
+                                                            Text="{Binding Quantity_Scan,Mode=TwoWay}"/>
+
+
+                                                            <Span
+                                                            TextColor="{StaticResource BaseLightTextColor}"
+                                                            FontAttributes="Bold"
+                                                        Text="{Binding ReferenceInfo}"/>
+
+                                                            <Span 
+                                                        Text=" | "/>
+
+                                                            <Span
+                                                            TextColor="Red"
+                                                             FontAttributes="Bold"
+                                                        Text="{Binding Quantity}"/>
+                                                        </FormattedString.Spans>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+
+                                            <Label  IsVisible="{Binding BindingContext.IsStaff,Source={x:Reference gcPreviewPage},Converter={StaticResource NegateBooleanConverter}, Mode=TwoWay}"
+                                             Grid.Row="1"
+                                        Grid.Column="1"
+                                        HorizontalTextAlignment="End">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <FormattedString.Spans>
+
+                                                            <Span
+                                                        Text="Scanned: "/>
+
+                                                            <Span
+                                                            FontAttributes="Bold"
+                                                            TextColor="{Binding ColorIsScan,Mode=TwoWay }"
+                                                            Text="{Binding Quantity_Scan,Mode=TwoWay}"/>
+
+                                                            <Span
+                                                            TextColor="{StaticResource BaseLightTextColor}"
+                                                            FontAttributes="Bold"
+                                                        Text="{Binding ReferenceInfo}"/>
+
+                                                        </FormattedString.Spans>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+
+
+                                            <Label
+                                             Grid.Row="1"
+                                        Grid.Column="0"
+                                        HorizontalTextAlignment="Start">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <FormattedString.Spans>
+                                                            <Span
+                                                        Text="{Binding ItemNo}"/>
+
+                                                            <Span Text=" | "></Span>
+
+                                                            <Span
+                                                            FontAttributes="Bold"
+                                                        Text="{Binding POG}"/>
+
+                                                            <Span Text="("></Span>
+
+                                                            <Span
+                                                            FontAttributes="Bold"
+                                                        Text="{Binding QuantityPOG}"/>
+
+                                                            <Span Text=")"></Span>
+                                                        </FormattedString.Spans>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+
+
+                                        </Grid>
+
+                                        <BoxView
+                                    Grid.Row="1"
+                                    HeightRequest="0.2"
+                                    Style="{StaticResource Horizontal1ptLineStyle}"/>
+                                    </Grid>
+                                </SwipeView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+
+            <!--<Entry  Grid.Row="1"
+                Text="{Binding tesstValue, Mode=TwoWay}">
+        </Entry>
+
+        <Button
+            Grid.Row="1"
+            Margin="50,10,50,20"
+            VerticalOptions="Center"
+            HorizontalOptions="FillAndExpand"
+            Style="{ StaticResource PrimaryActionButtonStyle }"
+            Text="Release"
+            Command="{Binding SubmitCommand}"/>-->
+        </Grid>
+        <ContentView IsVisible="{Binding ShowLoading}"  BackgroundColor="#80000000"   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <ActivityIndicator Margin="155,155,155,155" Opacity="1" IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" />
+        </ContentView>
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="AppName.PickUPLinePage"
+    xmlns:local="clr-namespace:AppName"
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+    BackgroundColor="{DynamicResource MainWrapperBackgroundColor}"
+    Title="Scan lines"
+    x:Name="PickupLine">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <grial:GrialNavigationBar
+                UseNavigationPageBarBackgroundColor="True"
+                UseNavigationPageBarBackgroundGradient="True"/>
+
+            <StackLayout 
+                    Padding="10"
+                    HeightRequest="150"
+                BackgroundColor="#1B6279"
+                    Spacing="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.8*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.8*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                        Margin="2,5,0,0"
+                        FontAttributes="Bold"
+                        TextColor="White">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <FormattedString.Spans>
+                                    <Span
+                                           Text="Description: "/>
+                                    <Span
+                                        FontSize="16"
+                                             Text="{Binding PickupHeader.PickUpName}"/>
+                                </FormattedString.Spans>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Grid>
+
+                <BoxView
+                        HeightRequest="0.2"
+                        Style="{StaticResource Horizontal1ptLineStyle}"/>
+                <StackLayout>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                                TextColor="White"
+                                Text="Items"/>
+
+
+                        <Label
+                            Grid.Column="1"
+                            TextColor="White"
+                            HorizontalOptions="End"
+                            HorizontalTextAlignment="End">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span
+                                            Text="{Binding PickUpProductCountModel.TotalItem, Mode=TwoWay}"/>
+                                        <Span
+                                            Text=" PCS"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                                TextColor="White"
+                                Text="Scanned"/>
+
+                        <Label
+                            Grid.Column="1"
+                                  FontAttributes="Bold"                     
+                               TextColor="{DynamicResource WarningColor}"
+                            HorizontalOptions="End"
+                            HorizontalTextAlignment="End">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span
+                                            Text="{Binding PickUpProductCountModel.TotalScan, Mode=TwoWay}"/>
+                                        <Span
+                                            Text=" PCS"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
+
+            <!-- SEARCH BAR -->
+            <Grid
+                Padding="10,0"
+                Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="44" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Entry
+                    TextColor="{DynamicResource OverImageTextColor}"
+                    Margin="0,0,-8,0"/>
+
+                <SearchBar
+                    x:Name="searchBar"
+				    CancelButtonColor="White"
+				    BackgroundColor="Transparent"
+				    Style="{ StaticResource TranslucidSearchBarStyleVuong }"
+				    Placeholder="Search"
+                    SearchCommand="{Binding SearchItemsCommand}"
+                    SearchCommandParameter="{Binding Source={x:Reference searchBar}, Path=Text}"/>
+            </Grid>
+
+            <ListView
+                Grid.Row="2"
+                ItemsSource="{Binding PickupLine}"
+                SelectionMode="None"
+                HasUnevenRows="True"
+                IsPullToRefreshEnabled="False"
+                SeparatorVisibility="Default"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                SeparatorColor="{DynamicResource ListViewSeparatorColor}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                        <SwipeItem
+                                             IconImageSource="delete_icon.png"
+                                            BackgroundColor="{StaticResource BaseTextColor}"
+                                            Command="{Binding Source={x:Reference PickupLine}, Path=BindingContext.DeletePickupLineCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                        <SwipeItem 
+                                            IconImageSource="edit_icon.png"
+                                            BackgroundColor="#4A9DE2"
+                                            Command="{x:Binding Source={x:Reference PickupLine}, Path=BindingContext.EditPickupLineCommand,Mode=TwoWay}"
+                                            CommandParameter="{Binding .}"/>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <Grid
+                                    BackgroundColor="{DynamicResource BasePageColor}"
+                                    Padding="10,10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+
+                                    <Label
+                                      Grid.ColumnSpan="2" Margin="0">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <FormattedString.Spans>
+
+                                                    <Span
+                                                                Text="{Binding ItemName}"/>
+                                                    <Span
+                                                                Text=" - "/>
+
+                                                    <Span
+                                                                Text="{Binding ItemNo}"/>
+                                                </FormattedString.Spans>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+
+                                    <Label
+                                        Grid.Row="1"
+                                        FontAttributes="bold">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <FormattedString.Spans>
+
+                                                    <Span
+                                                                Text="Barcode: "/>
+
+                                                    <Span
+                                                                Text="{Binding BarcodeNo}"/>
+                                                </FormattedString.Spans>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <Label
+                                        FontAttributes="Bold"
+                                        Grid.Row="1"
+                                                Grid.Column="1"
+                                                HorizontalTextAlignment="End">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <FormattedString.Spans>
+
+                                                    <Span
+                                                                Text="{Binding QuantityScan,Mode=TwoWay}"/>
+
+                                                    <Span
+                                                                Text=" PCS"/>
+                                                </FormattedString.Spans>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                </Grid>
+                            </SwipeView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button
+                Grid.Row="3"
+                Margin="50,10,50,10"
+                VerticalOptions="Center"
+                HorizontalOptions="FillAndExpand"
+                Style="{ StaticResource PrimaryActionButtonStyle }"
+                Text="Close"
+                Command="{Binding CloseCommand}"/>
+        </Grid>
+        <ContentView IsVisible="{Binding ShowLoading}"  BackgroundColor="#80000000"   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <ActivityIndicator Margin="155,155,155,155" Opacity="1" IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" />
+        </ContentView>
+    </Grid>
+</ContentPage>

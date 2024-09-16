@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="AppName.BarocdeScanSanpPham" 
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+    xmlns:local="clr-namespace:AppName"
+    xmlns:renderer="clr-namespace:AppName.CustomRenderer;assembly=AppName"
+	Title="Scan Products"
+   BackgroundColor="{ DynamicResource BasePageColor }">
+
+    <ContentPage.Resources>
+        <ResourceDictionary
+			Source="/Styles/TabControl/SegmentedTabResources.xaml" />
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid  >
+            <grial:GrialNavigationBar
+				UseNavigationPageBarBackgroundColor="true"
+				UseNavigationPageBarBackgroundGradient="true" />
+            <grial:TabControl 
+                BackgroundColor="White"
+                Margin="0,0,0,0"
+				Style="{ StaticResource SegmentedTabStyle }">
+                <grial:TabItem Text="Scan">
+                    <Grid>
+                        <StackLayout>
+                            <ListView x:Name="ItemsListView"
+                        ItemsSource="{Binding Items}"
+                        VerticalOptions="FillAndExpand"
+                        HasUnevenRows="true"
+                        IsPullToRefreshEnabled="False"
+                        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                        CachingStrategy="RecycleElement"
+                        ItemSelected="OnItemSelected">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <StackLayout Padding="10" BackgroundColor="#ECECEC">
+                                                <Grid >
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="0.4*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="0.5*"/>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Source="{Binding URLImage}" />
+                                                    <Label  Grid.Row="0" Grid.Column="1" FontAttributes="Bold"  Text="{Binding Barcode_No_}" 
+                                                    LineBreakMode="NoWrap" 
+                                                    Style="{DynamicResource ListItemTextStyle}" 
+                                                    FontSize="12" />
+                                                    <Label  Grid.Row="1" Grid.Column="1" Text="{Binding ItemName}" 
+                                                    LineBreakMode="NoWrap"
+                                                    Style="{DynamicResource ListItemDetailTextStyle}"
+                                                    FontSize="11" />
+                                                    <Label  Grid.Row="0" Grid.RowSpan="2"  FontAttributes="Bold"  Grid.Column="2" Text="{Binding ORI_BARCODE}"  HorizontalOptions="EndAndExpand" VerticalOptions="Center" TextColor="OrangeRed"
+                                                    LineBreakMode="NoWrap"
+                                                    Style="{DynamicResource ListItemDetailTextStyle}"
+                                                    FontSize="11" />
+                                                </Grid>
+                                            </StackLayout>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackLayout>
+                    </Grid>
+                    <grial:TabItem.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TabMayQuetClick" />
+                    </grial:TabItem.GestureRecognizers>
+                </grial:TabItem>
+                <!--<grial:TabItem
+				    Text="Camera">
+                    <Grid RowSpacing="0" ColumnSpacing="0" BackgroundColor="black">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="16*"/>
+                            <RowDefinition Height="80"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="0.7*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="0.7*"/>
+                            <ColumnDefinition Width="30"/>
+                        </Grid.ColumnDefinitions>
+
+                        <renderer:CognexCamera x:Name="scanedCamera" Grid.Row="0" Grid.RowSpan="5" Grid.Column="0" Grid.ColumnSpan="5" AllowCoutinueScan="False"/>
+
+                        -->
+                <!--<Button 
+                Grid.Row="1"
+                Grid.Column="0"
+                Clicked="printclick"
+                TextColor="White"
+                BackgroundColor="#C22E2E"
+                CornerRadius="10"
+                Text="Clear"
+                FontAttributes="Bold"   
+                VerticalOptions="Start"
+                HorizontalOptions="End"
+                WidthRequest="60"
+                Font="16"
+                Margin="20"/>-->
+                <!--
+
+                        <StackLayout
+                            VerticalOptions="Center"
+                            Grid.Row="1" 
+                            Grid.ColumnSpan="5"
+				            Margin="40,0,40,20">
+                            <grial:CardView
+                                BackgroundColor="#80000000"
+                                HeightRequest="100"
+						        Style="{ StaticResource ResponsiveLandscapeMarginStyle }"
+						        CornerRadius="5">
+                                <StackLayout
+						            VerticalOptions="Center"
+						            HorizontalOptions="Center">
+                                    <Label Grid.Row="2"  Grid.Column="1" Grid.ColumnSpan="3" HorizontalOptions="Center"  TextColor="White"  Opacity="0.4" FontSize="13" HorizontalTextAlignment="Center"
+                                    VerticalOptions="Center" Padding="10" Text="Quét mã vạch kiểm tra thông tin của sản phẩm &#10; Scan barcodes to check product info"></Label>
+                                </StackLayout>
+                            </grial:CardView>
+                        </StackLayout>
+                        <BoxView TranslationX="22" Margin="14" Grid.Row="1" Grid.Column="0" BackgroundColor="Transparent" HeightRequest="1" WidthRequest="10" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Opacity="0.5"/>
+                        <BoxView TranslationX="-22" Margin="14" Grid.Row="1" Grid.Column="4" BackgroundColor="Transparent" HeightRequest="1" WidthRequest="10" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Opacity="0.5"/>
+                    </Grid>
+                    <grial:TabItem.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Tab_Click" />
+                    </grial:TabItem.GestureRecognizers>
+                </grial:TabItem>-->
+
+                <grial:TabItem Text="Input ItemNo"  >
+                    <Grid Margin="20,0,20,20"  >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="5*"></RowDefinition>
+                            <RowDefinition Height="90"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label x:Name="ScanResultLabel"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="Start"
+                               Grid.Row="0"
+                                Text=" ** Enter barcode or product code to look up information."
+                               TextColor="#2A2A2A"
+                               FontSize="13"/>
+
+                        <Grid Grid.Row="1" VerticalOptions="Start">
+                            <Entry
+                                Grid.Row="0"
+                                HeightRequest="47"
+                                x:Name="txtBarcode"
+                                Text=""
+                                  FontSize="13"
+                                TextColor="#969696"
+					            Placeholder="Enter the barcode..."
+					            HorizontalOptions="FillAndExpand" />
+                        </Grid>
+
+                        <Button
+                                Grid.Row="2"
+                                VerticalOptions="End"
+                                WidthRequest="20"
+                                HeightRequest="50"
+								Text="Search"
+                                FontSize="16"
+                                Clicked="TimKiem_Click"
+                                TextColor="White"
+								Style="{ StaticResource TranslucidButtonStyle }" />
+                    </Grid>
+                    <grial:TabItem.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TabAll_Click" />
+                    </grial:TabItem.GestureRecognizers>
+                </grial:TabItem>
+            </grial:TabControl>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

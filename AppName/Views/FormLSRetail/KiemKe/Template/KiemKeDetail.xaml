@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="AppName.KiemKeDetail" 
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+    xmlns:local="clr-namespace:AppName"
+    xmlns:renderer="clr-namespace:AppName.CustomRenderer;assembly=AppName"
+	NavigationPage.HasNavigationBar="true"
+	Title="Warehouse"
+    BackgroundColor="White">
+
+    <ContentPage.Content>
+        <Grid RowSpacing="0"
+              grial:Effects.ApplyIOSSafeAreaAsPadding="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
+            <!--<Grid Grid.Row="0" BackgroundColor="{ DynamicResource AccentColor }" Padding="20,10,0,10" >-->
+
+            <Grid Grid.Row="0" BackgroundColor="#EAEAEA" Padding="20,10,0,10" >
+                <Grid
+					ColumnSpacing="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+						Width="Auto" />
+                        <ColumnDefinition
+							Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+					    Grid.Row="0"
+					    Grid.Column="0"
+                        TextColor="#A5A5A5"
+					    Text="{ x:Static local:GrialIconsFont.Map }"
+					    FontSize="18"
+					    Style="{ StaticResource FontIcon }"
+					    VerticalOptions="Center" />
+
+
+                    <Label
+						Grid.Column="1"
+                        Grid.Row="0"
+						VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                    TextColor="#676767"
+									Text="Store name   "
+									Style="{ DynamicResource SpanBoldStyle }" />
+                                <Span
+                                     TextColor="#676767"
+									Style="{ DynamicResource DefaultSpanStyle }"
+									Text="{Binding InventoryMaster.StoreName}"
+									FontSize="14" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label
+						Grid.Row="1"
+                         TextColor="#A5A5A5"
+						Grid.Column="0"
+						Text="{ x:Static local:GrialIconsFont.MinusSquare }"
+						FontSize="18"
+						Style="{ StaticResource FontIcon }"
+						VerticalOptions="Center" />
+
+                    <Label
+						Grid.Column="1"
+                        Grid.Row="1"
+						VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                     TextColor="#676767"
+									Text="Check sheet  "
+									Style="{ DynamicResource SpanBoldStyle }" />
+                                <Span
+                                     TextColor="#676767"
+									Style="{ DynamicResource DefaultSpanStyle }"
+									Text="{Binding InventoryMaster.Descriptions}"
+									FontSize="14" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Entry
+                        Text="{Binding InventoryMaster.ID}"
+                        IsVisible="false"
+                        x:Name="masterID" />
+
+                    <Entry
+                        IsVisible="false"
+                        x:Name="lbLSRetailCode" />
+
+                    <Entry
+                        IsVisible="false"
+                        x:Name="lbNo2" />
+                </Grid>
+            </Grid>
+
+            <StackLayout  Grid.Row="1" >
+                <ListView x:Name="ItemsListView"
+                        ItemsSource="{Binding ItemBarodes}"
+                        VerticalOptions="FillAndExpand"
+                        HasUnevenRows="true"
+                        IsPullToRefreshEnabled="False"
+                        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                        CachingStrategy="RecycleElement"
+                        ItemSelected="OnItemSelected">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Padding="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.4*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="0.5*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Source="{Binding URLImage}" />
+                                        <Label  Grid.Row="0" Grid.Column="1" FontAttributes="Bold"  Text="{Binding Barcode_No_}" 
+                                                    LineBreakMode="NoWrap" 
+                                                    Style="{DynamicResource ListItemTextStyle}" 
+                                                    FontSize="12" />
+                                        <Label  Grid.Row="1" Grid.Column="1" Text="{Binding ItemName}" 
+                                                    LineBreakMode="NoWrap"
+                                                    Style="{DynamicResource ListItemDetailTextStyle}"
+                                                    FontSize="11" />
+                                        <Label  Grid.Row="0" Grid.RowSpan="2"  FontAttributes="Bold"  Grid.Column="2" Text="{Binding ORI_BARCODE}"  HorizontalOptions="EndAndExpand" VerticalOptions="Center" TextColor="OrangeRed"
+                                                    LineBreakMode="NoWrap"
+                                                    Style="{DynamicResource ListItemDetailTextStyle}"
+                                                    FontSize="11" />
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </StackLayout>
+
+            <Button 
+                IsVisible="false"
+                Grid.Row="1"
+                Grid.Column="0"
+                Clicked="Clear_Click"
+                TextColor="White"
+                BackgroundColor="#C22E2E"
+                CornerRadius="10"
+                Text="Clear"
+                FontAttributes="Bold"   
+                VerticalOptions="Start"
+                HorizontalOptions="End"
+                WidthRequest="45"
+                HeightRequest="30"
+                Font="13"
+                Margin="20"/>
+
+
+            <Grid VerticalOptions="EndAndExpand" Grid.Row="2" Padding="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+						Width="*" />
+                    <ColumnDefinition
+						Width="*" />
+                    <ColumnDefinition
+						Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid
+                        Grid.Column="0"
+			            RowSpacing="0"
+			            BackgroundColor="{ DynamicResource OkColor }"
+			            grial:Effects.CornerRadius="4"
+			            Padding="5,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition
+					        Height="60*" />
+                        <RowDefinition
+					        Height="40*" />
+                    </Grid.RowDefinitions>
+                    <Grid
+				            Grid.Row="0"
+				            BackgroundColor="Transparent"
+				            HorizontalOptions="Center">
+
+                        <StackLayout
+					            BackgroundColor="Transparent"
+					            HorizontalOptions="Start"
+					            VerticalOptions="End"
+					            Spacing="-10"
+					            Margin="-19,3,0,1">
+                            <!-- Up arrow -->
+                            <Label
+						            FontSize="20"
+						            Text="{ x:Static local:GrialIconsFont.ShapeArrowUp }"
+						          TextColor="#FFFF"
+						            FontFamily="{ StaticResource IconsFontFamily }"
+						            VerticalOptions="End" />
+
+                            <!-- Down arrow -->
+                            <Label
+						            FontSize="20"
+						            Text="{ x:Static local:GrialIconsFont.ShapeArrowDown }"
+                                      TextColor="#FFFF"
+						            FontFamily="{ StaticResource IconsFontFamily }"
+						            VerticalOptions="Start" />
+                        </StackLayout>
+
+                        <!-- Value -->
+                        <Label
+					            Grid.Row="0"
+					            FontSize="24"
+					            Style="{StaticResource LabelBoldStyle}"
+					               Text="{Binding TonKhoTotal.Total}"
+					            TextColor="{DynamicResource InverseTextColor}"
+					            VerticalOptions="End"
+					            HorizontalOptions="Center" />
+                    </Grid>
+
+
+                    <!-- Name -->
+                    <Label
+				        Grid.Row="1"
+				        FontSize="14"
+				        Text="Inventory"
+				        TextColor="{ DynamicResource InverseTextColor }"
+				        HorizontalOptions="Center" />
+                </Grid>
+
+                <Grid
+                        Grid.Column="1"
+			            RowSpacing="0"
+			            BackgroundColor="{ DynamicResource WarningColor }"
+			            grial:Effects.CornerRadius="4"
+			            Padding="5,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition
+					        Height="60*" />
+                        <RowDefinition
+					        Height="40*" />
+                    </Grid.RowDefinitions>
+                    <Grid
+				            Grid.Row="0"
+				            BackgroundColor="Transparent"
+				            HorizontalOptions="Center">
+
+                        <StackLayout
+					            BackgroundColor="Transparent"
+					            HorizontalOptions="Start"
+					            VerticalOptions="End"
+					            Spacing="-10"
+					            Margin="-19,3,0,1">
+                            <!-- Up arrow -->
+                            <Label
+						            FontSize="20"
+						            Text="{ x:Static local:GrialIconsFont.ShapeArrowUp }"
+						             TextColor="#FFFF"
+						            FontFamily="{ StaticResource IconsFontFamily }"
+						            VerticalOptions="End" />
+
+                            <!-- Down arrow -->
+                            <Label
+						            FontSize="20"
+						            Text="{ x:Static local:GrialIconsFont.ShapeArrowDown }"
+						              TextColor="#FFFF"
+						            FontFamily="{ StaticResource IconsFontFamily }"
+						            VerticalOptions="Start" />
+                        </StackLayout>
+
+                        <!-- Value -->
+                        <Label
+					            Grid.Row="0"
+					            FontSize="24"
+					            Style="{StaticResource LabelBoldStyle}"
+					            Text="{Binding TonKhoTotal.TotalDaKiem}"
+					            TextColor="{DynamicResource InverseTextColor}"
+					            VerticalOptions="End"
+					            HorizontalOptions="Center" />
+                    </Grid>
+
+
+                    <!-- Name -->
+                    <Label
+				        Grid.Row="1"
+				        FontSize="14"
+				        Text="Scanned"
+				        TextColor="{ DynamicResource InverseTextColor }"
+				        HorizontalOptions="Center" />
+                </Grid>
+
+
+                <Grid
+                        Grid.Column="2"
+			            RowSpacing="0"
+			            BackgroundColor="{ DynamicResource DisabledColor }"
+			            grial:Effects.CornerRadius="4"
+			            Padding="5,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition
+					        Height="60*" />
+                        <RowDefinition
+					        Height="40*" />
+                    </Grid.RowDefinitions>
+                    <Grid
+				            Grid.Row="0"
+				            BackgroundColor="Transparent"
+				            HorizontalOptions="Center">
+
+                        <StackLayout
+					            BackgroundColor="Transparent"
+					            HorizontalOptions="Start"
+					            VerticalOptions="End"
+					          Spacing="-10"
+					            Margin="-19,3,0,1">
+                            <!-- Up arrow -->
+                            <Label
+						            FontSize="20"
+						            Text="{ x:Static local:GrialIconsFont.ShapeArrowUp }"
+						             TextColor="#FFFF"
+						            FontFamily="{ StaticResource IconsFontFamily }"
+						            VerticalOptions="End" />
+
+                            <!-- Down arrow -->
+                            <Label
+						            FontSize="20"
+						            Text="{ x:Static local:GrialIconsFont.ShapeArrowDown }"
+						            TextColor="#FFFF"
+						            FontFamily="{ StaticResource IconsFontFamily }"
+						            VerticalOptions="Start" />
+                        </StackLayout>
+
+                        <!-- Value -->
+                        <Label
+					            Grid.Row="0"
+					            FontSize="24"
+					            Style="{StaticResource LabelBoldStyle}"
+					            Text="{Binding TonKhoTotal.DuTon}"
+					            TextColor="{DynamicResource InverseTextColor}"
+					            VerticalOptions="End"
+					            HorizontalOptions="Center" />
+                    </Grid>
+
+
+                    <!-- Name -->
+                    <Label
+				        Grid.Row="1"
+				        FontSize="14"
+				        Text="Not found"
+				        TextColor="{ DynamicResource InverseTextColor }"
+				        HorizontalOptions="Center" />
+                </Grid>
+
+            </Grid>
+
+            <Grid Grid.Row="2"  BackgroundColor="White" Margin="20,0" IsVisible="false">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="45"/>
+                </Grid.RowDefinitions>
+
+                <Grid Margin="0,10" RowSpacing="6" ColumnSpacing="1"  Grid.Row="0" Padding="20,4,20,0">
+                    <!--<ListView
+		            SeparatorColor="{ DynamicResource MainWrapperBackgroundColor }"
+		            SeparatorVisibility="Default"
+		            ItemsSource="{ Binding InventoryDetail }"
+		            ItemTapped="OnItemTapped"
+		            HasUnevenRows="true"
+		            Style="{ StaticResource ResponsiveLandscapeMarginStyle }">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+						Width="*" />
+                        <ColumnDefinition
+						Width="60" />
+                    </Grid.ColumnDefinitions>
+
+                    <Entry
+                    x:Name="lbBarcode"
+                    Grid.Row="0"
+                     Grid.Column="0"
+                    PlaceholderColor="Black"
+                    TextColor="Black"
+                    IsReadOnly="False"
+					Placeholder="Barcode..."
+                    TextChanged="BarcodeChange"
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+                    <Button
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    CornerRadius ="7"
+                    Margin="5,0,0,0"
+                    FontSize="16"
+                    Clicked="Search_Click"
+                    BackgroundColor="#D7D7D7"
+                        BorderColor="#D7D7D7"
+					HorizontalOptions="Center"
+					Text="{ x:Static local:GrialIconsFont.Search }"
+					FontFamily="{ StaticResource IconsFontFamily }"
+					Style="{ StaticResource CircleActionButtonFlatStyle }" />
+
+                    <Entry
+                    x:Name="lbItemNo"
+                    Grid.Row="1"
+                    PlaceholderColor="Black"
+                    Grid.ColumnSpan="2"
+                    TextColor="Black"
+                    IsReadOnly="False"
+					Placeholder="ItemNo..."
+					VerticalOptions="Center"
+                    TextChanged="ItemnoChange"
+					HorizontalOptions="FillAndExpand" />
+
+                    <Entry
+                    Grid.ColumnSpan="2"
+                    x:Name="lbVenderItemNo" 
+                    Grid.Row="2"
+                    TextColor="Black"
+                    IsReadOnly="false"
+					Placeholder="Vendor item... "
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+                    <Entry
+                    Grid.ColumnSpan="2"
+                      x:Name="lbItemName"
+                    Grid.Row="3"
+                    TextColor="Black"
+                    IsReadOnly="true"
+					Placeholder="Product..."
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+                    <Entry
+                    Grid.ColumnSpan="2"
+                    x:Name="lbVariantCode" 
+                    Grid.Row="4"
+                    TextColor="Black"
+                    IsReadOnly="true"
+					Placeholder="Variant code... "
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+                    <Grid Grid.Row="5"  Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="80"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Entry
+                        Grid.Column="0"
+                        x:Name="txtQuatity"
+                        IsReadOnly="True"
+					    Placeholder=""
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        HorizontalTextAlignment="Center"
+					    VerticalOptions="Center"
+					    HorizontalOptions="FillAndExpand" />
+
+                        <grial:Checkbox
+                        Grid.Column="0"
+                        x:Name="check_status"
+						IsChecked="false"
+                        IconColor="White"
+                        CheckedBackgroundColor="#C22E2E"
+                        CheckedBorderColor="White"
+                        Margin="0,0,5,0"
+						HorizontalOptions="End"
+						InputTransparent="true" />
+
+                        <Button 
+                        Grid.Column="1"
+                         Clicked="UnAdd_click"
+                        TextColor="#4A4A4A"
+                        BackgroundColor="#D7D7D7"
+                        CornerRadius="10"
+                        Text="Reduction(-)"
+                        WidthRequest="140"
+                        HeightRequest="43"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Start"
+                        Font="13"
+                       Margin="5,0,5,0"/>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="1"
+                    Margin="10,0,10,5"
+                    Grid.Column="0"
+                    ColumnSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+
+
+                    <Button 
+                    Grid.Column="0"
+                    Clicked="Submit_Click"
+                    TextColor="White"
+                    BackgroundColor="#EAC300"
+                    CornerRadius="10"
+                    Text="Accept"
+                    FontAttributes="Bold"   
+                    WidthRequest="50"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Fill"
+                    Font="14"
+                    Margin="5,0,5,0"/>
+
+                    <Button 
+                    Grid.Column="1"
+                    Clicked="Done_Click"
+                    TextColor="White"
+                    CornerRadius="10"
+                    BackgroundColor="#656565"
+                    Text="Complete"
+                    WidthRequest="50"
+                    FontAttributes="Bold"   
+                    VerticalOptions="Center"
+                    HorizontalOptions="Fill"
+                    Font="14"
+                    Margin="5,0,10,0"/>
+                </Grid>
+            </Grid>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

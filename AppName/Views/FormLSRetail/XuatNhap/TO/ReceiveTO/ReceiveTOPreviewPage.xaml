@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="AppName.ReceiveTOPreviewPage"
+    xmlns:local="clr-namespace:AppName"
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+    BackgroundColor="{DynamicResource MainWrapperBackgroundColor}"
+    Title="Receive Transfer Order">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ScrollView
+            IsVisible="{Binding VisibleNotification, Converter={StaticResource NegateBooleanConverter}}"
+            grial:Effects.ApplyIOSSafeAreaAsPadding="All">
+            <StackLayout
+                Spacing="0">
+                <Label
+                    Text="TRANSFER ORDER INFORMATION"
+                   FontAttributes="Bold"
+                    TextColor="{StaticResource AccentColor}"
+                    Margin="10"/>
+
+                <StackLayout
+                    Spacing="15"
+                    Padding="20, 0">
+                    <Label
+                        Text="{Binding DataModel.BuyerID}"
+                        Style="{StaticResource LabelBoldStyle}"/>
+                    
+                    <Grid
+                        ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3.5*"/>
+                            <ColumnDefinition Width="6.5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--TITLE-->
+                        <Label
+                            Text="Document no"/>
+
+                        <!--VALUE-->
+                        <Label
+                            Text="{Binding DataModel.DocumentNo}"
+                            Grid.Column="1"/>
+                    </Grid>
+                    
+                    <BoxView
+                        HeightRequest="0.2"
+                        Style="{StaticResource Horizontal1ptLineStyle}"/>
+
+                    <Grid
+                        ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3.5*"/>
+                            <ColumnDefinition Width="6.5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--TITLE-->
+                        <Label
+                            Text="Status"/>
+
+                        <!--VALUE-->
+                        <Label
+                            Text="{Binding DataModel.Status}"
+                            Grid.Column="1"/>
+                    </Grid>
+
+                    <BoxView
+                        HeightRequest="0.2"
+                        Style="{StaticResource Horizontal1ptLineStyle}"/>
+
+                    <Grid
+                        ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3.5*"/>
+                            <ColumnDefinition Width="6.5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--TITLE-->
+                        <Label
+                            Text="Quantity"/>
+
+                        <!--VALUE-->
+                        <Label
+                            Text="{Binding DataModel.Quantity}"
+                            Grid.Column="1"/>
+                    </Grid>
+
+                    <BoxView
+                        HeightRequest="0.2"
+                        Style="{StaticResource Horizontal1ptLineStyle}"/>
+
+                    <Grid
+                        ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3.5*"/>
+                            <ColumnDefinition Width="6.5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--TITLE-->
+                        <Label
+                            Text="Transfer from"/>
+
+                        <!--VALUE-->
+                        <Label
+                            Text="{Binding DataModel.TransferfromCode}"
+                            Grid.Column="1"/>
+                    </Grid>
+
+                    <BoxView
+                        HeightRequest="0.2"
+                        Style="{StaticResource Horizontal1ptLineStyle}"/>
+
+                    <Grid
+                        ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3.5*"/>
+                            <ColumnDefinition Width="6.5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--TITLE-->
+                        <Label
+                            Text="Transfer to"/>
+
+                        <!--VALUE-->
+                        <Label
+                            Text="{Binding DataModel.TransfertoCode}"
+                            Grid.Column="1"/>
+                    </Grid>
+
+                    <BoxView
+                        HeightRequest="0.2"
+                        Style="{StaticResource Horizontal1ptLineStyle}"/>
+
+                    <Grid
+                        ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3.5*"/>
+                            <ColumnDefinition Width="6.5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--TITLE-->
+                        <Label
+                            Text="Posting date"/>
+
+                        <!--VALUE-->
+                        <Label
+                            Text="{Binding DataModel.PostingDate, StringFormat='{0:dddd MMMM d, yyyy}'}"
+                            Grid.Column="1"/>
+                    </Grid>
+                </StackLayout>
+
+                <Label
+                    Text="TRANSFER ORDER LINE"
+                  FontAttributes="Bold"
+                    TextColor="{StaticResource AccentColor}"
+                    Margin="10,20,10,10"/>
+                    
+                <StackLayout
+                    BindableLayout.ItemsSource="{Binding DataModel.TOLine}"
+                    Spacing="0">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                BackgroundColor="{DynamicResource BasePageColor}"
+                                RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="0.2"/>
+                                </Grid.RowDefinitions>
+                                <Grid
+                                    Padding="15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Label
+                                        Text="{Binding ItemName}"/>
+
+                                    <Label
+                                        Grid.Column="1"
+                                        HorizontalTextAlignment="End">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <FormattedString.Spans>
+                                                    <Span
+                                                        Text="Qty: "/>
+                                                    <Span
+                                                        Text="{Binding Quatity}"/>
+                                                </FormattedString.Spans>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <Label
+                                        FontAttributes="Bold"
+                                        Grid.Row="1"
+                                        Text="Qty. to Receive:"/>
+
+                                    <Label
+                                    FontAttributes="Bold"
+                                Grid.Column="1"
+                                    Grid.Row="1"
+                                HorizontalTextAlignment="End">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <FormattedString.Spans>
+                                                    <Span
+                                                Text="{Binding Quantity_Scan}"/>
+                                                    <Span
+                                                Text="  PCS"/>
+                                                </FormattedString.Spans>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    
+                                </Grid>
+
+                                <BoxView
+                                    Grid.Row="1"
+                                    HeightRequest="0.2"
+                                    Style="{StaticResource Horizontal1ptLineStyle}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+
+        <Button
+            IsVisible="{Binding VisibleNotification, Converter={StaticResource NegateBooleanConverter}}"
+            Grid.Row="1"
+            Margin="50,10,50,20"
+            VerticalOptions="Center"
+            HorizontalOptions="FillAndExpand"
+            Style="{ StaticResource PrimaryActionButtonStyle }"
+            Text="Confirm &#38; Save"
+            Command="{Binding ConfirmCommand}"/>
+
+        <!--VIEW NOTIFICATION-->
+        <Grid
+            Grid.RowSpan="2"
+            IsVisible="{Binding VisibleNotification}"
+            BackgroundColor="{DynamicResource DialogsShimBackgroundColor}">
+            <Grid
+                Padding="40,0"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="CenterAndExpand">
+                <StackLayout
+                    VerticalOptions="CenterAndExpand"
+                    Spacing="50">
+                    <Label
+                        HorizontalTextAlignment="Center"
+                        TextColor="{DynamicResource AccentColor}"
+                        FontAttributes="Bold"
+                        FontSize="50"
+                        FontFamily="{StaticResource MaterialCommunityIcons}"
+                        Text="{x:Static local:MaterialCommunityIconsFont.Check}"/>
+
+                    <Label
+                        HorizontalTextAlignment="Center"
+                        TextColor="{DynamicResource AccentColor}"
+                        Text="Create Transfer Order successfully"/>
+                </StackLayout>
+
+                <Button
+                    Margin="-60,10,-60,20"
+                    VerticalOptions="End"
+                    HorizontalOptions="FillAndExpand"
+                    Style="{ StaticResource PrimaryActionButtonStyle }"
+                    Text="Close"
+                    Clicked="Button_Clicked"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:AppName"
+                 xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
+                 xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+     xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+	x:Class="AppName.ConfigPage"
+                 x:Name="aaconfigPage"
+	BackgroundColor="{ DynamicResource CustomActionSheetShimBackgroundColor }"
+	HasSystemPadding="false">
+
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:DialogsResources />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+        <Style
+			x:Key="PseudoTableSectionSwitchStyle"
+			TargetType="Switch">
+            <Setter
+				Property="HorizontalOptions"
+				Value="End" />
+            <Setter
+				Property="VerticalOptions"
+				Value="Center" />
+        </Style>
+
+    </pages:PopupPage.Resources>
+
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation
+			PositionIn="Bottom"
+			PositionOut="Bottom" />
+    </pages:PopupPage.Animation>
+
+
+    <Grid
+        HeightRequest="400"
+		Margin="20"
+		Style="{ StaticResource BlurredShadow }"
+		VerticalOptions="{ DynamicResource DialogsVerticalPositioning }">
+        <Grid
+			RowSpacing="0"
+			grial:Effects.CornerRadius="{ DynamicResource DialogsCornerRadius }"
+			grial:Effects.BackgroundGradient="{ DynamicResource SimpleDialogBodyGradient }"
+			BackgroundColor="{ DynamicResource BasePageColor }">
+
+            <Grid.RowDefinitions>
+                <RowDefinition
+					Height="44" />
+                <RowDefinition
+					Height="295" />
+                <RowDefinition
+					Height="100" />
+            </Grid.RowDefinitions>
+
+            <!--TITLE AND ICON-->
+            <Grid
+				Grid.Row="0"
+				BackgroundColor="#474747"
+				Padding="14,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+						Width="Auto" />
+                    <ColumnDefinition
+						Width="Auto" />
+                    <ColumnDefinition
+						Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- ICON -->
+                <Label
+					Grid.Column="0"
+					TextColor="White"
+					Text="{ x:Static local:GrialIconsFont.Settings }"
+					Style="{ StaticResource FontIcon}"
+					VerticalTextAlignment="Center"
+					FontSize="{ StaticResource DialogsIconsSize }"
+					HorizontalTextAlignment="Start" />
+
+                <!-- TITLE -->
+                <Label
+					Grid.Column="1"
+					Text="Config connect LSRetail"
+					TextColor="White"
+					FontSize="{ StaticResource DialogsTitleFontSize }"
+					VerticalTextAlignment="Center"
+					HorizontalTextAlignment="Start" />
+
+                <!-- ICON CLOSE -->
+                <Label
+					Grid.Column="2"
+					Margin="0"
+					FontSize="{ StaticResource DialogsIconsSize }"
+					TextColor="White"
+					Text="{ x:Static local:GrialIconsFont.CloseCircle }"
+					Style="{ StaticResource FontIconFill }"
+					VerticalTextAlignment="Center"
+					HorizontalTextAlignment="End">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+							Command="{Binding CloseCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+            </Grid>
+
+            <!-- CONTENT -->
+                <StackLayout 
+				        Margin="10,20,0,10"
+				        Grid.Row="1">
+
+                <ScrollView Orientation="Vertical" VerticalScrollBarVisibility ="Always">
+
+                    <Grid
+                    RowSpacing="11"
+											Padding="20,10"
+											VerticalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="0" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+						Width="*" />
+                        <ColumnDefinition
+						Width="100" />
+                    </Grid.ColumnDefinitions>
+
+                        <Entry
+                           Grid.ColumnSpan="2"
+                          Grid.Row="0"
+                                                x:Name="txtUserName"
+                                                    FontAttributes="Bold"
+                                                Text="{Binding UserConfig.UserName, Mode=TwoWay}"
+                                                FontSize="15"
+												PlaceholderColor="{ DynamicResource OverImageTextColor }"
+												Placeholder="Username"
+												Opacity="0.8" >
+                    </Entry>
+
+
+                    <Entry
+                           Grid.ColumnSpan="2"
+                          Grid.Row="1"
+                                                x:Name="txtPassword"
+                                                IsPassword="{Binding Source={x:Reference ShowPasswordActualTrigger}, Path=HidePassword}"
+												Text="{Binding UserConfig.Password, Mode=TwoWay}"
+												PlaceholderColor="{ DynamicResource OverImageTextColor }"
+												Placeholder="Password"
+												Opacity="0.8" />
+
+                    <ImageButton    
+                            Grid.Row="1"
+                            Grid.Column="1"  
+                            BackgroundColor="Transparent"  
+                             Margin="0,0,23,0"  
+                        Opacity="0.4"
+                            HeightRequest="20"  
+                            HorizontalOptions="End"  
+                            Source="hide.png">
+                        <ImageButton.Triggers>
+                            <EventTrigger Event="Clicked">
+                                <local:ShowPasswordTriggerAction ShowIcon="show.png"  
+                                                                           HideIcon="hide.png"  
+                                                                           x:Name="ShowPasswordActualTrigger"/>
+                            </EventTrigger>
+                        </ImageButton.Triggers>
+                    </ImageButton>
+
+                    <Button
+                        Grid.Column="1"
+                          Grid.Row="2"
+                            Padding="18,0,0,0"
+                            FontSize="23"
+                             BackgroundColor="Transparent"
+                            TextColor="{StaticResource AccentColor}"
+                            VerticalOptions="Center"
+                            HorizontalOptions="End"
+                            CommandParameter="{Binding .}"
+                             Command="{Binding Source={x:Reference aaconfigPage}, Path=BindingContext.CheckLanCommand}"
+                            FontFamily="{StaticResource MaterialCommunityIcons}"
+                            Text="{x:Static local:MaterialCommunityIconsFont.LanConnect }"/>
+
+                    <Entry
+                        Grid.ColumnSpan="2"
+                            Grid.Row="2"
+                        x:Name="txtURL"
+						Text="{Binding UserConfig.URLApi, Mode=TwoWay}"
+						PlaceholderColor="{ DynamicResource OverImageTextColor }"
+						Placeholder="Link connect api"
+						Opacity="0.8" >
+
+
+                    </Entry>
+
+                    <SearchBar
+                           Grid.ColumnSpan="2"
+                            Grid.Row="3"
+                            x:Name="txt"
+                        FontSize="14"
+                            Text="{Binding UserConfig.LisenceKey, Mode=TwoWay}"
+                        BackgroundColor="AliceBlue"
+						    CancelButtonColor="{DynamicResource SecondaryPageTextColor}"
+                            grial:Effects.CornerRadius="25"
+						    TextColor="{DynamicResource SecondaryPageTextColor}"
+						    Style="{ StaticResource TranslucidSearchBarStyleVuong }"
+						    Placeholder="Lisence Key"/>
+
+
+                    <!--<Entry
+                     
+                            x:Name="txt"
+						    Text="{Binding UserConfig.LisenceKey, Mode=TwoWay}"
+						    PlaceholderColor="{ DynamicResource OverImageTextColor }"
+						    Placeholder="Lisence Key"
+						    Opacity="0.8" >-->
+                    <!--</Entry>-->
+
+                    <Label Grid.Column="1" Grid.Row="4" Text="Clear All Data" TextColor="{StaticResource BaseTextColor}" Margin="0,0,0,0" TextDecorations="Underline" VerticalTextAlignment="End" HorizontalTextAlignment="End">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                    Command="{Binding ClearData}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+
+
+                </Grid>
+
+                </ScrollView>
+
+            </StackLayout>
+
+            <FlexLayout
+                HeightRequest="100"
+				Margin="0,0,0,0"
+				Grid.Row="2"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+				JustifyContent="Center">
+
+                <!--<Label
+					Grid.Column="1"
+					Text="Test connect"
+					TextColor="White"
+					FontSize="{ StaticResource DialogsTitleFontSize }"
+					VerticalTextAlignment="Center"
+					HorizontalTextAlignment="Start" />-->
+
+                <Button
+                    BackgroundColor="{StaticResource BaseLightTextColor}"
+					Style="{ StaticResource TranslucidButtonStyle }" 
+					WidthRequest="200"
+					Text="SAVE"
+					Command="{Binding UpdateCommand}" />
+            </FlexLayout>
+        </Grid>
+    </Grid>
+</pages:PopupPage>

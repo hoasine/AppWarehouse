@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="AppName.POGWithItemPage" 
+             x:Name="pOGWithItemPage"
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+    xmlns:local="clr-namespace:AppName"
+    xmlns:renderer="clr-namespace:AppName.CustomRenderer;assembly=AppName"
+    xmlns:zing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms" xmlns:zxcm="clr-namespace:ZXing.Common;assembly=zxing.portable"
+             Title="Pog with items"
+   BackgroundColor="{ DynamicResource BasePageColor }">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary
+			Source="/Styles/TabControl/SegmentedTabResources.xaml" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:DialogsResources />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        <ResourceDictionary>
+            <local:ConverterBase64ImageSource x:Key="Base64ToImageConverter" />
+        </ResourceDictionary>
+
+        <ResourceDictionary>
+            <!-- Column Styles -->
+            <Style
+				x:Key="BaseColumn"
+				TargetType="grial:DataGridColumn">
+                <Setter
+					Property="IsSortable"
+					Value="True" />
+                <Setter
+					Property="SortIconsFontFamily"
+					Value="{StaticResource IconsFontFamily}" />
+                <Setter
+					Property="DescendingSortIconText"
+					Value="{ x:Static local:GrialIconsFont.ChevronDown }" />
+                <Setter
+					Property="AscendingSortIconText"
+					Value="{ x:Static local:GrialIconsFont.ChevronUp }" />
+               
+                <Setter
+					Property="HeaderTextColor"
+					Value="White" />
+                <Setter
+					Property="HeaderTextAlignment"
+					Value="Center" />
+                <Setter
+					Property="HeaderFontSize"
+					Value="14" />
+                <Setter
+					Property="HeaderFontFamily"
+					Value="{ StaticResource AppBoldFontFamily }" />
+                <Setter
+					Property="CellTextColor"
+					Value="{ DynamicResource DataGridCellTextColor }" />
+                <Setter
+					Property="CellPadding"
+					Value="14" />
+                <Setter
+					Property="CellFontSize"
+					Value="14" />
+                <Setter
+					Property="CellTextAlignment"
+					Value="Center" />
+                <Setter
+					Property="CellVerticalAlignment"
+					Value="Center" />
+                <Setter
+					Property="HeaderPadding"
+					Value="4,17" />
+            </Style>
+
+            <Style
+				x:Key="ItemNo"
+				TargetType="grial:DataGridColumn"
+				BasedOn="{StaticResource BaseColumn}">
+                <Setter
+					Property="BindingPath"
+					Value="ItemNo" />
+                <Setter
+					Property="HeaderText"
+					Value="ItemNo" />
+                <Setter
+					Property="HeaderTextColor"
+					Value="White" />
+                <Setter
+					Property="HeaderBackgroundColor"
+					Value="#848484" />
+            </Style>
+            
+
+            <Style
+				x:Key="Description"
+				TargetType="grial:DataGridColumn"
+				BasedOn="{StaticResource BaseColumn}">
+                <Setter
+					Property="BindingPath"
+					Value="Description" />
+                <Setter
+					Property="HeaderText"
+					Value="Description" />
+                <Setter
+					Property="HeaderTextColor"
+					Value="White" />
+                <Setter
+					Property="HeaderBackgroundColor"
+					Value="#848484" />
+            </Style>
+            
+            <Style
+				x:Key="POG"
+				TargetType="grial:DataGridColumn"
+				BasedOn="{StaticResource BaseColumn}">
+                <Setter
+					Property="BindingPath"
+					Value="POG" />
+                <Setter
+					Property="HeaderText"
+					Value="POG" />
+                <Setter
+					Property="HeaderTextColor"
+					Value="White" />
+                <Setter
+					Property="HeaderBackgroundColor"
+					Value="#848484" />
+            </Style>
+            
+            <Style
+				x:Key="TotalFacing"
+				TargetType="grial:DataGridColumn"
+				BasedOn="{StaticResource BaseColumn}">
+                <Setter
+					Property="BindingPath"
+					Value="TotalFacing" />
+                <Setter
+					Property="HeaderText"
+					Value="Facing" />
+                <Setter
+					Property="HeaderTextColor"
+					Value="White" />
+                <Setter
+					Property="HeaderBackgroundColor"
+					Value="#848484" />
+            </Style>
+            
+            <Style
+				x:Key="TotalUnit"
+				TargetType="grial:DataGridColumn"
+				BasedOn="{StaticResource BaseColumn}">
+                <Setter
+					Property="BindingPath"
+					Value="TotalUnit" />
+                <Setter
+					Property="HeaderText"
+					Value="Unit" />
+                <Setter
+					Property="HeaderTextColor"
+					Value="White" />
+                <Setter
+					Property="HeaderBackgroundColor"
+					Value="#848484" />
+            </Style>
+
+            <Style
+				x:Key="Image"
+				TargetType="grial:DataGridColumn"
+				BasedOn="{StaticResource BaseColumn}">
+                <Setter
+					Property="BindingPath"
+					Value="Image" />
+                <Setter
+					Property="HeaderText"
+					Value="Image" />
+                <Setter
+					Property="HeaderTextColor"
+					Value="White" />
+                <Setter
+					Property="HeaderBackgroundColor"
+					Value="#848484" />
+                <Setter
+					Property="CellTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+
+                            <Grid
+								Grid.Row="0"
+								Grid.Column="0"
+								ColumnSpacing="10"
+								RowSpacing="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition
+										Width="Auto" />
+                                    <ColumnDefinition
+										Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition
+										Height="0.55*" />
+                                    <RowDefinition
+										Height="0.45*" />
+                                </Grid.RowDefinitions>
+
+                                <Button
+									FontSize="30"
+                                    TextColor="{StaticResource AccentColor}"
+									BackgroundColor="Transparent"
+									VerticalOptions="Center"
+									HorizontalOptions="Center"
+									Command="{Binding Source={x:Reference pOGWithItemPage}, Path=BindingContext.CommandShowImage}"
+									CommandParameter="{Binding .}"
+									FontFamily="{StaticResource MaterialCommunityIcons}"
+									Text="{x:Static local:MaterialCommunityIconsFont.FolderImage }"/>
+
+                            </Grid>
+
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White" Padding="0" Margin="0">
+
+            <Grid Padding="0" Margin="0" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <grial:GrialNavigationBar
+				UseNavigationPageBarBackgroundColor="true"
+				UseNavigationPageBarBackgroundGradient="true" />
+
+
+                <grial:DataGrid Margin="0"
+							Grid.Row="1"
+							Padding="0,0,0,0"
+							GridSeparatorVisibility="None"
+							grial:Effects.ApplyIOSSafeAreaAsPadding="Left,Right"
+							RowHeight="80"
+							ItemSelected="OnItemSelected"
+							HorizontalOptions="FillAndExpand"
+							VerticalOptions="FillAndExpand"
+							ItemsSource="{ Binding Items }">
+                    <grial:DataGrid.ColumnDefinitions>
+                        <grial:DataGridColumn
+									Style="{ StaticResource ItemNo }" />
+                        <grial:DataGridColumn
+									Style="{ StaticResource Description }" />
+                        <grial:DataGridColumn
+									Style="{ StaticResource POG }" />
+                        <grial:DataGridColumn
+									Style="{ StaticResource TotalFacing }" />
+                        <grial:DataGridColumn
+									Style="{ StaticResource TotalUnit }" />
+                        <grial:DataGridColumn
+									Style="{ StaticResource Image }" />
+                    </grial:DataGrid.ColumnDefinitions>
+
+                </grial:DataGrid>
+             
+            </Grid>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

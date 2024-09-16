@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+             xmlns:local="clr-namespace:AppName" 
+	            NavigationPage.HasNavigationBar="true"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
+             xmlns:cv="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions" 
+             xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"
+	        x:Class="AppName.ContacPage"
+	        BackgroundColor="White">
+    <ContentView.Resources>
+        <Style
+			x:Key="ParagraphStyle"
+			TargetType="Label">
+            <Setter
+				Property="Margin"
+				Value="0,10" />
+        </Style>
+        
+        <Style TargetType="{x:Type NavigationPage}">
+            <Setter Property="BarBackgroundColor" Value="Black" />
+            <Setter Property="BarTextColor" Value="Red" />
+        </Style>
+        
+        <Style
+			x:Key="CenteredParagraphStyle"
+			TargetType="Label"
+			BasedOn="{ StaticResource ParagraphStyle }">
+            <Setter
+				Property="HorizontalTextAlignment"
+				Value="Center" />
+        </Style>
+    </ContentView.Resources>
+
+    <Grid grial:Effects.ApplyIOSSafeAreaAsPadding="Top">
+        <Grid>
+            <ScrollView >
+                <Grid>
+                    <StackLayout
+							VerticalOptions="FillAndExpand"
+							Padding="40,46"
+							Margin="0,20,0,0"
+							Spacing="30">
+
+                        <!--LOGO-->
+                        <ffimageloading:CachedImage
+								HeightRequest="120"
+								Margin="0,8"
+                                WidthRequest="200"
+								Source="icon_dafc.png" />
+
+                        <StackLayout>
+                            <!--ABOUT TEXT-->
+                            <Label
+									Style="{ StaticResource CenteredParagraphStyle }"
+									HorizontalTextAlignment="Center"
+									Text="COMPANY được thành lập tại Tp.HCM. Trong năm 2005 trở thành đối tác phân phối chính thức của Salvatore Ferragamo và Bally. Quản lý 65 cửa hàng với 200 nhân viên." />
+
+                            <!--PARAGRAPH-->
+                            <Label
+									Style="{ StaticResource CenteredParagraphStyle }"
+									HorizontalTextAlignment="Center"
+									Text="Phân phối và nhà bán lẻ hàng đầu về thời trang cao cấp tại Việt Nam với hơn 40,000 dữ liệu khách hàng VIP" />
+
+                            <!--PARAGRAPH-->
+                            <Label
+								    Style="{ StaticResource CenteredParagraphStyle }"
+								    HorizontalTextAlignment="Center"
+								    Text="Mạng lưới COMPANY phủ rộng tại hai thành phố lớn của Việt Nam (Hà Nội và Hồ Chính). COMPANY hân hạnh làm nhà đại diện cho hơn 50 thương hiệu thời trang đẳng cấp trên thế giới." />
+
+                        </StackLayout>
+
+
+                        <!--PARAGRAPH-->
+                        <Label
+								    Style="{ StaticResource CenteredParagraphStyle }"
+								    HorizontalTextAlignment="Center"
+								    Text="Follow to us"/>
+
+                        <!--SOCIAL LOGOS-->
+                        <StackLayout
+								Orientation="Horizontal"
+								HorizontalOptions="Center"
+								Margin="0,8"
+								Spacing="20">
+                            <!--INSTRAGRAM-->
+                            <Label
+									Text="{ x:Static local:GrialIconsFont.LogoInstagram }"
+									FontFamily="{ StaticResource IconsFontFamily }"
+									TextColor="{ DynamicResource BaseTextColor }">
+                                <Label.FontSize>
+                                    <OnIdiom
+											x:TypeArguments="x:Double"
+											Phone="27"
+											Tablet="32" />
+                                </Label.FontSize>
+                            </Label>
+
+                            <!--YOUTUBE-->
+                            <Label
+									Text="{ x:Static local:GrialIconsFont.LogoYoutube }"
+									FontFamily="{ StaticResource IconsFontFamily }"
+									TextColor="{ DynamicResource BaseTextColor }">
+                                <Label.FontSize>
+                                    <OnIdiom
+											x:TypeArguments="x:Double"
+											Phone="27"
+											Tablet="32" />
+                                </Label.FontSize>
+                            </Label>
+
+                            <!--TWITTER-->
+                            <Label
+									Text="{ x:Static local:GrialIconsFont.LogoTwitter }"
+									FontFamily="{ StaticResource IconsFontFamily }"
+									TextColor="{ DynamicResource BaseTextColor }">
+                                <Label.FontSize>
+                                    <OnIdiom
+											x:TypeArguments="x:Double"
+											Phone="27"
+											Tablet="32" />
+                                </Label.FontSize>
+                            </Label>
+
+                            <!--FACEBOOK-->
+                            <Label
+									Text="{ x:Static local:GrialIconsFont.LogoFacebook }"
+									FontFamily="{ StaticResource IconsFontFamily }"
+									TextColor="{ DynamicResource BaseTextColor }">
+                                <Label.FontSize>
+                                    <OnIdiom
+											x:TypeArguments="x:Double"
+											Phone="27"
+											Tablet="32" />
+                                </Label.FontSize>
+                            </Label>
+                        </StackLayout>
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
+        </Grid>
+    </Grid>
+</ContentView>

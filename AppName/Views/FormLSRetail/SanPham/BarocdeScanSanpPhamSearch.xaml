@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="AppName.BarocdeScanSanpPhamSearch" 
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+    xmlns:local="clr-namespace:AppName"
+    xmlns:renderer="clr-namespace:AppName.CustomRenderer;assembly=AppName"
+    xmlns:zing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms" xmlns:zxcm="clr-namespace:ZXing.Common;assembly=zxing.portable"
+             Title="Product Management"
+   BackgroundColor="{ DynamicResource BasePageColor }">
+
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ConverterBase64ImageSource x:Key="Base64ToImageConverter" />
+        </ResourceDictionary>
+        <ResourceDictionary
+			Source="/Styles/TabControl/SegmentedTabResources.xaml" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:DialogsResources />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White">
+
+            <Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="62"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <grial:GrialNavigationBar
+				UseNavigationPageBarBackgroundColor="true"
+				UseNavigationPageBarBackgroundGradient="true" />
+                <!-- SEARCH BAR -->
+                <Grid
+                            Grid.Row="0 "
+					        ColumnSpacing="18"
+					        Margin="18,5,18,0"
+					        grial:Effects.ApplyIOSSafeAreaAsPadding="Left,Right">
+                    <Grid.RowDefinitions>
+                        <RowDefinition
+							    Height="44" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+							    Width="*" />
+                        <ColumnDefinition
+							    Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Entry
+                            TextColor="{DynamicResource OverImageTextColor}"
+						    Margin="0,0,-8,0" >
+                    </Entry>
+
+                    <SearchBar
+                        x:Name="txtsearch"
+                        Text="{Binding ItemNo}"
+						    CancelButtonColor="{DynamicResource SecondaryPageTextColor}"
+						    Grid.Row="0"
+						    BackgroundColor="Transparent"
+                            grial:Effects.CornerRadius="0"
+						    TextColor="{DynamicResource SecondaryPageTextColor}"
+						    Style="{ StaticResource TranslucidSearchBarStyleVuong }"
+						    Placeholder="Search" 
+                        TextChanged="OnAgeTextChanged"
+                         SearchCommand="{Binding SearchItemsCommand}"
+                        SearchCommandParameter="{Binding Source={x:Reference txtsearch}, Path=Text}"/>
+                    
+                    <!-- ICON -->
+                    <StackLayout
+                        VerticalOptions="Center"
+						Grid.Column="1"
+					    Grid.Row="0">
+                        <Label
+					        FontSize="24"
+					        TextColor="{DynamicResource OverImageTextColor}"
+					        Text="{x:Static local:GrialIconsFont.Camera}"
+					        Style="{StaticResource FontIcon}" >
+                        </Label>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ScanCamera_CLick"/>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+
+                </Grid>
+
+                <ListView
+                    Margin="8,0"
+                    Grid.Row="1"
+                    x:Name="ItemsListView"
+                    ItemsSource="{Binding Items}"
+                    VerticalOptions="FillAndExpand"
+                    HasUnevenRows="True"
+                    IsPullToRefreshEnabled="False"
+                    SeparatorVisibility="None"
+                    IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                    CachingStrategy="RecycleElement"
+                    ItemSelected="OnItemSelected">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <grial:CardView
+                                    Margin="10"
+                                    BackgroundColor="{DynamicResource NavigationBarEndBackgroundColor}"
+                                    CornerRadius="10"
+                                    HasShadow="True"
+                                    ShadowSize="3"
+                                    ShadowOpacity=".7">
+                                    <grial:CardView.RowDefinitions>
+                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="*"/>
+                                    </grial:CardView.RowDefinitions>
+
+                                    <!--HEADER-->
+                                    <Grid
+                                        Margin="10,0"
+                                        VerticalOptions="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label
+                                            Text="{Binding ItemNo}"
+                                            TextColor="{DynamicResource InverseTextColor}"
+                                            VerticalTextAlignment="Center"/>
+
+                                        <grial:CardView
+                                            HeightRequest="20"
+                                            CornerRadius="5"
+                                            Grid.Column="1"
+                                            HorizontalOptions="End"
+                                            VerticalOptions="Center"
+                                            BackgroundColor="{DynamicResource BasePageColor}"
+                                            Padding="5">
+                                            <zing:ZXingBarcodeImageView
+                                                BarcodeFormat="CODE_128"
+                                                HorizontalOptions="FillAndExpand" 
+                                                VerticalOptions="StartAndExpand"  
+                                                 BarcodeValue="{Binding Barcode_No_, FallbackValue='BarcodeDefault'}"
+                                                HeightRequest="80" 
+                                                WidthRequest="130"
+                                                InputTransparent="false" >
+                                                <zing:ZXingBarcodeImageView.BarcodeOptions>
+                                                    <zxcm:EncodingOptions  
+                                                        Height="110" 
+                                                        Width="900"
+                                                        PureBarcode="false" />
+                                                </zing:ZXingBarcodeImageView.BarcodeOptions>
+                                            </zing:ZXingBarcodeImageView>
+                                        </grial:CardView>
+                                    </Grid>
+                                    
+                                    <!--BODY-->
+                                    <grial:CardView
+                                        Padding="10"
+                                        Grid.Row="1"
+                                        BackgroundColor="{DynamicResource BasePageColor}"
+                                        CornerRadius="5">
+                                        <StackLayout>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <!--<RowDefinition Height="25"/>-->
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="0.4*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="0.5*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Image Source="{Binding ImageSource, Mode=TwoWay}"  Grid.Row="0" Grid.RowSpan="4" VerticalOptions="Start" Grid.Column="0"></Image>
+                                                
+                                                <!--<Image  Grid.Row="0" Grid.RowSpan="4" VerticalOptions="Start" Grid.Column="0" Source="{Binding URLImage}" />-->
+
+                                                <Grid  Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label FontAttributes="Bold"  Text="Product Code: "  Grid.Row="0" Grid.Column="0"
+                                                        LineBreakMode="NoWrap" TextColor="#202020"
+                                                        Style="{DynamicResource ListItemTextStyle}" 
+                                                        FontSize="12" />
+
+                                                    <Label FontAttributes="Bold"  Text="{Binding Barcode_No_}"  Grid.Row="0" Grid.Column="1" 
+                                                        LineBreakMode="NoWrap" 
+                                                        Style="{DynamicResource ListItemTextStyle}" 
+                                                        FontSize="12" />
+                                                </Grid>
+                                                
+                                                <Grid  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label FontAttributes="Bold"  Text="Product Name: "  Grid.Row="0" Grid.Column="0"
+                                                        LineBreakMode="NoWrap" TextColor="#202020"
+                                                        Style="{DynamicResource ListItemTextStyle}" 
+                                                        FontSize="12" />
+
+                                                    <Label Grid.ColumnSpan="2" Text="{Binding ItemName}"   Grid.Row="0" Grid.Column="1" 
+                                                        LineBreakMode="NoWrap"
+                                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                                        FontSize="11" />
+                                                </Grid>
+
+
+                                                <!--<Grid  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+                                                    <zing:ZXingBarcodeImageView x:Name="BarCodeId"  
+                                                            BarcodeFormat="CODE_128"
+                                                            HorizontalOptions="FillAndExpand"  VerticalOptions="StartAndExpand"   BarcodeValue="{Binding Barcode_No_}"
+                                                            HeightRequest="500" MinimumHeightRequest="500" InputTransparent="false" >
+                                                        <zing:ZXingBarcodeImageView.BarcodeOptions>
+                                                            <zxcm:EncodingOptions   Height="15" Width="0" PureBarcode="false" />
+                                                        </zing:ZXingBarcodeImageView.BarcodeOptions>
+                                                    </zing:ZXingBarcodeImageView>
+                                                </Grid>-->
+                                                
+                                                <Grid  Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label FontAttributes="Bold"  Text="Price: "  Grid.Row="0" Grid.Column="0"
+                                                        LineBreakMode="NoWrap" TextColor="#202020"
+                                                        Style="{DynamicResource ListItemTextStyle}" 
+                                                        FontSize="12" />
+
+                                                    <Label Grid.ColumnSpan="2" Text="{Binding UnitPrice}"   Grid.Row="0" Grid.Column="1" 
+                                                        LineBreakMode="NoWrap"
+                                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                                        FontSize="11" />
+                                                </Grid>
+
+                                                <Grid  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label FontAttributes="Bold"  Text="Division: "  Grid.Row="0" Grid.Column="0"
+                                                        LineBreakMode="NoWrap" TextColor="#202020"
+                                                        Style="{DynamicResource ListItemTextStyle}" 
+                                                        FontSize="12" />
+
+                                                    <Label Grid.ColumnSpan="2" Text="{Binding Division}"   Grid.Row="0" Grid.Column="1" 
+                                                        LineBreakMode="NoWrap"
+                                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                                        FontSize="11" />
+                                                </Grid>
+                                                
+                                                <Grid  Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label FontAttributes="Bold"  Text="Category: "  Grid.Row="0" Grid.Column="0"
+                                                        LineBreakMode="NoWrap" TextColor="#202020"
+                                                        Style="{DynamicResource ListItemTextStyle}" 
+                                                        FontSize="12" />
+
+                                                    <Label Grid.ColumnSpan="2" Text="{Binding ItemCategory}"   Grid.Row="0" Grid.Column="1" 
+                                                        LineBreakMode="NoWrap"
+                                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                                        FontSize="11" />
+                                                </Grid>
+
+
+                                                <Grid  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label FontAttributes="Bold"  Text="Return Type: "  Grid.Row="0" Grid.Column="0"
+                                                        LineBreakMode="NoWrap" TextColor="#202020"
+                                                        Style="{DynamicResource ListItemTextStyle}" 
+                                                        FontSize="12" />
+
+                                                    <Label Grid.ColumnSpan="2" Text="{Binding ReturnType}"   Grid.Row="0" Grid.Column="1" 
+                                                        LineBreakMode="NoWrap"
+                                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                                        FontSize="11" />
+                                                </Grid>
+
+
+                                                 <Grid  Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label FontAttributes="Bold"  Text="Item Status: "  Grid.Row="0" Grid.Column="0"
+                                                        LineBreakMode="NoWrap" TextColor="#202020"
+                                                        Style="{DynamicResource ListItemTextStyle}" 
+                                                        FontSize="12" />
+
+                                                        <Label Grid.ColumnSpan="2" Text="{Binding StatusItem}"   Grid.Row="0" Grid.Column="1" 
+                                                        LineBreakMode="NoWrap"
+                                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                                        FontSize="11" />
+                                                    </Grid>
+                                                
+                                                    <Grid  Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                        <Label FontAttributes="Bold"  Text="Comment: "  Grid.Row="0" Grid.Column="0"
+                                                        LineBreakMode="NoWrap" TextColor="#202020"
+                                                        Style="{DynamicResource ListItemTextStyle}" 
+                                                        FontSize="12" />
+
+                                                        <Label Grid.ColumnSpan="2" Text="{Binding ReturnComment}"   Grid.Row="0" Grid.Column="1" 
+                                                        LineBreakMode="NoWrap"
+                                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                                        FontSize="11" />
+                                                </Grid>
+                                            
+                                            </Grid>
+                                        </StackLayout>
+                                    </grial:CardView>
+                                </grial:CardView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+                <ContentView IsVisible="{Binding ShowLoading}"  BackgroundColor="#80000000"   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <ActivityIndicator Margin="155,155,155,155" Opacity="1" IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" />
+                </ContentView>
+            </Grid>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,519 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!--<TargetFramework>net451</TargetFramework>-->
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>AppName</RootNamespace>
+    <AssemblyName>AppName</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="ViewModels\KiemKe\GapCheck\**" />
+    <Compile Remove="ViewModels\KiemKe\StockTake\**" />
+    <Compile Remove="Views\AppName\**" />
+    <Compile Remove="Views\TestScan\**" />
+    <EmbeddedResource Remove="ViewModels\KiemKe\GapCheck\**" />
+    <EmbeddedResource Remove="ViewModels\KiemKe\StockTake\**" />
+    <EmbeddedResource Remove="Views\AppName\**" />
+    <EmbeddedResource Remove="Views\TestScan\**" />
+    <None Remove="ViewModels\KiemKe\GapCheck\**" />
+    <None Remove="ViewModels\KiemKe\StockTake\**" />
+    <None Remove="Views\AppName\**" />
+    <None Remove="Views\TestScan\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="ViewModels\BarCode\BarCodeKhuyenMaiViewModel.cs" />
+    <Compile Remove="Views\NewFolder\App.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Views\NewFolder\App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Com.OneSignal" Version="3.10.6" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0-preview.5.24306.7" />
+    <PackageReference Include="NLog" Version="5.2.5" />
+    <PackageReference Include="Plugin.Permissions" Version="3.0.0.12" />
+    <PackageReference Include="Prism.Core" Version="7.2.0.1422" />
+    <PackageReference Include="Prism.Forms" Version="7.2.0.1367" />
+    <PackageReference Include="Realm" Version="10.15.1" />
+    <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+    <PackageReference Include="Scandit.BarcodePicker.Unified" Version="5.17.2.10" />
+    <PackageReference Include="Shiny.BluetoothLE" Version="2.0.0.2356-preview" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPdfViewer" Version="18.4.0.39" />
+    <PackageReference Include="System.Collections" Version="4.3.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+    <PackageReference Include="System.DirectoryServices" Version="4.7.0" />
+    <PackageReference Include="System.DirectoryServices.AccountManagement" Version="4.7.0" />
+    <PackageReference Include="System.ObjectModel" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Caching" Version="4.7.0" />
+    <PackageReference Include="Xam.Plugin.Connectivity" Version="4.0.0.190-beta" />
+    <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
+    <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Microcharts.Forms" Version="0.8.5-pre" />
+    <PackageReference Include="Microcharts" Version="0.8.5-pre" />
+    <PackageReference Include="CarouselView.FormsPlugin" Version="5.2.0" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="1.2.0.223" />
+    <PackageReference Include="Xamarin.Forms" Version="4.6.0.1180" />
+    <PackageReference Include="Xamanimation" Version="1.3.0" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.0" />
+    <PackageReference Include="Xamarin.FFImageLoading.Svg" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
+    <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.3.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\" />
+    <Folder Include="Styles\" />
+    <Folder Include="Helpers\Fonts\" />
+    <Folder Include="Styles\TabControl\" />
+    <Folder Include="Styles\VideoPlayer\" />
+    <Folder Include="Helpers\Animations\" />
+    <Folder Include="Helpers\Converters\" />
+    <Folder Include="Controls\SharedViews\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Styles\curved_mask.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Styles\curved_mask.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\AppName.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="tsclib">
+      <HintPath>..\Library\tsclib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Controls\ContextMenuButton\ContextMenuPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true' " Update="Resx\AppResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace></CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\ExpireDate\PrintPDFExpireDatePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\ReLable\PDFViewPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\ReLable\ReLablePDFMultiPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\ReLable\ReLablePDFShelfTalker_MultiPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\ReLable\ReLablePDFShelfTalkerPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\ReLable\ReLablePDFShelfTalkerWithPOGPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\ReLable\ReLablePDFShelfTalkerWithImportExcel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\ReLable\ReLablePDFMSCDumpinPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\ReLable\ReLablePDFSmallWithImportExcel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\ReLable\ReLablePDFSmallWithPromotionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\ReLable\ReLablePDFSmallWithPOGPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\ReLable\ReLablePDFSmallPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\ReLable\ReLablePDFPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\ReLable\ReLablePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\SanPham\POGWithItemPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\SanPham\CheckItemDayPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\SanPham\TonKhoPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Barcode\KiemKeDetailPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Barcode\BarocdeScanSanpPham.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\XuatNhap\TO\ShipmentTO\SanPhamDetail.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\XuatNhap\TO\ShipmentTO\ShipmentTODetail.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\XuatNhap\TO\ShipmentTO\ShipmentTOLineDetail.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\XuatNhap\TO\ShipmentTO\ShipmentTOLinePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\XuatNhap\TO\ShipmentTO\ShipmentTOPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\XuatNhap\TO\ShipmentTO\ShipmentTOPreviewPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\XuatNhap\TaoPhieuNhapPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\KiemKe\StockCountPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\NewFolder\ProductItemPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\RootMasterDetailPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ShowNotificationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Controls\Popups\NotificationLicensePopup.xaml.cs">
+      <DependentUpon>NotificationLicensePopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Popups\NotificationWarrningPopup.xaml.cs">
+      <DependentUpon>NotificationWarrningPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Popups\NotificationErrorPopup.xaml.cs">
+      <DependentUpon>NotificationErrorPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Resx\AppResources.Designer.cs">
+      <DependentUpon>AppResources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Views\Barcode\BarCodeKhuyenMai.xaml.cs">
+      <DependentUpon>BarCodeKhuyenMai.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Barcode\BarCodeCheckSize.xaml.cs">
+      <DependentUpon>BarCodeCheckSize.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\ExpireDate\PrintPDFExpireDatePage.xaml.cs">
+      <DependentUpon>PrintPDFExpireDatePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\CheckStockCustom\AddCheckStockCustomPage.xaml.cs">
+      <DependentUpon>AddCheckStockCustomPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\CheckStockCustom\CheckStockCustomDetail.xaml.cs">
+      <DependentUpon>CheckStockCustomDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\CheckStockCustom\CheckStockCustomPage.xaml.cs">
+      <DependentUpon>CheckStockCustomPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\CheckStockCustom\CheckStockCustomPreviewPage.xaml.cs">
+      <DependentUpon>CheckStockCustomPreviewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\CheckStockCustom\EditCheckStockCustomPage.xaml.cs">
+      <DependentUpon>EditCheckStockCustomPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\GapCheck\AddGapCheckPage.xaml.cs">
+      <DependentUpon>AddGapCheckPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\GapCheck\GapCheckDetail.xaml.cs">
+      <DependentUpon>GapCheckDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\GapCheck\GapCheckPage.xaml.cs">
+      <DependentUpon>GapCheckPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\GapCheck\GapCheckPreviewPage.xaml.cs">
+      <DependentUpon>GapCheckPreviewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\GapCheck\EditGapCheckPage.xaml.cs">
+      <DependentUpon>EditGapCheckPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\CycleCount\AddCycleCountPage.xaml.cs">
+      <DependentUpon>AddCycleCountPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\CycleCount\EditCycleCountPage.xaml.cs">
+      <DependentUpon>EditCycleCountPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\CycleCount\CycleCountDetail.xaml.cs">
+      <DependentUpon>CycleCountDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\CycleCount\CycleCountLineDetail.xaml.cs">
+      <DependentUpon>CycleCountLineDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\CycleCount\CycleCountPage.xaml.cs">
+      <DependentUpon>CycleCountPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\CycleCount\CycleCountPreviewPage.xaml.cs">
+      <DependentUpon>CycleCountPreviewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\CycleCount\AddCycleCountPage.xaml.cs">
+      <DependentUpon>AddCycleCountPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\CycleCount\EditCycleCountPage.xaml.cs">
+      <DependentUpon>EditCycleCountPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\CycleCount\CycleCountDetail.xaml.cs">
+      <DependentUpon>CycleCountDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\CycleCount\CycleCountPage.xaml.cs">
+      <DependentUpon>CycleCountPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\CycleCount\CycleCountPreviewPage.xaml.cs">
+      <DependentUpon>CycleCountPreviewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\GapCheck\GapCheckLineDetail.xaml.cs">
+      <DependentUpon>GapCheckLineDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\StockTake\AddAreaPage.xaml.cs">
+      <DependentUpon>AddAreaPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\StockTake\StockLan2\StockTakePreviewLan2Page.xaml.cs">
+      <DependentUpon>StockTakePreviewLan2Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\PickUp\AddPickUPPage.xaml.cs">
+      <DependentUpon>AddPickUPPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\PickUp\EditPickUPPage.xaml.cs">
+      <DependentUpon>EditPickUPPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\PickUp\PickUPPage.xaml.cs">
+      <DependentUpon>PickUPPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\PickUp\PickUPDetail.xaml.cs">
+      <DependentUpon>PickUPDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\PickUp\PickUPLinePage.xaml.cs">
+      <DependentUpon>PickUPLinePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\PickUp\PickUPLineDetail.xaml.cs">
+      <DependentUpon>PickUPLineDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\ReLable\PDFViewPage.xaml.cs">
+      <DependentUpon>PDFViewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\ReLable\ReLablePDFMultiPage.xaml.cs">
+      <DependentUpon>ReLablePDFMultiPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\ReLable\ReLablePDFShelfTalker_MultiPage.xaml.cs">
+      <DependentUpon>ReLablePDFShelfTalker_MultiPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\ReLable\ReLablePDFShelfTalkerPage.xaml.cs">
+      <DependentUpon>ReLablePDFShelfTalkerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\ReLable\ReLablePDFShelfTalkerWithPOGPage.xaml.cs">
+      <DependentUpon>ReLablePDFShelfTalkerWithPOGPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\ReLable\ReLablePDFShelfTalkerWithImportExcel.xaml.cs">
+      <DependentUpon>ReLablePDFShelfTalkerWithImportExcel.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\ReLable\ReLablePDFMSCDumpinPage.xaml.cs">
+      <DependentUpon>ReLablePDFMSCDumpinPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\ReLable\ReLablePDFSmallWithImportExcel.xaml.cs">
+      <DependentUpon>ReLablePDFSmallWithImportExcel.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\ReLable\ReLablePDFSmallWithPromotionPage.xaml.cs">
+      <DependentUpon>ReLablePDFSmallWithPromotionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\ReLable\ReLablePDFSmallWithPOGPage.xaml.cs">
+      <DependentUpon>ReLablePDFSmallWithPOGPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\ReLable\ReLablePDFSmallPage.xaml.cs">
+      <DependentUpon>ReLablePDFSmallPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\ReLable\ReLablePDFPage.xaml.cs">
+      <DependentUpon>ReLablePDFPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\ReLable\Template\SettingPrintSaleTaker.xaml.cs">
+      <DependentUpon>SettingPrintSaleTaker.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\ReLable\Template\SettingPrint.xaml.cs">
+      <DependentUpon>SettingPrint.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\ReLable\Template\SettingRelable.xaml.cs">
+      <DependentUpon>SettingRelable.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\SanPham\Detail\PogShowImage.xaml.cs">
+      <DependentUpon>PogShowImage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\SanPham\POGWithItemPage.xaml.cs">
+      <DependentUpon>POGWithItemPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\SanPham\Detail\CheckItemDayDetailPage.xaml.cs">
+      <DependentUpon>CheckItemDayDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\SanPham\Detail\BarCodeTonKhoDetailPage.xaml.cs">
+      <DependentUpon>BarCodeTonKhoDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\ReLable\ReLablePage.xaml.cs">
+      <DependentUpon>ReLablePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\SanPham\CheckItemDayPage.xaml.cs">
+      <DependentUpon>CheckItemDayPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\SanPham\TonKhoPage.xaml.cs">
+      <DependentUpon>TonKhoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Barcode\Camera\CameraScanPage.xaml.cs">
+      <DependentUpon>CameraScanPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Barcode\KiemKeDetailPage.xaml.cs">
+      <DependentUpon>KiemKeDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\ReLable\Template\BluetoothPage.xaml.cs">
+      <DependentUpon>BluetoothPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Barcode\Template\BarCodeTonKhoAllBrandDetail.xaml.cs">
+      <DependentUpon>BarCodeTonKhoAllBrandDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\SanPham\SanPhamPage.xaml.cs">
+      <DependentUpon>SanPhamPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\ConfigPage.xaml.cs">
+      <DependentUpon>ConfigPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\SanPham\PrintPDFPage.xaml.cs">
+      <DependentUpon>PrintPDFPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\XuatNhap\PO\ReceivePODetail.xaml.cs">
+      <DependentUpon>ReceivePODetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\XuatNhap\PO\ReceivePOLinePage.xaml.cs">
+      <DependentUpon>ReceivePOLinePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\XuatNhap\PO\ReceivePOPage.xaml.cs">
+      <DependentUpon>ReceivePOPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\XuatNhap\PO\ReceivePOPreviewPage.xaml.cs">
+      <DependentUpon>ReceivePOPreviewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\XuatNhap\PO\ReceivePOLineDetail.xaml.cs">
+      <DependentUpon>ReceivePOLineDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\XuatNhap\TO\ReceiveTO\ReceiveTOLineDetail.xaml.cs">
+      <DependentUpon>ReceiveTOLineDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\XuatNhap\TO\ReceiveTO\ReceiveTODetail.xaml.cs">
+      <DependentUpon>ReceiveTODetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\XuatNhap\TO\ShipmentTO\ShipmentTOLineDetail.xaml.cs">
+      <DependentUpon>ShipmentTOLineDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\XuatNhap\TO\ReceiveTO\ReceiveTOPage.xaml.cs">
+      <DependentUpon>ReceiveTOPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\XuatNhap\TO\ReceiveTO\ReceiveTOLinePage.xaml.cs">
+      <DependentUpon>ReceiveTOLinePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\XuatNhap\TO\ReceiveTO\ReceiveTOPreviewPage.xaml.cs">
+      <DependentUpon>ReceiveTOPreviewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\XuatNhap\TO\TaoPhieuXuatPage.xaml.cs">
+      <DependentUpon>TaoPhieuXuatPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\XuatNhap\XuatNhapPage.xaml.cs">
+      <DependentUpon>XuatNhapPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\KiemKeCreatePage.xaml.cs">
+      <DependentUpon>KiemKeCreatePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\KiemKeViewPage.xaml.cs">
+      <DependentUpon>KiemKeViewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\ReLable\BarcodeMarkdown.xaml.cs">
+      <DependentUpon>BarcodeMarkdown.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\BarCodeKiemKe.xaml.cs">
+      <DependentUpon>BarCodeKiemKe.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Barcode\BarCodeTonKho.xaml.cs">
+      <DependentUpon>BarCodeTonKho.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Barcode\Template\BarCodeCheckSizeDetail.xaml.cs">
+      <DependentUpon>BarCodeCheckSizeDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Barcode\Template\BarCodeKhuyenMaiDetail.xaml.cs">
+      <DependentUpon>BarCodeKhuyenMaiDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Barcode\Template\BarCodeTonKhoDetail.xaml.cs">
+      <DependentUpon>BarCodeTonKhoDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\SanPham\Detail\BarCodeSanPhamDetail.xaml.cs">
+      <DependentUpon>BarCodeSanPhamDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\Template\KiemKeDetailSerial.xaml.cs">
+      <DependentUpon>KiemKeDetailSerial.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\KiemKe\Template\KiemKeDetail.xaml.cs">
+      <DependentUpon>KiemKeDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\YesNoPage.xaml.cs">
+      <DependentUpon>YesNoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Menu\MenuOnePageDetail\StaffPage.xaml.cs">
+      <DependentUpon>StaffPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Menu\PageAppNameCogNexPage.xaml.cs">
+      <DependentUpon>PageAppNameCogNexPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Barcode\BarocdeScanSanpPham.xaml.cs">
+      <DependentUpon>BarocdeScanSanpPham.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ShowNotificationPage.xaml.cs">
+      <DependentUpon>ShowNotificationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\LoadingPopup.xaml.cs">
+      <DependentUpon>LoadingPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\Setting\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Menu\MenuOnePageDetail\StoresPage.xaml.cs">
+      <DependentUpon>StoresPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\LoginFrm.xaml.cs">
+      <DependentUpon>LoginFrm.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Menu\MenuOnePage.xaml.cs">
+      <DependentUpon>MenuOnePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Menu\MenuOnePageDetail\WebReportPage.xaml.cs">
+      <DependentUpon>WebReportPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Menu\MenuOnePageDetail\Template\SlideMenu.xaml.cs">
+      <DependentUpon>SlideMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Menu\MenuOnePageDetail\SettingOnePage.xaml.cs">
+      <DependentUpon>SettingOnePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Menu\MenuBottomDetail\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Menu\MenuBottomDetail\SettingPage.xaml.cs">
+      <DependentUpon>SettingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Menu\MenuBottomDetail\ContacPage.xaml.cs">
+      <DependentUpon>ContacPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Menu\MenuBottomDetail\FunctionPage.xaml.cs">
+      <DependentUpon>FunctionPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <PropertyGroup>
+    <UserSecretsId>0af59d11-4c4f-4938-a54d-a3782a482d8c</UserSecretsId>
+  </PropertyGroup>
+</Project>

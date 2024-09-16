@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="AppName.KiemKeDetailSerial" 
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+    xmlns:local="clr-namespace:AppName"
+    xmlns:renderer="clr-namespace:AppName.CustomRenderer;assembly=AppName"
+	NavigationPage.HasNavigationBar="true"
+	Title="Kiểm kê"
+    BackgroundColor="White">
+
+    <ContentPage.Content>
+        <Grid RowSpacing="0"
+              grial:Effects.ApplyIOSSafeAreaAsPadding="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="1.2*"/>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" BackgroundColor="{ DynamicResource AccentColor }" Padding="20,0,0,10" >
+                <Grid
+					ColumnSpacing="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+						Width="Auto" />
+                        <ColumnDefinition
+							Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+					    Grid.Row="0"
+					    Grid.Column="0"
+                        TextColor="#C0C0C0"
+					    Text="{ x:Static local:GrialIconsFont.Map }"
+					    FontSize="18"
+					    Style="{ StaticResource FontIcon }"
+					    VerticalOptions="Center" />
+
+
+                    <Label
+						Grid.Column="1"
+                        Grid.Row="0"
+						VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                    TextColor="White"
+									Text="Khu vực  "
+									Style="{ DynamicResource SpanBoldStyle }" />
+                                <Span
+                                     TextColor="White"
+									Style="{ DynamicResource DefaultSpanStyle }"
+									Text="{Binding InventoryMaster.StoreName}"
+									FontSize="14" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label
+						Grid.Row="1"
+                         TextColor="#C0C0C0"
+						Grid.Column="0"
+						Text="{ x:Static local:GrialIconsFont.MinusSquare }"
+						FontSize="18"
+						Style="{ StaticResource FontIcon }"
+						VerticalOptions="Center" />
+
+                    <Label
+						Grid.Column="1"
+                        Grid.Row="1"
+						VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                     TextColor="White"
+									Text="Kiểm kê  "
+									Style="{ DynamicResource SpanBoldStyle }" />
+                                <Span
+                                     TextColor="White"
+									Style="{ DynamicResource DefaultSpanStyle }"
+									Text="{Binding InventoryMaster.Descriptions}"
+									FontSize="14" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Entry
+                        Text="{Binding InventoryMaster.ID}"
+                        IsVisible="false"
+                        x:Name="masterID" />
+
+                    <Entry
+                        IsVisible="false"
+                        x:Name="lbLSRetailCode" />
+
+                    <Entry
+                        IsVisible="false"
+                        x:Name="lbNo2" />
+                </Grid>
+            </Grid>
+
+
+            <renderer:CognexCamera x:Name="scanedCamera"
+                                AllowCoutinueScan="False"
+                                Grid.Row="1"/>
+
+            <Grid VerticalOptions="Start" Margin="0,10" RowSpacing="6" ColumnSpacing="1"
+			    Grid.Row="2" Padding="20,4,20,2">
+                <!--<ListView
+		            SeparatorColor="{ DynamicResource MainWrapperBackgroundColor }"
+		            SeparatorVisibility="Default"
+		            ItemsSource="{ Binding InventoryDetail }"
+		            ItemTapped="OnItemTapped"
+		            HasUnevenRows="true"
+		            Style="{ StaticResource ResponsiveLandscapeMarginStyle }">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+						Width="*" />
+                    <ColumnDefinition
+						Width="60" />
+                </Grid.ColumnDefinitions>
+
+
+
+                <Switch
+                     Grid.Row="1"
+                    x:Name="ScanType"
+				    Style="{ StaticResource PseudoTableSectionSwitchStyle }"
+				    IsToggled="true" />
+
+                <Entry
+                    x:Name="lbBarcode"
+                    Grid.Row="0"
+                     Grid.Column="0"
+                    TextColor="Black"
+                    IsReadOnly="False"
+					Placeholder="Mã vạch..."
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    CornerRadius ="7"
+                    Margin="5,0,0,0"
+                    FontSize="16"
+                    Clicked="Search_Click"
+                    BackgroundColor="#D7D7D7"
+					HorizontalOptions="Center"
+					Text="{ x:Static local:GrialIconsFont.Search }"
+					FontFamily="{ StaticResource IconsFontFamily }"
+					Style="{ StaticResource CircleActionButtonFlatStyle }" />
+
+                <Entry
+                    x:Name="lbItemNo"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    TextColor="Black"
+                    IsReadOnly="False"
+					Placeholder="Itemno..."
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+                <Entry
+                    Grid.ColumnSpan="2"
+                    x:Name="lbVenderItemNo" 
+                    Grid.Row="2"
+                    TextColor="Black"
+                    IsReadOnly="false"
+					Placeholder="Vendor item... "
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+                <Entry
+                    Grid.ColumnSpan="2"
+                    x:Name="lbSerialNo" 
+                    Grid.Row="3"
+                    TextColor="Black"
+                    IsReadOnly="false"
+					Placeholder="Serial no... "
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+                <Entry
+                    Grid.ColumnSpan="2"
+                      x:Name="lbItemName"
+                    Grid.Row="4"
+                    TextColor="Black"
+                    IsReadOnly="true"
+					Placeholder="Sản phẩm..."
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+                <Entry
+                    Grid.ColumnSpan="2"
+                    x:Name="lbVariantCode" 
+                    Grid.Row="5"
+                    TextColor="Black"
+                    IsReadOnly="true"
+					Placeholder="Variant code... "
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+                <Grid Grid.Row="6" VerticalOptions="Center" HorizontalOptions="Center" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="70"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                        <ColumnDefinition Width="70"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+
+                    <Button 
+                    Grid.Column="1"
+                     Clicked="UnAdd_click"
+                    TextColor="Black"
+                    BackgroundColor="#D7D7D7"
+                    CornerRadius="10"
+                    Text="-"
+                    WidthRequest="140"
+                    HeightRequest="43"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Start"
+                    Font="19"
+                   Margin="5,0,5,0"/>
+
+
+                    <Entry
+                    Grid.Column="2"
+                    x:Name="txtQuatity"
+                    TextColor="Black"
+                    IsReadOnly="True"
+					Placeholder=""
+                        FontSize="16"
+                    HorizontalTextAlignment="Center"
+					VerticalOptions="Center"
+					HorizontalOptions="FillAndExpand" />
+
+                    <Button 
+                    Grid.Column="3"
+                    Clicked="Add_click"
+                    TextColor="Black"
+                    BackgroundColor="#D7D7D7"
+                    CornerRadius="10"
+                    Text="+"
+                    Font="16"
+                    WidthRequest="170"
+                    HeightRequest="43"
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"
+                   Margin="5,0,5,0"/>
+
+                    <grial:Checkbox
+                        Grid.Column="4"
+                        x:Name="check_status"
+						IsChecked="false"
+						HorizontalOptions="Start"
+						InputTransparent="true" />
+
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="3"
+                    Grid.Column="0"
+                    ColumnSpacing="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Button 
+                    Grid.Column="0"
+                    Clicked="Submit_Click"
+                    TextColor="White"
+                    BackgroundColor="#656565"
+                    CornerRadius="10"
+                    Text="Submit"
+                    FontAttributes="Bold"   
+                    WidthRequest="240"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Font="16"
+                    Margin="5,0,5,0"/>
+
+                <Button 
+                    Grid.Column="1"
+                    Clicked="Done_Click"
+                    TextColor="White"
+                    BackgroundColor="#C22E2E"
+                    CornerRadius="10"
+                    Text="Done"
+                    WidthRequest="170"
+                    FontAttributes="Bold"   
+                    VerticalOptions="Center"
+                    HorizontalOptions="Start"
+                    Font="16"
+                    Margin="5,0,10,0"/>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

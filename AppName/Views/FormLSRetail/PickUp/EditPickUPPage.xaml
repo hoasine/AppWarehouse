@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="AppName.EditPickUPPage"
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core"
+    BackgroundColor="{DynamicResource MainWrapperBackgroundColor}"
+    xmlns:local="clr-namespace:AppName"
+    Title="Edit pickup">
+    <Grid>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ScrollView
+            grial:Effects.ApplyIOSSafeAreaAsPadding="All">
+            <StackLayout
+                Margin="0,10,0,0"
+                Padding="10"
+                Spacing="16">
+                <Label
+                        FontAttributes="Bold"
+                        TextColor="{DynamicResource AccentColor}">
+                    <Label.Margin>
+                        <Thickness
+                                Left="0"/>
+                    </Label.Margin>
+                </Label>
+
+                <Grid
+                    ColumnSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="7*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                        Text="Description"
+                        VerticalTextAlignment="Center"/>
+
+                    <Entry
+                        grial:EntryProperties.BorderCornerRadius="5"
+                        Text="{Binding DataModel.PickUpName}"
+                        Grid.Column="1"/>
+                </Grid>
+
+                <Grid
+                    ColumnSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="7*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                        Text="Date create"
+                        VerticalTextAlignment="Center"/>
+
+                    <Label
+                        Grid.Column="1"
+                        Text="{Binding DataModel.DateCreate}"
+                        VerticalTextAlignment="Center"/>
+                </Grid>
+
+                <BoxView
+                        Margin="0,10,0,0"
+                        HeightRequest="0.2"
+                        Style="{StaticResource Horizontal1ptLineStyle}"/>
+
+            </StackLayout>
+        </ScrollView>
+
+        <Button
+            IsVisible="{Binding IsReadOnly, Converter={StaticResource NegateBooleanConverter}}"
+            Grid.Row="1"
+            Margin="50,10,50,20"
+            VerticalOptions="Center"
+            HorizontalOptions="FillAndExpand"
+            Style="{ StaticResource PrimaryActionButtonStyle }"
+            Text="Save"
+            Command="{Binding ConfirmCommand}"/>
+    </Grid>
+    <ContentView IsVisible="{Binding ShowLoading}"  BackgroundColor="#80000000"   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <ActivityIndicator Margin="155,155,155,155" Opacity="1" IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" />
+    </ContentView>
+    </Grid>
+</ContentPage>

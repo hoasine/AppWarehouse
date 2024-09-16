@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+            xmlns:local="clr-namespace:AppName" 
+            xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+            xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+			x:Class="AppName.PrintPDFPage"
+            BackgroundColor="{DynamicResource MainWrapperBackgroundColor}" 
+            Title="Print with PDF"
+            xmlns:cv="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions" 
+            NavigationPage.HasNavigationBar="true">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <x:Double x:Key="PseudoTableSectionLineHeight">1</x:Double>
+            <Color x:Key="PseudoTableSectionLineBackgroundColor">#22000000</Color>
+            <Thickness x:Key="Padding02">0,6</Thickness>
+            <Thickness x:Key="Padding0200">0,6,0,0</Thickness>
+
+            <grial:LinearGradient
+		        x:Key="BackgroundColorApproved"
+		        Angle="135">
+                <grial:GradientColor
+			        Color="#bd7afe"
+			        Position="0" />
+                <grial:GradientColor
+			        Color="#f2a1f3"
+			        Position=".65" />
+            </grial:LinearGradient>
+
+            <grial:LinearGradient
+		        x:Key="BackgroundColorPending"
+		        Angle="135">
+                <grial:GradientColor
+			        Color="#6d8dff"
+			        Position="0" />
+                <grial:GradientColor
+			        Color="#74cfff"
+			        Position=".65" />
+            </grial:LinearGradient>
+
+            <grial:LinearGradient
+		        x:Key="BackgroundColorRejected"
+		        Angle="135">
+                <grial:GradientColor
+			        Color="#f7759f"
+			        Position="0" />
+                <grial:GradientColor
+			        Color="#fca883"
+			        Position=".65" />
+            </grial:LinearGradient>
+
+            <Style
+				x:Key="PseudoTableSectionLineBaseStyle"
+				TargetType="BoxView">
+                <Setter
+					Property="HeightRequest"
+					Value="{ StaticResource PseudoTableSectionLineHeight }" />
+            </Style>
+
+            <Style
+				x:Key="PseudoTableSectionLineStyle"
+				BasedOn="{ StaticResource PseudoTableSectionLineBaseStyle }"
+				TargetType="BoxView">
+                <Setter
+					Property="BackgroundColor"
+					Value="{ StaticResource PseudoTableSectionLineBackgroundColor }" />
+            </Style>
+
+            <Style
+                x:Key="FirstIconLabel"
+                TargetType="Label">
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="{StaticResource GrialIconsLine}"/>
+                <Setter Property="Text" Value="{x:Static local:GrialIconsFont.File}"/>
+            </Style>
+
+            <Style
+                x:Key="LastIconLabel"
+                TargetType="Label">
+                <Setter Property="Grid.Column" Value="2"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="{StaticResource GrialIconsFill}"/>
+                <Setter Property="Text" Value="{x:Static local:GrialIconsFont.ChevronRight}"/>
+                <Setter Property="HorizontalTextAlignment" Value="End"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <ScrollView>
+        <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--ROW 2-->
+        <StackLayout
+            Grid.Row="2"
+           Padding="10,10,10,0"
+            BackgroundColor="{DynamicResource BasePageColor}">
+           
+
+            <Label
+                Text="RESCAN PRICES TAMP"
+                Style="{StaticResource LabelBoldStyle}"
+                TextColor="{DynamicResource AccentColor}"/>
+
+            <Grid
+                Padding="{DynamicResource Padding02}">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding NavigateCommand}"
+                        CommandParameter="ScanPriceTag"/>
+                </Grid.GestureRecognizers>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label
+                    Style="{StaticResource FirstIconLabel}"/>
+
+                <Label
+                    Grid.Column="1"
+                    VerticalTextAlignment="Center"
+                    Text="Print price tag"/>
+
+                <Label
+                    Style="{StaticResource LastIconLabel}"/>
+            </Grid>
+
+            <BoxView
+                Style="{ StaticResource PseudoTableSectionLineStyle }" />
+
+            <Grid
+                Padding="{DynamicResource Padding02}">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding NavigateCommand}"
+                        CommandParameter="ScanShelftaker"/>
+                </Grid.GestureRecognizers>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label
+                    Style="{StaticResource FirstIconLabel}"/>
+
+                <Label
+                    Grid.Column="1"
+                    VerticalTextAlignment="Center"
+                    Text="Print shelf talker"/>
+
+                <Label
+                    Style="{StaticResource LastIconLabel}"/>
+            </Grid>
+
+            <BoxView
+                Style="{ StaticResource PseudoTableSectionLineStyle }" />
+
+            <Grid
+                Padding="{DynamicResource Padding02}">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding NavigateCommand}"
+                        CommandParameter="ScanMSC"/>
+                </Grid.GestureRecognizers>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label
+                    Style="{StaticResource FirstIconLabel}"/>
+
+                <Label
+                    Grid.Column="1"
+                    VerticalTextAlignment="Center"
+                    Text="Print MSC"/>
+
+                <Label
+                    Style="{StaticResource LastIconLabel}"/>
+            </Grid>
+
+            <BoxView
+                Style="{ StaticResource PseudoTableSectionLineStyle }" />
+
+
+                <Grid
+                Padding="{DynamicResource Padding02}">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer
+                        Command="{Binding NavigateCommand}"
+                        CommandParameter="ScanMSCDumpin"/>
+                    </Grid.GestureRecognizers>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                    Style="{StaticResource FirstIconLabel}"/>
+
+                    <Label
+                    Grid.Column="1"
+                    VerticalTextAlignment="Center"
+                    Text="Print MSC Dumpin"/>
+
+                    <Label
+                    Style="{StaticResource LastIconLabel}"/>
+                </Grid>
+
+                <BoxView
+                Style="{ StaticResource PseudoTableSectionLineStyle }" />
+
+            </StackLayout>
+
+        <!--ROW 3-->
+        <StackLayout
+            Grid.Row="3"
+            Padding="10,10,10,0"
+            BackgroundColor="{DynamicResource BasePageColor}">
+
+            <Label
+                Text="PRINT TAMP WITH POG"
+                Style="{StaticResource LabelBoldStyle}"
+                TextColor="{DynamicResource AccentColor}"/>
+
+            <Grid
+                Padding="{DynamicResource Padding02}">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding NavigateCommand}"
+                        CommandParameter="PriceTagPOG"/>
+                </Grid.GestureRecognizers>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label
+                    Style="{StaticResource FirstIconLabel}"/>
+
+                <Label
+                    Grid.Column="1"
+                    VerticalTextAlignment="Center"
+                    Text="Print price tag with pog"/>
+
+                <Label
+                    Style="{StaticResource LastIconLabel}"/>
+            </Grid>
+
+            <BoxView
+                Style="{ StaticResource PseudoTableSectionLineStyle }" />
+
+            <Grid
+                Padding="{DynamicResource Padding02}">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding NavigateCommand}"
+                        CommandParameter="ShelfTakerWithPOG"/>
+                </Grid.GestureRecognizers>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label
+                    Style="{StaticResource FirstIconLabel}"/>
+
+                <Label
+                    Grid.Column="1"
+                    VerticalTextAlignment="Center"
+                    Text="Print shelf talker with pog"/>
+
+                <Label
+                    Style="{StaticResource LastIconLabel}"/>
+            </Grid>
+
+            <BoxView
+                Style="{ StaticResource PseudoTableSectionLineStyle }" />
+
+        </StackLayout>
+
+        <!--ROW 4-->
+        <StackLayout
+            Grid.Row="4"
+            Padding="10,10,10,0"
+            BackgroundColor="{DynamicResource BasePageColor}">
+           
+
+            <Label
+                Text="PRINT TAMP IMPORT EXCEL"
+                Style="{StaticResource LabelBoldStyle}"
+                TextColor="{DynamicResource AccentColor}"/>
+
+            <Grid
+                Padding="{DynamicResource Padding02}">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding NavigateCommand}"
+                        CommandParameter="PriceTagImportExcel"/>
+                </Grid.GestureRecognizers>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label
+                    Style="{StaticResource FirstIconLabel}"/>
+
+                <Label
+                    Grid.Column="1"
+                    VerticalTextAlignment="Center"
+                    Text="Print price tag with excel"/>
+
+                <Label
+                    Style="{StaticResource LastIconLabel}"/>
+            </Grid>
+
+            <BoxView
+                Style="{ StaticResource PseudoTableSectionLineStyle }" />
+
+
+            <Grid
+                Padding="{DynamicResource Padding02}">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding NavigateCommand}"
+                        CommandParameter="ShelfTakerWithExcel"/>
+                </Grid.GestureRecognizers>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label
+                    Style="{StaticResource FirstIconLabel}"/>
+
+                <Label
+                    Grid.Column="1"
+                    VerticalTextAlignment="Center"
+                    Text="Print shelf talker with excel"/>
+
+                <Label
+                    Style="{StaticResource LastIconLabel}"/>
+            </Grid>
+
+            <BoxView
+                Style="{ StaticResource PseudoTableSectionLineStyle }" />
+
+        </StackLayout>
+
+
+        <!--ROW 5-->
+        <StackLayout
+            Grid.Row="5"
+            Padding="10,10,10,0"
+            BackgroundColor="{DynamicResource BasePageColor}">
+
+
+                <Label
+                Text="PRINT TAG WITH PROMOTION"
+                Style="{StaticResource LabelBoldStyle}"
+                TextColor="{DynamicResource AccentColor}"/>
+
+                <Grid
+                Padding="{DynamicResource Padding02}">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer
+                        Command="{Binding NavigateCommand}"
+                        CommandParameter="PrintWithPromotion"/>
+                    </Grid.GestureRecognizers>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                    Style="{StaticResource FirstIconLabel}"/>
+
+                    <Label
+                    Grid.Column="1"
+                    VerticalTextAlignment="Center"
+                    Text="Print price tag"/>
+
+                    <Label
+                    Style="{StaticResource LastIconLabel}"/>
+                </Grid>
+
+                <BoxView
+                Style="{ StaticResource PseudoTableSectionLineStyle }" />
+
+            </StackLayout>
+        
+            <!--ROW 6-->
+        <StackLayout
+            Grid.Row="6"
+            Padding="10,10,10,0"
+            BackgroundColor="{DynamicResource BasePageColor}">
+           
+
+            <Label
+                Text="PRINT TAMP MULTI"
+                Style="{StaticResource LabelBoldStyle}"
+                TextColor="{DynamicResource AccentColor}"/>
+
+            <Grid
+                Padding="{DynamicResource Padding02}">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding NavigateCommand}"
+                        CommandParameter="PrintMSCMulti"/>
+                </Grid.GestureRecognizers>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label
+                    Style="{StaticResource FirstIconLabel}"/>
+
+                <Label
+                    Grid.Column="1"
+                    VerticalTextAlignment="Center"
+                    Text="Print MSC"/>
+
+                <Label
+                    Style="{StaticResource LastIconLabel}"/>
+            </Grid>
+
+            <BoxView
+                Style="{ StaticResource PseudoTableSectionLineStyle }" />
+
+
+            <Grid
+                Padding="{DynamicResource Padding02}">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding NavigateCommand}"
+                        CommandParameter="ShelfTakerMulti"/>
+                </Grid.GestureRecognizers>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label
+                    Style="{StaticResource FirstIconLabel}"/>
+
+                <Label
+                    Grid.Column="1"
+                    VerticalTextAlignment="Center"
+                    Text="Print shelf talker"/>
+
+                <Label
+                    Style="{StaticResource LastIconLabel}"/>
+            </Grid>
+
+            <BoxView
+                Style="{ StaticResource PseudoTableSectionLineStyle }" />
+
+        </StackLayout>
+
+
+    </Grid>
+    </ScrollView>
+</ContentPage>

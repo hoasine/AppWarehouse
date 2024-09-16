@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="AppName.BarCodeKiemKe" 
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+    xmlns:local="clr-namespace:AppName"
+    xmlns:renderer="clr-namespace:AppName.CustomRenderer;assembly=AppName"
+	NavigationPage.HasNavigationBar="True"
+	Title="Warehouse"
+    BackgroundColor="Transparent">
+    
+    <ContentPage.Content>
+        <Grid RowSpacing="0" ColumnSpacing="0" BackgroundColor="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="110"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="0.8*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="0.8*"/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+
+            <renderer:CognexCamera x:Name="scanedCamera" Grid.Row="0" Grid.RowSpan="5" Grid.Column="0" Grid.ColumnSpan="5" AllowCoutinueScan="False" />
+
+            <Label Grid.Row="4"  Grid.Column="1" Grid.ColumnSpan="3" HorizontalOptions="Center"  TextColor="White"  Opacity="0.4" FontSize="12"
+                   VerticalOptions="End" Padding="20" Text="Application @2020"></Label>
+
+            <StackLayout
+                VerticalOptions="Center"
+                Grid.Row="4" Grid.ColumnSpan="5"
+				Margin="30,0,30,20">
+                <grial:CardView
+                        BackgroundColor="#80000000"
+                        HeightRequest="70"
+						Style="{ StaticResource ResponsiveLandscapeMarginStyle }"
+						CornerRadius="5">
+                    <StackLayout
+						VerticalOptions="Center"
+						HorizontalOptions="Center">
+                        <Label Grid.Row="4"  Grid.Column="1" Grid.ColumnSpan="3" HorizontalOptions="Center"  TextColor="White"  Opacity="0.4" FontSize="13" HorizontalTextAlignment="Center"
+                            VerticalOptions="End" Padding="20" Text="Scan barcodes to check product inventory"></Label>
+                    </StackLayout>
+                </grial:CardView>
+            </StackLayout>
+            <BoxView TranslationX="22" Margin="14" Grid.Row="4" Grid.Column="0" BackgroundColor="Transparent" HeightRequest="1" WidthRequest="10" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Opacity="0.5"/>
+            <BoxView TranslationX="-22" Margin="14" Grid.Row="4" Grid.Column="4" BackgroundColor="Transparent" HeightRequest="1" WidthRequest="10" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Opacity="0.5"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
