@@ -1270,7 +1270,7 @@ namespace AppName
             {
                 ILogger logger = DependencyService.Get<ILogManager>().GetLog();
 
-                logger.Info("Class:=" + this.GetType().Name.Replace("ViewModel", "") + " Action:=Upsert Json:=" + obj.DocumentNo + " | " + obj.ItemNo + " | " + obj.Quantity_Scan + ".", "Info");
+                logger.Info("Class:=" + this.GetType().Name.Replace("ViewModel", "") + " Action:=Upsert Json:=Document:" + obj.DocumentNo + " | Item:" + obj.ItemNo + " | Qty:" + obj.Quantity_Scan + " | Zone:" + obj.Zone + ".", "Info");
 
                 //var check = CheckConnectInternet.IsConnectedNotClearCookie();
                 //if (check == false)

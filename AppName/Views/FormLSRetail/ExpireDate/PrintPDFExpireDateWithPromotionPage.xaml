@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="AppName.PrintPDFExpireDateWithPromotionPage" 
+    xmlns:grial="clr-namespace:AppName.Core;assembly=AppName.Core" 
+    xmlns:local="clr-namespace:AppName"
+    xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    x:Name="printPDFExpireDateWithPromotionPage"
+   xmlns:renderer="clr-namespace:AppName.CustomRenderer;assembly=AppName"
+    xmlns:zing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms" 
+             xmlns:zxcm="clr-namespace:ZXing.Common;assembly=zxing.portable" 
+        Title="QRCode Expire date"
+   BackgroundColor="{ DynamicResource BasePageColor }">
+
+    <ContentPage.ToolbarItems>
+        <!--<ToolbarItem  Text="Clear" Command="{Binding ClearDataCommand}"  Order="Default" Priority="0"/>-->
+        <ToolbarItem  Text="Setting" Command="{Binding OpenSettingCommand}"  Order="Secondary" Priority="0"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Resources>
+        <ResourceDictionary
+			Source="/Styles/TabControl/SegmentedTabResources.xaml" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:DialogsResources />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <StackLayout>
+            <Grid BackgroundColor="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="42"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="155"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <grial:GrialNavigationBar
+				    UseNavigationPageBarBackgroundColor="true"
+				    UseNavigationPageBarBackgroundGradient="true" />
+
+                    <!-- SEARCH BAR -->
+                    <Grid
+                                Grid.Row="0 "
+					            Margin="18,5,18,0"
+					            grial:Effects.ApplyIOSSafeAreaAsPadding="Left,Right">
+                        <Grid.RowDefinitions>
+                            <RowDefinition
+							        Height="44" />
+                            <RowDefinition
+							        Height="44" />
+                            <RowDefinition
+							        Height="44" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="4*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Text="Promotion" Grid.Row="0"    VerticalTextAlignment="Center" TextColor="White"></Label>
+
+                        <Grid   Grid.ColumnSpan="2"  Grid.Column="1"  Grid.Row="0">
+                            <Picker
+                        Title="Select a FixelID"
+                        FontAttributes="Bold"
+                        ItemsSource="{Binding ListPromotion}"
+                        grial:PickerProperties.BorderCornerRadius="3"
+                        ItemDisplayBinding="{Binding Description}"
+                        SelectedItem="{Binding SelectPromotion ,Mode=TwoWay}">
+                            </Picker>
+                        </Grid>
+
+
+                        <Label Grid.Column="0" Text="Create Date"  Grid.Row="1"  VerticalTextAlignment="Center" TextColor="White"></Label>
+
+                        <DatePicker
+                            Grid.Row="1"  Grid.ColumnSpan="2"
+                             x:Name="pickerDatePrint"
+                            Grid.Column="1"
+                            grial:PickerProperties.BorderCornerRadius="7"
+                            Date="{Binding DatePrinter}">
+                            <DatePicker.Behaviors>
+                                <b:EventToCommandBehavior EventName="DateSelected" Command="{Binding Source={x:Reference printPDFExpireDateWithPromotionPage}, Path=BindingContext.ChangeDateCommand }" CommandParameter="{x:Reference pickerDatePrint}"></b:EventToCommandBehavior>
+                            </DatePicker.Behaviors>
+                        </DatePicker>
+
+                    
+
+                        <Label Grid.Column="0" Text="Document" Grid.Row="2"    VerticalTextAlignment="Center" TextColor="White"></Label>
+
+                        <Grid   Grid.Column="1"  Grid.Row="2" Grid.ColumnSpan="2">
+                            <Picker
+                             x:Name="pickerDate"
+                        Title="Select a Document"
+                        grial:PickerProperties.BorderCornerRadius="3"
+                        FontAttributes="Bold"
+                        ItemsSource="{Binding ListHeader}"
+                        ItemDisplayBinding="{Binding DocumentNo}"
+                        SelectedItem="{Binding SelectedHeader ,Mode=TwoWay}">
+                                <Picker.Behaviors>
+                                    <b:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding Source={x:Reference printPDFExpireDateWithPromotionPage}, Path=BindingContext.ChangeHeaderCommand }" CommandParameter="{x:Reference pickerDate}"></b:EventToCommandBehavior>
+                                </Picker.Behaviors>
+                            </Picker>
+                            <Label
+                            Margin="5"
+                            HorizontalOptions="End"
+				           FontAttributes="Bold"
+				            Text="{ x:Static local:GrialIconsFont.ChevronDown }"
+				            Style="{ StaticResource MainMenuIconStyle }"
+				            TextColor="{StaticResource BaseLightTextColor}" />
+                        </Grid>
+                    </Grid>
+
+                    <ListView
+                        Margin="8,0"
+                        Grid.Row="1"
+                        x:Name="ItemsListView"
+                        ItemsSource="{Binding Items}"
+                        VerticalOptions="FillAndExpand"
+                        HasUnevenRows="True"
+                        IsPullToRefreshEnabled="False"
+                        SeparatorVisibility="None"
+                        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                        CachingStrategy="RecycleElement">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <grial:CardView
+                                        ColumnSpacing="5"
+                                        Margin="5"
+                                        Padding="10"
+                                        BackgroundColor="{DynamicResource MainWrapperBackgroundColor}"
+                                        HasShadow="True"
+                                        ShadowSize="3"
+                                        ShadowOpacity=".7">
+                                        <grial:CardView.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="50"/>
+                                        </grial:CardView.ColumnDefinitions>
+
+                                        <StackLayout
+                                            Padding="10,5,5,5"
+                                            Spacing="7">
+
+                                            <Grid    ColumnSpacing="10">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label FontAttributes="Bold"  Text="Name: "  Grid.Row="0" Grid.Column="0"
+                                                    LineBreakMode="NoWrap" TextColor="{DynamicResource AccentColor}"
+                                                    Style="{DynamicResource ListItemTextStyle}" 
+                                                    FontSize="12" />
+
+                                                <Label Text="{Binding ItemName}"   Grid.Row="0" Grid.Column="1" 
+                                                    LineBreakMode="NoWrap"
+                                                    Style="{DynamicResource ListItemDetailTextStyle}"
+                                                    FontSize="11" />
+                                            </Grid>
+
+                                            
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label FontAttributes="Bold"  Text="Item - Barcode: "  Grid.Row="0" Grid.Column="0"
+                                                    LineBreakMode="HeadTruncation" TextColor="{DynamicResource AccentColor}"
+                                                    Style="{DynamicResource ListItemTextStyle}" 
+                                                    FontSize="12" />
+
+                                                <Label  Grid.Row="0" Grid.Column="1" 
+                                                    LineBreakMode="TailTruncation"
+                                                    Style="{DynamicResource ListItemDetailTextStyle}"
+                                                    FontSize="11">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <FormattedString.Spans>
+                                                                <Span
+                                                                    Text="{Binding ItemNo, StringFormat={StaticResource DateFortmatString}}" />
+                                                                <Span
+                                                                    Text=" - "/>
+                                                                <Span
+                                                                    Text="{Binding BarcodeNo}"/>
+                                                            </FormattedString.Spans>
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </Grid>
+
+                                            <Grid    ColumnSpacing="10">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label FontAttributes="Bold"  Text="Expire date: "  Grid.Row="0" Grid.Column="0"
+                                                    LineBreakMode="NoWrap" TextColor="{DynamicResource AccentColor}"
+                                                    Style="{DynamicResource ListItemTextStyle}" 
+                                                    FontSize="12" />
+
+                                                <Label   Text="{Binding ExpireDate, StringFormat='{0:dd/MM/yyyy}'}"   Grid.Row="0" Grid.Column="1" 
+                                                    LineBreakMode="NoWrap"
+                                                    Style="{DynamicResource ListItemDetailTextStyle}"
+                                                    FontSize="11" />
+                                            </Grid>
+
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label FontAttributes="Bold"  Text="Discount: "  Grid.Row="0" Grid.Column="0"
+                                                    LineBreakMode="NoWrap" TextColor="{DynamicResource AccentColor}"
+                                                    Style="{DynamicResource ListItemTextStyle}" 
+                                                    FontSize="12" />
+
+                                                <Label Text="{Binding DiscountAmount, StringFormat='{0:n0}'}"   Grid.Row="0" Grid.Column="1" 
+                                                    LineBreakMode="NoWrap"
+                                                    Style="{DynamicResource ListItemDetailTextStyle}"
+                                                    FontSize="11" />
+                                            </Grid>
+
+                                        </StackLayout>
+
+                                    </grial:CardView>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+
+                <Button
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                CornerRadius="0"
+                    FontAttributes="Bold"
+                FontSize="13"
+                Style="{ StaticResource PrimaryActionButtonStyle }"
+                Text="{Binding LablePrinter}"
+                Command="{Binding CommandPrinter}"/>
+
+            </Grid>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

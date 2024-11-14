@@ -1178,7 +1178,7 @@ namespace AppName
             {
                 ILogger logger = DependencyService.Get<ILogManager>().GetLog();
 
-                logger.Info("Class:=" + this.GetType().Name.Replace("ViewModel", "") + " Action:=Upsert Json:=" + obj.DocumentNo + " | " + obj.ItemNo + " | " + obj.Quantity_Scan + ".", "Info");
+                logger.Info("Class:=" + this.GetType().Name.Replace("ViewModel", "") + " Action:=Upsert table local Json:=" + obj.DocumentNo + " | " + obj.ItemNo + " | " + obj.Quantity_Scan + " | " + obj.Zone + ".", "Info");
 
                 var reaml = RealmHelper.Instance;
 
@@ -1289,7 +1289,7 @@ namespace AppName
                     {
                         ILogger logger = DependencyService.Get<ILogManager>().GetLog();
 
-                        logger.Info("Class:=" + this.GetType().Name.Replace("ViewModel", "") + " Action:=Upsert Json:=" + obj.DocumentNo + " | " + obj.ItemNo + " | " + obj.Quantity_Scan + ".", "Info");
+                        logger.Info("Class:=" + this.GetType().Name.Replace("ViewModel", "") + " Action:=Upsert Error Json:=" + obj.DocumentNo + " | " + obj.ItemNo + " | " + obj.Quantity_Scan + ".", "Info");
 
                         //DependencyService.Get<IDevice>().ShowAlert();
                     }
@@ -1314,7 +1314,7 @@ namespace AppName
             {
                 ILogger logger = DependencyService.Get<ILogManager>().GetLog();
 
-                logger.Info("Class:=" + this.GetType().Name.Replace("ViewModel", "") + " Action:=Upsert Json:=" + obj.DocumentNo + " | " + obj.ItemNo + " | " + obj.Quantity_Scan + ".", "Info");
+                logger.Info("Class:=" + this.GetType().Name.Replace("ViewModel", "") + " Action:=Upsert server Json:=" + obj.DocumentNo + " | " + obj.ItemNo + " | " + obj.Quantity_Scan + " | " + obj.Zone + ".", "Info");
 
                 //var check = CheckConnectInternet.IsConnectedNotClearCookie();
                 //if (check == false)
@@ -1353,13 +1353,7 @@ namespace AppName
 
                     if (dataList.Code == 200)
                     {
-                        //try
-                        //{
-                        //    PopupNavigation.Instance.PopAsync();
-                        //}
-                        //catch (Exception) { }
-
-                        logger.Info("Class:=" + this.GetType().Name.Replace("ViewModel", "") + " Action:=" + CheckConnectInternet.GetmethodName() + "Content:=Successfully.", "Info");
+                        logger.Info("Class:=" + this.GetType().Name.Replace("ViewModel", "") + " Action:=" + CheckConnectInternet.GetmethodName() + " Response Code:=200" + " | Content:= Upsert successfully", "Info");
 
                         return true;
                     }

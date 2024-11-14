@@ -214,7 +214,7 @@
                                 <Label
 						        TextColor="{ DynamicResource BaseLightTextColor }"
 						        FontSize="10.5"
-						        Text="@ 2022 Retail Version 3.3.8" />
+						        Text="@ 2022 Retail Version 3.4.1" />
                             </StackLayout>
                         </StackLayout>
                         

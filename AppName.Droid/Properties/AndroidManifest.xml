@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="com.internal.dafc" android:versionName="3.3.8" android:versionCode="1">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="com.internal.dafc" android:versionName="3.4.1" android:versionCode="1">
 	<uses-sdk android:minSdkVersion="16" android:targetSdkVersion="28" />
 	<application android:icon="@drawable/icon_dafc" android:label="Application" android:largeHeap="@bool/largeheap" android:usesCleartextTraffic="true">
 		<meta-data android:name="MX_MOBILE_LICENSE" android:value="XAaPA3Q/9zyI5MiaL3l2x6sS766Mju9QsGAuzD5fK/A=" />

@@ -97,13 +97,16 @@
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
       <CustomToolNamespace></CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\FormLSRetail\ExpireDate\PrintPDFExpireDatePage.xaml">
+    <EmbeddedResource Update="Views\FormLSRetail\ExpireDate\PrintPDFExpireDateWithPromotionPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\FormLSRetail\ReLable\PDFViewPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\FormLSRetail\ReLable\ReLablePDFMultiPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FormLSRetail\ExpireDate\ReLablePDFDiscounrWithImportExcel.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\FormLSRetail\ReLable\ReLablePDFShelfTalker_MultiPage.xaml">
@@ -209,6 +212,9 @@
     <Compile Update="Views\Barcode\BarCodeCheckSize.xaml.cs">
       <DependentUpon>BarCodeCheckSize.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\FormLSRetail\ExpireDate\PrintPDFExpireDateWithPromotionPage.xaml.cs">
+      <DependentUpon>PrintPDFExpireDateWithPromotionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\FormLSRetail\ExpireDate\PrintPDFExpireDatePage.xaml.cs">
       <DependentUpon>PrintPDFExpireDatePage.xaml</DependentUpon>
     </Compile>
@@ -307,6 +313,9 @@
     </Compile>
     <Compile Update="Views\FormLSRetail\ReLable\ReLablePDFMultiPage.xaml.cs">
       <DependentUpon>ReLablePDFMultiPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FormLSRetail\ExpireDate\ReLablePDFDiscounrWithImportExcel.xaml.cs">
+      <DependentUpon>ReLablePDFDiscounrWithImportExcel.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\FormLSRetail\ReLable\ReLablePDFShelfTalker_MultiPage.xaml.cs">
       <DependentUpon>ReLablePDFShelfTalker_MultiPage.xaml</DependentUpon>

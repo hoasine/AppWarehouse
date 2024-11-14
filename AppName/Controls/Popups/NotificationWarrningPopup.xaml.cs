@@ -25,11 +25,11 @@ namespace AppName
             {
                 SetValue(MessageProperty, value);
 
-                if(!string.IsNullOrEmpty(value))
+                if (!string.IsNullOrEmpty(value))
                 {
                     ILogger logger = DependencyService.Get<ILogManager>().GetLog();
 
-                    logger.Error("Class:=" + (!string.IsNullOrEmpty(ClassName) ? ClassName.Replace("ViewModel", "") : "") + " Action:=" + ActionName + " Content:= " + value, "Error");
+                    logger.Error("Class:=" + (!string.IsNullOrEmpty(ClassName) ? ClassName.Replace("ViewModel", "") : "") + " Action:=" + ActionName + " | Response Code:=404" + " | Content:= " + value, "Error");
                 }
             }
         }

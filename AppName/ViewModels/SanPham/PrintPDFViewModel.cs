@@ -202,6 +202,12 @@ namespace AppName
                 case "PrintWithPromotion":
                     await Navigation.PushAsync(new ReLablePDFSmallWithPromotionPage());
                     break;
+                case "ShelfTakerMDWithExcel":
+                    await Navigation.PushAsync(new ReLablePDFDiscounrWithImportExcel());
+                    break;
+                case "PriceTagMDImportExcel":
+                    await Navigation.PushAsync(new ReLablePDFDiscounrWithImportExcel());
+                    break;
 
                 default:
                     break;
